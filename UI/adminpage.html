@@ -70,7 +70,7 @@
 						<img src="./assets/images/passport.jpg" alt="">
 						<h1>Ulor Pascal</h1>
 						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
-						<span>Edit</span>
+						<span onclick="toggleModal('party-profile', 'profile')">Edit</span>
 					</div>
 					<div class="col2 last">
 						<div class="grid clearfix">
@@ -185,8 +185,8 @@
                         PDP
                     </p>
                     <br>
-                    <p><label for="type">Party Logo</label></p>
-                    <div></div>
+                    <p><label for="type">Email</label></p>
+                    <p>pascalulor@yahoo.com</p>
                     <br>
                     <p><label for="description">About Party</label>
                     </p>
@@ -210,7 +210,7 @@
             <div class="party-modal-section" id="party-edit">
                 <div class="page-row">
                   <div class="page-col-12 party-modal-heading">
-                    <h4>Product Details</h4>
+                    <h4>Party Details</h4>
                   </div>
                     <form class="page-col-10">
                         <p><label for="title" class="ch-label">Party Name</label></p>
@@ -228,8 +228,8 @@
                         <p><label for="status">Phonenumber</label></p>
                         <p><input type="text" value=""></p>
                         <br>
-                        <p><label for="date" >Date Added</label></p>
-                        <p><input type="date" value=""></p>
+                        <p><label for="email" >Email</label></p>
+                        <p><input type="email" value=""></p>
                         <br>
                         <button onclick="toggleModal('party-edit', 'edit')" class="btn-submit"> <i class="icon ion-md-close"></i> Submit</button>
                         <br>
@@ -238,6 +238,39 @@
                 </div>
             </div>
         </div>
+
+        <div class="party-modal" id="profile">
+                <div class="party-modal-section" id="party-profile">
+                    <div class="page-row">
+                      <div class="page-col-12 party-modal-heading">
+                        <h4>User Details</h4>
+                      </div>
+                        <form class="page-col-10">
+                            <p><label for="title" class="ch-label">First Name</label></p>
+                            <p>
+                               <input type="text" value="">
+                            </p>
+                            <br>
+                            <p><label for="type">Last Name</label></p>
+                            <p><input type="text" value=""></p>
+                            <br>
+                            <p><label for="about">Email</label>
+                            </p>
+                            <p><input type="email" value=""></p>
+                            <br>
+                            <p><label for="status">Address</label></p>
+                            <p><input type="text" value=""></p>
+                            <br>
+                            <p><label for="phonenumber" >Phonenumber</label></p>
+                            <p><input type="" value=""></p>
+                            <br>
+                            <button onclick="toggleModal('party-profile', 'profile')" class="btn-submit"> <i class="icon ion-md-close"></i> Submit</button>
+                            <br>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 <footer id="landing-page-footer">
         <nav>
