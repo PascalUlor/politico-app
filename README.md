@@ -8,7 +8,8 @@ while building trust in the process through transparency.
 <br />
 <img width="1000" height="400" alt="politico-app-screenshot" src="/screenshot/index.PNG">
 <img width="1000" height="400" alt="politico-app-screenshot" src="/screenshot/homepage.PNG">
-<img width="1000" height="400" alt="politico-app-screenshot" src="/screenshot/mobile2.PNG">
+<img width="200" height="400" alt="politico-app-screenshot" src="/screenshot/mobile1.PNG">
+<img width="200" height="400" alt="politico-app-screenshot" src="/screenshot/mobile2.PNG">
 <img width="1000" height="400" alt="politico-app-screenshot" src="/screenshot/modal.PNG">
 
 <br />
