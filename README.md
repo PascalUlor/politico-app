@@ -1,3 +1,12 @@
+[![Build Status](https://travis-ci.org/PascalUlor/politico-app.svg?branch=develop)](https://travis-ci.org/PascalUlor/politico-app)
+
+[![Coverage Status](https://coveralls.io/repos/github/PascalUlor/politico-app/badge.svg?branch=develop)](https://coveralls.io/github/PascalUlor/politico-app?branch=develop)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/b7f72eb60c31a3b328bf/maintainability)](https://codeclimate.com/github/PascalUlor/politico-app/maintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b7f72eb60c31a3b328bf/test_coverage)](https://codeclimate.com/github/PascalUlor/politico-app/test_coverage)
+
+
 # POLITICO
 
 **POLITICO** is a is a fullstack javascript enables citizens give their mandate to politicians running for different government offices
