@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import winston from './server/config/winston';
+import routes from './server/routes/routes';
 
 
 const app = express();
@@ -23,6 +24,8 @@ app.use((err, req, res, next) => {
   next();
 });
 
+
+app.use('/api/v1/', routes);
 
 app.get('*', (req, res) => {
   res.status(404).json({
