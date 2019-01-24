@@ -15,7 +15,7 @@ export default class partyController {
     const {
       name, hqAddress, email, phonenumber, about, logoUrl, userId,
     } = req.body;
-    const id = testdb.partydb[testdb.partydb.length - 1].id + 1;
+    const id = testdb.partydb.length + 1;
     const date = new Date();
     const newParty = {
       id, name, hqAddress, email, phonenumber, about, logoUrl, userId, date,
