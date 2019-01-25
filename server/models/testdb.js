@@ -47,7 +47,7 @@ const partydb = [
     date: '01-10-1960',
   },
   {
-    id: 1,
+    id: 2,
     name: 'PPP',
     userId: userdb[0].id,
     hqAddress: '1 Issac John road',
@@ -58,7 +58,7 @@ const partydb = [
     date: '01-10-1960',
   },
   {
-    id: 1,
+    id: 3,
     name: 'JP',
     userId: userdb[0].id,
     hqAddress: '5 Alibab road',
