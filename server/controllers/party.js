@@ -65,4 +65,28 @@ export default class partyController {
       });
     }
   }
+
+  /**
+ * API method to (PUT) update a Political Party
+ * @param {obj} req
+ * @param {obj} res
+ * @returns {obj} with success or error message
+ */
+  static updatePartyName(req, res) {
+    const { name } = req.body;
+    const index = parseInt(req.params.id, 10);
+    const findparty = partydb.find(party => party.id === index);
+    if (findparty) {
+      partydb[index - 1].name = name || partydb[index - 1].name;
+      return res.status(200).json({
+        success: true,
+        message: `Party with id ${index} successfully updated`,
+        data: partydb[index - 1],
+      });
+    }
+    return res.status(400).json({
+      success: false,
+      message: `Party with id ${index} does not exist`,
+    });
+  } // Method to Update party name ends
 }
