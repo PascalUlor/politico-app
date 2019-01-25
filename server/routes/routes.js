@@ -9,6 +9,9 @@ router.route('/parties')
   .post(validation.createPartyValidation, partyController.createParty);
 
 router.route('/parties/:id/name')
-  .put(partyController.updatePartyName);
+  .patch(partyController.updatePartyName);
+
+router.route('/parties/:id')
+  .delete(partyController.deleteParty);
 
 export default router;
