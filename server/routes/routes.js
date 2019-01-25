@@ -5,6 +5,7 @@ import validation from '../middleware/validations'
 const router = express.Router();
 
 router.route('/parties')
+  .get(partyController.getAllParty)
   .post(validation.createPartyValidation, partyController.createParty);
 
 
