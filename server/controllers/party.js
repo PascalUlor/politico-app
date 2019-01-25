@@ -1,7 +1,7 @@
 import testdb from '../models/testdb';
 
-const { partydb, userdb } = testdb;
-
+let { partydb } = testdb;
+const { userdb } = testdb;
 /**
  * Class for /api/routes
  * @class partyController
@@ -89,4 +89,31 @@ export default class partyController {
       message: `Party with id ${index} does not exist`,
     });
   } // Method to Update party name ends
+
+  /**
+ * API method to DELETE a political party
+ * @param {obj} req
+ * @param {obj} res
+ * @returns {obj} insert success message
+ */
+  static deleteParty(req, res) {
+    const index = parseInt(req.params.id, 10);
+    const findRequest = partydb.find(party => party.id === index);
+    if (findRequest) {
+      const newRequestList = partydb.filter(party => party.id !== index);
+      partydb = newRequestList;
+      res.status(200);
+      res.json({
+        success: true,
+        message: 'Party successfully deleted',
+        data: partydb,
+      });
+    } else {
+      res.status(400);
+      res.json({
+        success: false,
+        message: `Party with id ${index}does not exist`,
+      });
+    }
+  }
 }
