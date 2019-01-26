@@ -1,0 +1,50 @@
+import testdb from '../models/testdb';
+
+const { officedb } = testdb;
+const { userdb } = testdb;
+
+/**
+ * Class for /api/routes
+ * @class officeController
+ */
+export default class officeController {
+  /**
+       * API method to (POST) create a office
+       * @param {obj} req
+       * @param {obj} res
+       * @returns {obj} insertion error messages or success messages
+       */
+  static createOffice(req, res) {
+    const {
+      name, type, userId,
+    } = req.body;
+    let newOfficeId;
+
+    if (officedb.length === 0) {
+      newOfficeId = 1;
+    } else {
+      newOfficeId = (officedb[officedb.length - 1].id) + 1;
+    }
+    const id = newOfficeId;
+    const date = new Date();
+
+    if (parseInt(req.body.userId, 10) === userdb[0].id) {
+      officedb.push({
+        id, name, type, userId, date,
+      });
+      res.status(201);
+      res.json({
+        success: true,
+        message: 'Request created successfully',
+        data: officedb[officedb.length - 1],
+      });
+    } else {
+      res.status(400);
+      res.json({
+        success: false,
+        message: 'You are not authorized to create parties',
+      });
+    }
+  }
+
+}

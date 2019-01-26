@@ -10,7 +10,7 @@ const checkItem = (inputValue) => {
       /*
       *Party input Validation
       */
-      if (key === 'name') {
+      if (key === 'name' || key === 'type') {
         if (!(validator.isLength(inputValue[key], { min: 3, max: 50 }))) {
           errors[key] = `${key} must be between 3 to 50 characters`;
         }
@@ -42,7 +42,7 @@ const checkItem = (inputValue) => {
         }
       }
 
-      if (key === 'name') {
+      if (key === 'name' || key === 'type') {
         if (inputValue[key].search(/[^A-Za-z\s]/) !== -1) {
           errors[key] = `${key} can only be alphabetical`;
         }

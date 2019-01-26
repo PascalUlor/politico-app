@@ -70,6 +70,27 @@ const partydb = [
   },
 ];
 
-const testdb = { partydb, userdb };
+const officedb = [
+  {
+    id: 1,
+    type: 'Federal',
+    name: 'Presidential',
+    userId: 1,
+  },
+  {
+    id: 2,
+    type: 'Legislative',
+    name: 'Senate',
+    userId: 1,
+  },
+  {
+    id: 2,
+    type: 'State',
+    name: 'Gorvernor',
+    userId: 1,
+  },
+];
+
+const testdb = { partydb, userdb, officedb };
 
 export default testdb;
