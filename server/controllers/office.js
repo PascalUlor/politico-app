@@ -71,4 +71,26 @@ export default class officeController {
       });
     }
   }
+
+  /**
+     * API method to GET a single Office
+     * @param {obj} req
+     * @param {obj} res
+     * @returns {obj} success message
+     */
+  static getSingleOffice(req, res) {
+    const index = parseInt(req.params.id, 10);
+    const findOffice = officedb.find(office => office.id === index);
+    if (findOffice) {
+      return res.status(200).json({
+        success: true,
+        message: 'Successfully Retrieved Request',
+        data: findOffice,
+      });
+    }
+    return res.status(400).json({
+      success: false,
+      message: 'Request does not exist',
+    });
+  }// getSingleOfficet ends
 }

@@ -20,4 +20,7 @@ router.route('/offices')
   .get(officeController.getAllOffices)
   .post(validation.createAssetValidation, officeController.createOffice);
 
+router.route('/offices/:id')
+  .get(officeController.getSingleOffice);
+
 export default router;
