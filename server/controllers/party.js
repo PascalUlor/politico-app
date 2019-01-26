@@ -35,7 +35,7 @@ export default class partyController {
       res.json({
         success: true,
         message: 'Request created successfully',
-        data: partydb[newPartyId - 1],
+        data: partydb[partydb.length - 1],
       });
     } else {
       res.status(400);
@@ -72,6 +72,28 @@ export default class partyController {
   }
 
   /**
+     * API method to GET a single party
+     * @param {obj} req
+     * @param {obj} res
+     * @returns {obj} success message
+     */
+  static getSingleParty(req, res) {
+    const index = parseInt(req.params.id, 10);
+    const findParty = partydb.find(party => party.id === index);
+    if (findParty) {
+      return res.status(200).json({
+        success: true,
+        message: 'Successfully Retrieved Request',
+        data: findParty,
+      });
+    }
+    return res.status(400).json({
+      success: false,
+      message: 'Request does not exist',
+    });
+  }// getSinglerequest ends
+
+  /**
  * API method to (PUT) update a Political Party
  * @param {obj} req
  * @param {obj} res
@@ -103,10 +125,10 @@ export default class partyController {
  */
   static deleteParty(req, res) {
     const index = parseInt(req.params.id, 10);
-    const findRequest = partydb.find(party => party.id === index);
-    if (findRequest) {
-      const newRequestList = partydb.filter(party => party.id !== index);
-      partydb = newRequestList;
+    const findParty = partydb.find(party => party.id === index);
+    if (findParty) {
+      const newPartyList = partydb.filter(party => party.id !== index);
+      partydb = newPartyList;
       res.status(200);
       res.json({
         success: true,
