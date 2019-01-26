@@ -12,6 +12,7 @@ router.route('/parties/:id/name')
   .patch(partyController.updatePartyName);
 
 router.route('/parties/:id')
-  .delete(partyController.deleteParty);
+  .delete(partyController.deleteParty)
+  .get(partyController.getSingleParty);
 
 export default router;
