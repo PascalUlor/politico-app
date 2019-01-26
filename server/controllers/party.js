@@ -91,7 +91,7 @@ export default class partyController {
       success: false,
       message: 'Request does not exist',
     });
-  }// getSinglerequest ends
+  }// getSingleParty ends
 
   /**
  * API method to (PUT) update a Political Party
