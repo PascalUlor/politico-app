@@ -17,20 +17,25 @@ export default class partyController {
     const {
       name, hqAddress, email, phonenumber, about, logoUrl, userId,
     } = req.body;
-    const id = partydb.length + 1;
+    let newPartyId;
+
+    if (partydb.length === 0) {
+      newPartyId = 1;
+    } else {
+      newPartyId = (partydb[partydb.length - 1].id) + 1;
+    }
+    const id = newPartyId;
     const date = new Date();
-    const newParty = {
-      id, name, hqAddress, email, phonenumber, about, logoUrl, userId, date,
-    };
+
     if (parseInt(req.body.userId, 10) === userdb[0].id) {
       partydb.push({
-        newParty,
+        id, name, hqAddress, email, phonenumber, about, logoUrl, userId, date,
       });
       res.status(201);
       res.json({
         success: true,
         message: 'Request created successfully',
-        data: newParty,
+        data: partydb[newPartyId - 1],
       });
     } else {
       res.status(400);
@@ -77,11 +82,11 @@ export default class partyController {
     const index = parseInt(req.params.id, 10);
     const findparty = partydb.find(party => party.id === index);
     if (findparty) {
-      partydb[index - 1].name = name || partydb[index - 1].name;
+      Object.assign(findparty, { name });
       return res.status(200).json({
         success: true,
         message: `Party with id ${index} successfully updated`,
-        data: partydb[index - 1],
+        data: findparty,
       });
     }
     return res.status(400).json({
