@@ -17,6 +17,7 @@ router.route('/parties/:id')
   .get(partyController.getSingleParty);
 
 router.route('/offices')
+  .get(officeController.getAllOffices)
   .post(validation.createAssetValidation, officeController.createOffice);
 
 export default router;

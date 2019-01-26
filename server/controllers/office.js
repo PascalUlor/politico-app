@@ -47,4 +47,28 @@ export default class officeController {
     }
   }
 
+  /**
+ * API method GET all offices
+ * @param {obj} req
+ * @param {obj} res
+ * @returns {obj} success message
+ */
+  static getAllOffices(req, res) {
+    if (officedb.length !== 0) {
+      if (!req.query.sort) {
+        res.status(200);
+        res.json({
+          success: true,
+          message: 'Successfully Retrieved parties',
+          data: officedb,
+        });
+      }
+    } else {
+      res.status(404);
+      res.json({
+        success: false,
+        message: 'No party',
+      });
+    }
+  }
 }
