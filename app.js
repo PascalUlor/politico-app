@@ -24,6 +24,14 @@ app.use((err, req, res, next) => {
   next();
 });
 
+// Home page route
+app.get('/', (req, res) => {
+  res.status(200);
+  res.json({
+    name: 'Welcome to Politico',
+    message: 'Your Vote, Your right',
+  });
+});
 
 app.use('/api/v1/', routes);
 

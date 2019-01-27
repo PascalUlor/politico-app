@@ -35,14 +35,14 @@ export default class officeController {
       res.status(201);
       res.json({
         success: true,
-        message: 'Request created successfully',
-        data: officedb[officedb.length - 1],
+        message: 'Office created successfully',
+        data: `${officedb[officedb.length - 1]}`,
       });
     } else {
       res.status(400);
       res.json({
         success: false,
-        message: 'You are not authorized to create parties',
+        message: 'You are not authorized to create offices',
       });
     }
   }
@@ -59,7 +59,7 @@ export default class officeController {
         res.status(200);
         res.json({
           success: true,
-          message: 'Successfully Retrieved parties',
+          message: 'Successfully Retrieved offices',
           data: officedb,
         });
       }

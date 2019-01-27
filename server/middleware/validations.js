@@ -17,12 +17,27 @@ export default class assetValidation {
      * @returns {object} get error message
      */
   static createAssetValidation(req, res, next) {
+    const dbase = req.url.split('/')[1];
+
+    if (dbase === 'parties') {
+      const {
+        name, hqAddress, email, phonenumber, about, logoUrl, userId,
+      } = req.body;
+
+      const check = checkItem({
+        name, hqAddress, email, phonenumber, about, logoUrl, userId,
+      });
+
+      if (Object.keys(check).length > 0) {
+        return res.status(400).json(check);
+      } return next();
+    }
     const {
-      name, hqAddress, email, phonenumber, about, logoUrl, userId, type,
+      name, type, userId,
     } = req.body;
 
     const check = checkItem({
-      name, hqAddress, email, phonenumber, about, logoUrl, userId, type,
+      name, type, userId,
     });
 
     if (Object.keys(check).length > 0) {
