@@ -68,7 +68,7 @@ To be made available soon
 
 
 ## Deployment
-To be made available soon
+[Heroku Deploy](https://the-politico.herokuapp.com/)
 
 ## Useful Links
 
