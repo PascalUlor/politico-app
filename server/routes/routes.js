@@ -10,7 +10,7 @@ router.route('/parties')
   .post(validation.createAssetValidation, partyController.createParty);
 
 router.route('/parties/:id/name')
-  .patch(partyController.updatePartyName);
+  .patch(validation.updateAssetValidation, partyController.updatePartyName);
 
 router.route('/parties/:id')
   .delete(partyController.deleteParty)

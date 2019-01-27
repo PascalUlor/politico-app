@@ -31,19 +31,16 @@ export default class partyController {
       partydb.push({
         id, name, hqAddress, email, phonenumber, about, logoUrl, userId, date,
       });
-      res.status(201);
-      res.json({
+      return res.status(201).json({
         success: true,
         message: 'Request created successfully',
-        data: partydb[partydb.length - 1],
-      });
-    } else {
-      res.status(400);
-      res.json({
-        success: false,
-        message: 'You are not authorized to create parties',
+        data: `${partydb[partydb.length - 1]}`,
       });
     }
+    return res.status(400).json({
+      success: false,
+      message: 'You are not authorized to create parties',
+    });
   }
 
   /**
@@ -66,7 +63,7 @@ export default class partyController {
       res.status(404);
       res.json({
         success: false,
-        message: 'No party',
+        message: 'No party available',
       });
     }
   }
@@ -83,15 +80,15 @@ export default class partyController {
     if (findParty) {
       return res.status(200).json({
         success: true,
-        message: 'Successfully Retrieved Request',
+        message: 'Successfully Retrieved Party',
         data: findParty,
       });
     }
     return res.status(400).json({
       success: false,
-      message: 'Request does not exist',
+      message: 'Party does not exist',
     });
-  }// getSinglerequest ends
+  }// getSingleParty ends
 
   /**
  * API method to (PUT) update a Political Party
@@ -139,7 +136,7 @@ export default class partyController {
       res.status(400);
       res.json({
         success: false,
-        message: `Party with id ${index}does not exist`,
+        message: `Party with id ${index} does not exist`,
       });
     }
   }
