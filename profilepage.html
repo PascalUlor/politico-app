@@ -6,6 +6,7 @@
   <title>POLITICO</title>
   <link rel="shortcut icon" href="./assets/images/favicon.png">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/main.css">
 
   
@@ -29,13 +30,16 @@
                 <nav class="main-nav">
                   <ul class="main-nav__items">
                     <li class="main-nav__item">
-                      <a href="homepage.html">Home</a>
+                      <a href="index.html">Home</a>
                     </li>
                     <li class="main-nav__item">
                             <a href="votepage.html">Vote</a>
                     </li>
                     <li class="main-nav__item">
-                      <a href="login.html">Login</a>
+                        <a href="petition.html">Create Petition</a>
+                    </li>
+                    <li class="main-nav__item">
+                      <a href="login.html">Logout</a>
                     </li>
                   </ul>
                 </nav>
@@ -45,10 +49,13 @@
         <nav class="mobile-nav">
             <ul class="mobile-nav__items">
             <li class="mobile-nav__item aside__item">
-                <a href="homepage.html">Home</a>
+                <a href="index.html">Home</a>
             </li>
             <li class="mobile-nav__item aside__item">
                     <a href="votepage.html">Vote</a>
+            </li>
+            <li class="mobile-nav__item aside__item">
+                <a href="petition.html">Create Petition</a>
             </li>
             <li class="mobile-nav__item aside__item">
                 <a href="index.html">Logout</a>
@@ -64,8 +71,9 @@
 					<div class="col2 first">
 						<img src="./assets/images/passport.jpg" alt="">
 						<h1>Ulor Pascal</h1>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
-						<span onclick="toggleModal('party-profile', 'profile')">Edit</span>
+						<p>Pascal believes in the rotation of power according to the
+                            principle of Federal Character involving all interest groups.</p>
+						<span onclick="toggleModal('user-profile', 'profile')">Edit</span>
 					</div>
 					<div class="col2 last">
 						<div class="grid clearfix">
@@ -82,10 +90,10 @@
 				</div>
 				<div class="row clearfix">
 					<ul class="row2tab clearfix">
-                            <li><i class="fa fa-list-alt"></i><a href="#">Post</a></li>
-                            <li><i class="fa fa-heart"></i> <a href="#">Users</a></li>
-                            <li><i class="fa fa-check"></i> <a href="#">Users</a> </li>
-                            <li><i class="fa fa-thumbs-o-down"></i> <a href="petition.html">Petitions</a> </li>
+                            <li><i class="fa fa-list-alt"></i><a href="./resultspage.html">Result</a></li>
+                            <li><i class="fa fa-heart"></i> <a href="#">Likes</a></li>
+                            <li><i class="fa fa-check"></i> <a href="#">Votes</a> </li>
+                            <li><i class="fa fa-thumbs-o-down"></i> <a href="petitionlist.html">My Petitions</a> </li>
 					</ul>
 				</div>
 			</div>
@@ -104,48 +112,54 @@
                       <table class="main-table">
                           <thead>
                               <tr>
-                                  <th>S.N</th>
-                                  <th>Party Name</th>
-                                  <th>Party ID</th>
-                                  <th>Date Added</th>
-                                  <th>Remove</th>
+                                  <th class="th-color">S.N</th>
+                                  <th class="th-color">Candidate</th>
+                                  <th class="th-color">Party</th>
+                                  <th class="th-color">President</th>
+                                  <th class="th-color">Date Added</th>
+                                  <th class="th-color">Remove</th>
                               </tr>
                           </thead>
                           <tbody>
                               <tr>
                                   <td>1</td>
-                                  <td>PDP</td>
-                                  <td>00001</td>
+                                  <td>Pascal</td>
+                                  <td>Andela</td>
+                                  <td>President</td>
                                   <td>13/10/2018 11:02am</td>
-                                  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
                               </tr>
                               <tr>
                                   <td>2</td>
-                                  <td>APC</td>
-                                  <td>00002</td>
+                                  <td>Pascal</td>
+                                  <td>Andela</td>
+                                  <td>President</td>
                                   <td>20/09/2018 10:19am</td>
-                                  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
                               </tr>
                               <tr>
                                   <td>3</td>
-                                  <td>APGA</td>
-                                  <td>00003</td>
+                                  <td>Neuman</td>
+                                  <td>Andela</td>
+                                  <td>President</td>
                                   <td>21/10/2018 12:22pm</td>
-                                  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
                               </tr>
                               <tr>
                                   <td>4</td>
-                                  <td>MDP</td>
-                                  <td>00004</td>
+                                  <td>Victoria</td>
+                                  <td>Andela</td>
+                                  <td>President</td>
                                   <td>22/06/2018 01:02pm</td>
-                                  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
                               </tr>
                               <tr>
                                   <td>5</td>
-                                  <td>AD</td>
-                                  <td>00003</td>
+                                  <td>Henry</td>
+                                  <td>Andela</td>
+                                  <td>President</td>
                                   <td>25/10/2018 10:02am</td>
-                                  <td><button class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
                               </tr>
                           </tbody>
                       </table>
@@ -154,8 +168,8 @@
             </div>  
         </section>
 </main>
-<div class="party-modal" id="profile">
-        <div class="party-modal-section" id="party-profile">
+<div class="party-modal" id="profile" onclick="toggleModal('user-profile', 'profile')">
+        <div class="party-modal-section" id="user-profile">
             <div class="page-row">
               <div class="page-col-12 party-modal-heading">
                 <h4>User Details</h4>
@@ -163,23 +177,41 @@
                 <form class="page-col-10">
                     <p><label for="title" class="ch-label">First Name</label></p>
                     <p>
-                       <input type="text" value="">
+                       <input type="text" value="John">
                     </p>
                     <br>
                     <p><label for="type">Last Name</label></p>
-                    <p><input type="text" value=""></p>
+                    <p><input type="text" value="Pascal"></p>
                     <br>
                     <p><label for="about">Email</label>
                     </p>
-                    <p><input type="email" value=""></p>
+                    <p><input type="email" value="pascal@andela.com"></p>
                     <br>
                     <p><label for="status">Address</label></p>
-                    <p><input type="text" value=""></p>
+                    <p><input type="text" value="32 Andela"></p>
                     <br>
                     <p><label for="phonenumber" >Phonenumber</label></p>
-                    <p><input type="" value=""></p>
+                    <p><input type="text" value="8069568494"></p>
                     <br>
                     <button onclick="toggleModal('party-profile', 'profile')" class="btn-submit"> <i class="icon ion-md-close"></i> Submit</button>
+                    <br>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="party-modal" id="delete" onclick="toggleModal('party-delete', 'delete')">
+        <div class="party-modal-section" id="party-delete">
+            <div class="page-row">
+              <div class="page-col-12 party-modal-heading">
+                <h4>Delete Item</h4>
+              </div>
+                <form class="page-col-10">
+                    <h3>ARE YOU SURE YOU WANT TO DELETE?</h3>
+                    <br>
+                    <button onclick="toggleModal('party-delete', 'delete')" class="btn-submit"> <i class="icon ion-md-close"></i> Yes</button>
+                    <button onclick="toggleModal('party-delete', 'delete')" class="btn-remove modal-delete"> <i class="icon ion-md-close"></i> No</button>
                     <br>
                     <br>
                 </form>
