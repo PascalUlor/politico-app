@@ -34,7 +34,7 @@ export default class partyController {
       return res.status(201).json({
         success: true,
         message: 'Request created successfully',
-        data: `${partydb[partydb.length - 1]}`,
+        data: partydb[partydb.length - 1],
       });
     }
     return res.status(400).json({

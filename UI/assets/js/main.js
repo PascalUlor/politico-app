@@ -4,14 +4,14 @@
  * @param {string} modal - The id of the modal container
  */
 const toggleModal = (id, modal) => {
-    if (document.getElementById(modal).style.display === 'block') {
-      document.getElementById(modal).style.display = 'none';
-      document.getElementById(id).style.display = 'none';
-    } else {
-      document.getElementById(modal).style.display = 'block';
-      document.getElementById(id).style.display = 'block';
-    }
-  };
+  if (document.getElementById(modal).style.display === 'block') {
+    document.getElementById(modal).style.display = 'none';
+    document.getElementById(id).style.display = 'none';
+  } else {
+    document.getElementById(modal).style.display = 'block';
+    document.getElementById(id).style.display = 'block';
+  }
+};
 
 
 /*
