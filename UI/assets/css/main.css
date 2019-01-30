@@ -189,7 +189,7 @@ Nav Styles Begin
 .toggle-button__bar {
     width: 100%;
     height: 0.2rem;
-    background: black;
+    background: #212121;
     display: block;
     margin: 0.6rem 0;
 }
@@ -228,6 +228,7 @@ Nav Styles Begin
     justify-content: center;
     text-align: center;
     color: #fffffa;
+    z-index: 1;
 }
 
 .section-title {
@@ -244,12 +245,12 @@ Nav Styles Begin
 /*Footer Styles*/
 
 .main-footer {
-    background: black;
+    background: #212121;
     padding: 2rem;
 }
 
 #landing-page-footer {
-    background: black;
+    background: #212121;
     padding: 2rem;
     margin-top: 0;
 }
@@ -413,13 +414,13 @@ Nav Styles Begin
     height: 2rem;
     display: flex;
     justify-content: center;
-    border: 2px solid #2ddf5c;
+    border: 3px solid #2ddf5c;
     color: #fffffa;
 }
 
 .page_button a:active, .page_button a:hover {
-    color: #212121;
-    background: #FFFFFF;
+    color: #0e4f1f;
+    background: #2ddf5c;
     border-bottom: none;
 }
 
@@ -511,14 +512,9 @@ button.btn-remove {
 .toggle-button__bar {
     width: 100%;
     height: 0.2rem;
-    background: black;
+    background: #212121;
     display: block;
     margin: 0.6rem 0;
-}
-
-.btn-hollow {
-    border: 2px solid #2ddf5c;
-    color: #fffffa;
 }
 
 /*Button Ends*/
@@ -545,7 +541,7 @@ button.btn-remove {
     justify-content: center;
     font-size: 1.8rem;
     color: #ffffff;
-    margin-bottom: 1em;
+    margin-bottom: 3rem;
     margin-top: 1.5em;
 }
 
@@ -582,6 +578,11 @@ div.main-table {
 table.main-table {
   border-collapse: collapse;
   width: 100%;
+  margin-bottom: 1rem;
+}
+
+.th-color{
+    background-color: #212121;
 }
 
 table.main-table th,
@@ -603,6 +604,15 @@ tr:nth-child(odd) {
 
 /*  Modal  */
 
+.party-logo{
+width: 2em;
+height: 2em;
+}
+
+.modal-delete {
+    margin-left: 1rem;
+}
+
 .party-modal {
     margin: 0;
     padding: 0;
@@ -614,10 +624,11 @@ tr:nth-child(odd) {
     display: none;
     overflow: auto;
     z-index: 1;
+    margin-top: 2rem;
   }
   
   .party-modal-section {
-    top: 2em;
+    top: 1em;
     width: 30%;
     height: auto;
     margin: auto;
@@ -646,7 +657,7 @@ tr:nth-child(odd) {
     background-color: rgb(30, 130, 76);
     padding: .5em;
     margin-bottom: 1em;
-    color: white;
+    color: #c7c5c5;
   }
 
   /*Modal End*/
@@ -655,10 +666,9 @@ tr:nth-child(odd) {
 
 .form-title, .page-title {
     margin-top: 5rem;
-    font-size: 3em;
+    font-size: 1em;
     text-align: center;
-    color: #fff;
-    font-weight: 100;
+    color: #2ddf5c;
     text-transform: capitalize;
     letter-spacing: 4px;
     font-family: 'Roboto', sans-serif;
@@ -671,8 +681,10 @@ tr:nth-child(odd) {
 .main-info {
     width: 35%;
     margin: auto;
+    margin-bottom: 2rem;
     background: #fffffa;
     background-size: cover;
+    border-radius: 10px;
 }
 
 .info-top {
@@ -687,6 +699,7 @@ tr:nth-child(odd) {
     font-size: 0.9em;
     color: #000;
     font-weight: 100;
+    margin-left: 0.7rem;
 }
 
 input[type="text"], input[type="email"], input[type="password"], input[type="file"], select {
@@ -696,6 +709,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="fil
     width: 94.5%;
     display: block;
     border: none;
+    border-radius: 10px;
     padding: 0.8em;
     border: 2px solid #76b852;
     -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
@@ -706,6 +720,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="fil
     background-size: 100%;
     background-repeat: no-repeat;
     font-family: 'Roboto', sans-serif;
+    margin: auto;
 }
 
 select option {
@@ -729,6 +744,7 @@ textarea {
     width: 94.5%;
     display: block;
     border: none;
+    border-radius: 10px;
     padding: 0.8em;
     border: 2px solid #76b852;
     -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
@@ -788,6 +804,7 @@ input[type="submit"] {
     background: #76b852;
     outline: none;
     border: 1px solid #76b852;
+    border-radius: 10px;
     cursor: pointer;
     padding: 0.9em;
     -webkit-appearance: none;
@@ -824,84 +841,9 @@ input[type="submit"]:hover {
 .info-top p a:hover, span a:hover {
     color: #76b852;
 }
-
-/*--Form checkbox --*/
-
-.terms-text label {
-    font-size: 0.9em;
-    color: #fff;
-    font-weight: 200;
-    cursor: pointer;
-    position: relative;
+.forgotpsd{
+    margin-bottom: 1rem;
 }
-
-input.checkbox {
-    background: #8DC26F;
-    cursor: pointer;
-    width: 1.2em;
-    height: 1.2em;
-}
-
-input.checkbox:before {
-    content: "";
-    position: absolute;
-    width: 1.2em;
-    height: 1.2em;
-    background: inherit;
-    cursor: pointer;
-}
-
-input.checkbox:after {
-    content: "";
-    position: absolute;
-    top: 0px;
-    left: 0;
-    z-index: 1;
-    width: 1.2em;
-    height: 1.2em;
-    border: 1px solid #fff;
-    -webkit-transition: .4s ease-in-out;
-    -moz-transition: .4s ease-in-out;
-    -o-transition: .4s ease-in-out;
-    transition: .4s ease-in-out;
-}
-
-input.checkbox:checked:after {
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    height: .5rem;
-    border-color: #fff;
-    border-top-color: transparent;
-    border-right-color: transparent;
-}
-
-.anim input.checkbox:checked:after {
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    height: .5rem;
-    border-color: transparent;
-    border-right-color: transparent;
-    animation: .4s rippling .4s ease;
-    animation-fill-mode: forwards;
-}
-
-@keyframes rippling {
-    50% {
-        border-left-color: #fff;
-    }
-    100% {
-        border-bottom-color: #fff;
-        border-left-color: #fff;
-    }
-}
-
-/*--Form checkbox End --*/
 
 /*Form Wrapper*/
 
@@ -983,7 +925,7 @@ input.checkbox:checked:after {
 }
 
 .section1 .col2.last .col3 h1 {
-    color: #FB4C22;
+    color: #9b0619;
 }
 
 .section1 .col2.last .col3 {
@@ -999,6 +941,19 @@ input.checkbox:checked:after {
     list-style: none;
     float: left;
     width: 25%;
+    padding: 15px;
+    font-size: 14px;
+    text-align: center;
+    cursor:pointer;
+    background: #f1f1f1;
+    color: #555;
+    border-bottom: 2px solid #76b852;
+    text-decoration: none;
+}
+.row2tab .user{
+    list-style: none;
+    float: left;
+    width: 50%;
     padding: 15px;
     font-size: 14px;
     text-align: center;
@@ -1058,7 +1013,9 @@ section.section2 {
 	width: 30%;
 	margin-right: 60px;
 	background: #fff;
-	border-radius: 2px;
+    border-radius: 2px;
+    height: 15rem;
+    max-height: 15rem;
 }
 
 .section2 .postcont img {
@@ -1123,6 +1080,9 @@ section.section2 {
         text-align: center;
         color: #fffffa;
     }
+    .page_button {
+        z-index: 1;
+    }
     .page_button a {
         color: #FFFFFF;
         font-size: 2rem;
@@ -1146,6 +1106,82 @@ section.section2 {
         /* flex-direction: row; */
         text-align: center;
     }
+    .form-title, .page-title {
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+        font-size: 3em;
+        text-align: center;
+        color: #2ddf5c;
+        font-weight: 10rem;
+        text-transform: capitalize;
+        letter-spacing: 4px;
+        font-family: 'Roboto', sans-serif;
+    }
+    
+table.main-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 6rem;
+  }
+
+  /*  Modal media query */
+
+.party-logo{
+    width: 2em;
+    height: 2em;
+    }
+    .modal-delete {
+        margin-left: 15rem;
+    }
+    
+    .party-modal {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: rgba(64, 64, 64, 0.55);
+        height: 100%;
+        position: fixed;
+        top: 0em;
+        display: none;
+        overflow: auto;
+        z-index: 1;
+        margin-top: 3rem;
+      }
+      
+      .party-modal-section {
+        top: 2em;
+        width: 30%;
+        height: auto;
+        margin: auto;
+        margin-top: 3.8em;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: rgb(242, 241, 239);
+        display: none;
+        overflow: auto;
+        padding-top: 0em;
+        border-top: .3em inset rgb(30, 130, 76);
+        border-bottom: .4em inset rgb(30, 130, 76);
+      }
+      
+      .party-modal-section p>label {
+        margin-bottom: .2em;
+        font-weight: 600;
+        color: #3b3b3b;
+      }
+      
+      .party-modal-section p {
+        text-align: justify!important;
+        font-size: .9em;
+      }
+      
+      .party-modal-heading {
+        background-color: rgb(30, 130, 76);
+        padding: .5em;
+        margin-bottom: 1em;
+        color: #c7c5c5;
+      }
+    
+      /*Modal End*/
 }
 
 /*-- Form responsive-design --*/
@@ -1153,6 +1189,9 @@ section.section2 {
 @media(max-width:1440px) {
     input[type="text"], input[type="email"], input[type="password"] {
         width: 94%;
+    }
+    .modal-delete {
+        margin-left: 7rem;
     }
 }
 
@@ -1179,6 +1218,9 @@ section.section2 {
     .main-info {
         width: 46%;
     }
+    .modal-delete {
+        margin-left: 2rem;
+    }
 }
 
 @media(max-width:1024px) {
@@ -1203,11 +1245,23 @@ section.section2 {
     input[type="text"], input[type="email"], input[type="password"] {
         width: 93%;
     }
+    .modal-delete {
+        margin-left: 1rem;
+    }
 }
 
 @media(max-width:800px) {
     h1 {
         font-size: 2.2em;
+    }
+    table.main-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 8rem;
+      }
+
+      .modal-delete {
+        margin-left: 1rem;
     }
 }
 
@@ -1215,12 +1269,27 @@ section.section2 {
     .main-info {
         width: 62%;
     }
+    .form-title, .page-title {
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+        font-size: 2em;
+    }
+    table.main-table {
+        border-collapse: collapse;
+        width: 100%;
+      }
 }
 
 @media(max-width:667px) {
     .main-info {
         width: 67%;
     }
+    
+table.main-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 7rem;
+  }
 }
 
 @media(max-width:600px) {
@@ -1236,6 +1305,11 @@ section.section2 {
     h1 {
         font-size: 2em;
         letter-spacing: 3px;
+    }
+    .form-title, .page-title {
+        margin-top: 5rem;
+        margin-bottom: 2rem;
+        font-size: 1em;
     }
 }
 
@@ -1292,6 +1366,11 @@ section.section2 {
 @media(max-width:384px) {
     .main-info {
         width: 88%;
+    }
+    .form-title, .page-title {
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+        font-size: 1em;
     }
 }
 
@@ -1369,7 +1448,11 @@ section.section2 {
 	.row2tab li {
 		width: 50%;
 		text-align: left;
-	}
+    }
+    .row2tab .user{
+        width: 100%;
+		text-align: left;
+    }
 	.section1 .col2.first {
 		text-align: center;
 	}
@@ -1392,7 +1475,11 @@ section.section2 {
   .row2tab li {
 		width: 100%;
 		text-align: left;
-	}
+    }
+    .row2tab .user{
+        width: 100%;
+		text-align: left;
+    }
 	.section1 .col2.last .col3 span {
 		font-size: 10px;
 	}

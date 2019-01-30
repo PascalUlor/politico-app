@@ -176,7 +176,9 @@ describe('All test cases for POSTing a new request', () => {
         .end((err, res) => {
           expect(res.body.success).to.eql(true);
           expect(res.body.message).to.eql('Request created successfully');
-          expect(res.body.data).to.eql(`${partydb[partydb.length - 1]}`);
+          expect(res.body.data).to.have.property('id').eql(partydb[partydb.length - 1].id);
+          expect(res.body.data).to.have.property('name').eql(partydb[partydb.length - 1].name);
+          expect(res.body.data).to.have.property('phonenumber').eql(partydb[partydb.length - 1].phonenumber);
           done();
         });
     });

@@ -30,7 +30,7 @@
         <nav class="main-nav">
           <ul class="main-nav__items">
             <li class="main-nav__item">
-              <a href="homepage.html">Home</a>
+              <a href="index.html">Home</a>
             </li>
             <li class="main-nav__item">
                     <a href="signup.html">Signup</a>
@@ -46,7 +46,7 @@
 <nav class="mobile-nav">
     <ul class="mobile-nav__items">
     <li class="mobile-nav__item aside__item">
-        <a href="homepage.html">Home</a>
+        <a href="index.html">Home</a>
     </li>
     <li class="mobile-nav__item aside__item">
             <a href="signup.html">Signup</a>
@@ -56,8 +56,8 @@
     </li>
     </ul>
 </nav>
-  <main class="tablewrapp" id="landing-page-text">
-      <div class="shade">
+  <main class="profile-table-wrapp">
+      <div>
             <section class="table-title">
                     <h1 class="page-title">POLITICAL PARTIES</h1>
             </section>
@@ -66,48 +66,42 @@
                 <table class="main-table">
                     <thead>
                         <tr>
-                            <th>S.N</th>
-                            <th>Party Name</th>
-                            <th>Party ID</th>
-                            <th>Date Added</th>
-                            <th>Details</th>
+                            <th class="th-color">S.N</th>
+                            <th class="th-color">Party Name</th>
+                            <th class="th-color">Party ID</th>
+                            <th class="th-color">Date Added</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>PDP</td>
+                            <td onclick="toggleModal('party-details', 'modal')">PDP</td>
                             <td>00001</td>
                             <td>13/10/2018 11:02am</td>
-                            <td><button onclick="toggleModal('party-details', 'modal')" class="view"><i class="far fa-eye"></i>View</button></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>APC</td>
+                            <td onclick="toggleModal('party-details', 'modal')">APC</td>
                             <td>00002</td>
                             <td>20/09/2018 10:19am</td>
-                            <td><button onclick="toggleModal('party-details', 'modal')" class="view"><i class="far fa-eye"></i>View</button></td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>APGA</td>
+                            <td onclick="toggleModal('party-details', 'modal')">APGA</td>
                             <td>00003</td>
                             <td>21/10/2018 12:22pm</td>
-                            <td><button onclick="toggleModal('party-details', 'modal')" class="view"><i class="far fa-eye"></i>View</button></td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td>MDP</td>
+                            <td onclick="toggleModal('party-details', 'modal')">MDP</td>
                             <td>00004</td>
                             <td>22/06/2018 01:02pm</td>
-                            <td><button onclick="toggleModal('party-details', 'modal')" class="view"><i class="far fa-eye"></i>View</button></td>
                         </tr>
                         <tr>
                             <td>5</td>
-                            <td>AD</td>
+                            <td onclick="toggleModal('party-details', 'modal')">AD</td>
                             <td>00003</td>
                             <td>25/10/2018 10:02am</td>
-                            <td><button onclick="toggleModal('party-details', 'modal')" class="view"><i class="far fa-eye"></i>View</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -116,7 +110,7 @@
       </div>
         
   </main>
-  <div class="party-modal" id="modal">
+  <div class="party-modal" id="modal" onclick="toggleModal('party-details', 'modal')">
     <div class="party-modal-section" id="party-details">
         <div class="page-row">
           <div class="page-col-12 party-modal-heading">
@@ -129,7 +123,7 @@
                 </p>
                 <br>
                 <p><label for="type">Party Logo</label></p>
-                <div></div>
+                <div><img src="./assets/images/pdp.png" alt="party logo" class="party-logo"></div>
                 <br>
                 <p><label for="description">About Party</label>
                 </p>
@@ -141,7 +135,6 @@
                 <p><label for="date" >Date Added</label></p>
                 <p>22/10/2018 01:02pm</p>
                 <br>
-                <button onclick="toggleModal('party-details', 'modal')" class="btn-close"> <i class="icon ion-md-close"></i> Close</button>
                 <br>
                 <br>
             </div>
