@@ -27,5 +27,7 @@ router.route('/offices/:id')
 
 router.route('/auth/signup')
   .post(verify.userInput, userController.userSignup);
+router.route('/auth/login')
+  .post(userController.userLogin);
 
 export default router;

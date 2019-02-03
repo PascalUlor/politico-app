@@ -1,7 +1,7 @@
 import validator from 'validator';
 
 
-const checkItem = (inputValue) => {
+const checkInput = (inputValue) => {
   const errors = {};
   Object.keys(inputValue).forEach((key) => {
     if (!inputValue[key] || (validator.isEmpty(inputValue[key]))) {
@@ -61,4 +61,4 @@ const checkItem = (inputValue) => {
   });
   return errors;
 };
-export default checkItem;
+export default checkInput;
