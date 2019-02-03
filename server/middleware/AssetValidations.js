@@ -7,7 +7,7 @@ import checkItem from '../helpers/checkInput';
 export default class AssetValidation {
   /**
      *  @description validate party inputs on create and update operations
-     * @memberof assetValidation
+     * @memberof AssetValidation
      * @static
      *
      * @param {object} req

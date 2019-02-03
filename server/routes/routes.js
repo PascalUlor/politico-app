@@ -2,6 +2,8 @@ import express from 'express';
 import PartyController from '../controllers/PartyController';
 import validation from '../middleware/AssetValidations';
 import OfficeController from '../controllers/OfficeController';
+import userController from '../controllers/UserController';
+import verify from '../middleware/UserValidation';
 
 const router = express.Router();
 
@@ -22,5 +24,8 @@ router.route('/offices')
 
 router.route('/offices/:id')
   .get(OfficeController.getSingleOffice);
+
+router.route('/auth/signup')
+  .post(verify.userInput, userController.userSignup);
 
 export default router;

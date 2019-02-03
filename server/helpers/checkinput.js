@@ -31,7 +31,7 @@ const checkItem = (inputValue) => {
         }
       }
 
-      if (key === 'logoUrl') {
+      if (key === 'logoUrl' || key === 'passportUrl') {
         if (inputValue[key].match(/\.(gif|jpg|jpeg|tiff|png|mp4)$/i) === null) {
           errors[key] = `Invalid ${key}`;
         }
@@ -42,7 +42,7 @@ const checkItem = (inputValue) => {
         }
       }
 
-      if (key === 'name' || key === 'type') {
+      if (key === 'name' || key === 'type' || key === 'firstName' || key === 'lastName' || key === 'otherName') {
         if (inputValue[key].search(/[^A-Za-z\s]/) !== -1) {
           errors[key] = `${key} can only be alphabetical`;
         }
@@ -51,7 +51,12 @@ const checkItem = (inputValue) => {
         if (!validator.isEmail(inputValue[key])) {
           errors[key] = `Invalid ${key}`;
         }
-      }  
+      }
+      if (key === 'password') {
+        if (!validator.isLength(inputValue[key], { min: 8, max: 50 })) {
+          errors[key] = `${key} must between 8 and 50 characters`;
+        }
+      }
     }
   });
   return errors;
