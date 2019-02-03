@@ -3,12 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>POLITICO</title>
   <link rel="shortcut icon" href="./assets/images/favicon.png">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
   <link rel="stylesheet" href="./assets/css/main.css">
-
-  
 </head>
 
 <body>
@@ -90,7 +89,16 @@
 				</div>
 				<div class="row clearfix">
 					<ul class="row2tab clearfix">
-						<li class="user"><i class="fa fa-list-alt"></i><a href="./resultspage.html">Results</a></li>
+                        <li class="user drop">
+                                <i class="fa fa-list-alt">
+                                    <ul class="dropdown">
+                                        <li><a href="resultspage.html">President</a></li>
+                                        <li><a href="resultspage.html">Governor</a></li>
+                                        <li><a href="resultspage.html">Senate</a></li>
+                                        <li><a href="resultspage.html">Council</a></li>
+                                    </ul>
+                                </i><a href="./resultspage.html">Results</a>
+                            </li>
 						<li class="user"><i class="fa fa-check"></i> <a href="#">Voters</a> </li>
 					</ul>
 				</div>
@@ -215,7 +223,7 @@
         <nav>
           <ul class="footer-links">
             <li class="footer-link">
-              <a href="#">Copyright of &copy;2019 ELECTION By Pascal</a>
+              <a href="#">Copyright of &copy;2019 Andela Bootcamp Project By Pascal Ulor</a>
             </li>
           </ul>
         </nav>

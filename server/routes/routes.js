@@ -1,26 +1,26 @@
 import express from 'express';
-import partyController from '../controllers/party';
-import validation from '../middleware/validations';
-import officeController from '../controllers/office';
+import PartyController from '../controllers/PartyController';
+import validation from '../middleware/AssetValidations';
+import OfficeController from '../controllers/OfficeController';
 
 const router = express.Router();
 
 router.route('/parties')
-  .get(partyController.getAllParty)
-  .post(validation.createAssetValidation, partyController.createParty);
+  .get(PartyController.getAllParty)
+  .post(validation.createAssetValidation, PartyController.createParty);
 
 router.route('/parties/:id/name')
-  .patch(validation.updateAssetValidation, partyController.updatePartyName);
+  .patch(validation.updateAssetValidation, PartyController.updatePartyName);
 
 router.route('/parties/:id')
-  .delete(partyController.deleteParty)
-  .get(partyController.getSingleParty);
+  .delete(PartyController.deleteParty)
+  .get(PartyController.getSingleParty);
 
 router.route('/offices')
-  .get(officeController.getAllOffices)
-  .post(validation.createAssetValidation, officeController.createOffice);
+  .get(OfficeController.getAllOffices)
+  .post(validation.createAssetValidation, OfficeController.createOffice);
 
 router.route('/offices/:id')
-  .get(officeController.getSingleOffice);
+  .get(OfficeController.getSingleOffice);
 
 export default router;

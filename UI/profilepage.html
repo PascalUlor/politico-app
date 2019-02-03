@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>POLITICO</title>
   <link rel="shortcut icon" href="./assets/images/favicon.png">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
@@ -90,7 +91,16 @@
 				</div>
 				<div class="row clearfix">
 					<ul class="row2tab clearfix">
-                            <li><i class="fa fa-list-alt"></i><a href="./resultspage.html">Result</a></li>
+                            <li class="drop">
+                                    <i class="fa fa-list-alt">
+                                        <ul class="dropdown">
+                                            <li><a href="resultspage.html">President</a></li>
+                                            <li><a href="resultspage.html">Governor</a></li>
+                                            <li><a href="resultspage.html">Senate</a></li>
+                                            <li><a href="resultspage.html">Council</a></li>
+                                        </ul>
+                                    </i><a href="./resultspage.html">Results</a>
+                                </li>
                             <li><i class="fa fa-heart"></i> <a href="#">Likes</a></li>
                             <li><i class="fa fa-check"></i> <a href="#">Votes</a> </li>
                             <li><i class="fa fa-thumbs-o-down"></i> <a href="petitionlist.html">My Petitions</a> </li>
@@ -127,7 +137,7 @@
                                   <td>Andela</td>
                                   <td>President</td>
                                   <td>13/10/2018 11:02am</td>
-                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
                               </tr>
                               <tr>
                                   <td>2</td>
@@ -135,7 +145,7 @@
                                   <td>Andela</td>
                                   <td>President</td>
                                   <td>20/09/2018 10:19am</td>
-                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
                               </tr>
                               <tr>
                                   <td>3</td>
@@ -143,7 +153,7 @@
                                   <td>Andela</td>
                                   <td>President</td>
                                   <td>21/10/2018 12:22pm</td>
-                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
                               </tr>
                               <tr>
                                   <td>4</td>
@@ -151,7 +161,7 @@
                                   <td>Andela</td>
                                   <td>President</td>
                                   <td>22/06/2018 01:02pm</td>
-                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
                               </tr>
                               <tr>
                                   <td>5</td>
@@ -159,7 +169,7 @@
                                   <td>Andela</td>
                                   <td>President</td>
                                   <td>25/10/2018 10:02am</td>
-                                  <td><button onclick="toggleModal('party-delete', 'delete')" class="btn-remove"><i class="fas fa-trash-alt"></i></button></td>
+                                  <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
                               </tr>
                           </tbody>
                       </table>
@@ -177,11 +187,11 @@
                 <form class="page-col-10">
                     <p><label for="title" class="ch-label">First Name</label></p>
                     <p>
-                       <input type="text" value="John">
+                       <input type="text" value="Pascal">
                     </p>
                     <br>
                     <p><label for="type">Last Name</label></p>
-                    <p><input type="text" value="Pascal"></p>
+                    <p><input type="text" value="Ulor"></p>
                     <br>
                     <p><label for="about">Email</label>
                     </p>
@@ -223,7 +233,7 @@
         <nav>
           <ul class="footer-links">
             <li class="footer-link">
-              <a href="#">Copyright of &copy;2019 ELECTION By Pascal</a>
+              <a href="#">Copyright of &copy;2019 Andela Bootcamp Project By Pascal Ulor</a>
             </li>
           </ul>
         </nav>

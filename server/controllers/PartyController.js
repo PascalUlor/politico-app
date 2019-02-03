@@ -1,12 +1,13 @@
-import testdb from '../models/testdb';
+import testDb from '../models/testDb';
 
-let { partydb } = testdb;
-const { userdb } = testdb;
+
+let { partyDb } = testDb;
+const { userDb } = testDb;
 /**
  * Class for /api/routes
  * @class partyController
  */
-export default class partyController {
+export default class PartyController {
   /**
        * API method to (POST) create a party
        * @param {obj} req
@@ -19,22 +20,22 @@ export default class partyController {
     } = req.body;
     let newPartyId;
 
-    if (partydb.length === 0) {
+    if (partyDb.length === 0) {
       newPartyId = 1;
     } else {
-      newPartyId = (partydb[partydb.length - 1].id) + 1;
+      newPartyId = (partyDb[partyDb.length - 1].id) + 1;
     }
     const id = newPartyId;
     const date = new Date();
 
-    if (parseInt(req.body.userId, 10) === userdb[0].id) {
-      partydb.push({
+    if (parseInt(req.body.userId, 10) === userDb[0].id) {
+      partyDb.push({
         id, name, hqAddress, email, phonenumber, about, logoUrl, userId, date,
       });
       return res.status(201).json({
         success: true,
-        message: 'Request created successfully',
-        data: partydb[partydb.length - 1],
+        message: 'Party created successfully',
+        data: partyDb[partyDb.length - 1],
       });
     }
     return res.status(400).json({
@@ -50,13 +51,13 @@ export default class partyController {
  * @returns {obj} success message
  */
   static getAllParty(req, res) {
-    if (partydb.length !== 0) {
+    if (partyDb.length !== 0) {
       if (!req.query.sort) {
         res.status(200);
         res.json({
           success: true,
-          message: 'Successfully Retrieved parties',
-          data: partydb,
+          message: 'Parties fetched successfully',
+          data: partyDb,
         });
       }
     } else {
@@ -76,11 +77,11 @@ export default class partyController {
      */
   static getSingleParty(req, res) {
     const index = parseInt(req.params.id, 10);
-    const findParty = partydb.find(party => party.id === index);
+    const findParty = partyDb.find(party => party.id === index);
     if (findParty) {
       return res.status(200).json({
         success: true,
-        message: 'Successfully Retrieved Party',
+        message: 'Party fetched successfully',
         data: findParty,
       });
     }
@@ -99,18 +100,18 @@ export default class partyController {
   static updatePartyName(req, res) {
     const { name } = req.body;
     const index = parseInt(req.params.id, 10);
-    const findparty = partydb.find(party => party.id === index);
+    const findparty = partyDb.find(party => party.id === index);
     if (findparty) {
       Object.assign(findparty, { name });
       return res.status(200).json({
         success: true,
-        message: `Party with id ${index} successfully updated`,
+        message: 'Party updated successfully',
         data: findparty,
       });
     }
     return res.status(400).json({
       success: false,
-      message: `Party with id ${index} does not exist`,
+      message: 'Party does not exist',
     });
   } // Method to Update party name ends
 
@@ -122,21 +123,20 @@ export default class partyController {
  */
   static deleteParty(req, res) {
     const index = parseInt(req.params.id, 10);
-    const findParty = partydb.find(party => party.id === index);
+    const findParty = partyDb.find(party => party.id === index);
     if (findParty) {
-      const newPartyList = partydb.filter(party => party.id !== index);
-      partydb = newPartyList;
+      const newPartyList = partyDb.filter(party => party.id !== index);
+      partyDb = newPartyList;
       res.status(200);
       res.json({
         success: true,
         message: 'Party successfully deleted',
-        data: partydb,
       });
     } else {
       res.status(400);
       res.json({
         success: false,
-        message: `Party with id ${index} does not exist`,
+        message: 'Party does not exist',
       });
     }
   }
