@@ -1,10 +1,10 @@
-import checkItem from '../helpers/checkinput';
+import checkItem from '../helpers/checkInput';
 
 /**
  * Validate Request POST and GET req
  * @class Validation
  */
-export default class assetValidation {
+export default class AssetValidation {
   /**
      *  @description validate party inputs on create and update operations
      * @memberof assetValidation

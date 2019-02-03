@@ -40,7 +40,7 @@ a {
 
 #reset {
     margin-top: 6.2rem;
-    margin-bottom: 6.5rem;
+    margin-bottom: 4rem;
 }
 
 /*-- end reset --*/
@@ -148,8 +148,9 @@ Nav Styles Begin
     top: 0;
     left: 0;
     background: rgb(25, 255, 121);
-    width: 80%;
-    height: 100vh;
+    width: 60%;
+    /* height: 100vh; */
+    margin-top: 73px;
 }
 
 .mobile-nav__items {
@@ -197,6 +198,11 @@ Nav Styles Begin
 /*Mobile Nav Ends*/
 
 /*Main Area Styles*/
+.wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
 
 .sitewrapp {
     display: grid;
@@ -221,13 +227,12 @@ Nav Styles Begin
     text-decoration: none;
     text-transform: uppercase;
     padding: 0;
-    margin: 5rem 5rem 0 5rem;
-    width: 30rem;
+    margin: 5rem 9rem 0 10rem;
+    width: 20rem;
     height: 4rem;
     display: flex;
     justify-content: center;
     text-align: center;
-    color: #fffffa;
     z-index: 1;
 }
 
@@ -407,7 +412,7 @@ Nav Styles Begin
     font-size: 1rem;
     font-weight: bold;
     text-decoration: none;
-    padding: 0.5rem 0.5rem;
+    padding: 0.2rem 0.1rem;
     border-radius: 8px;
     margin: 10rem 15rem 12rem 15rem;
     width: 10rem;
@@ -416,6 +421,9 @@ Nav Styles Begin
     justify-content: center;
     border: 3px solid #2ddf5c;
     color: #fffffa;
+}
+.page_button {
+    z-index: 1;
 }
 
 .page_button a:active, .page_button a:hover {
@@ -553,6 +561,7 @@ button.btn-remove {
     position: fixed;
     height: 100%;
     overflow: auto;
+    z-index: 0;
 }
 
 .profile-table {
@@ -573,6 +582,7 @@ button.btn-remove {
 
 div.main-table {
   overflow-x: auto!important;
+  margin-bottom: 4rem;
 }
 
 table.main-table {
@@ -600,6 +610,10 @@ tr:nth-child(odd) {
   background-color: rgba(6, 107, 32, 0.86);
   color: #c7c5c5;
 }
+.table-icon{
+    color: #212121;
+}
+
 /*Table End*/
 
 /*  Modal  */
@@ -664,14 +678,23 @@ height: 2em;
 
 /*Forms*/
 
-.form-title, .page-title {
+.page-title {
     margin-top: 5rem;
     font-size: 1em;
     text-align: center;
     color: #2ddf5c;
     text-transform: capitalize;
     letter-spacing: 4px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+.form-title{
+    margin-top: 5rem;
+    font-size: 2em;
+    text-align: center;
+    color: #2ddf5c;
+    text-transform: capitalize;
+    letter-spacing: 4px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .main-layouts {
@@ -693,6 +716,10 @@ height: 2em;
 
 #login-info {
     margin-bottom: 6.3rem;
+}
+
+#password-reset {
+    margin-bottom: 9rem;
 }
 
 .tag {
@@ -719,7 +746,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="fil
     background-position: -800px 0;
     background-size: 100%;
     background-repeat: no-repeat;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: auto;
 }
 
@@ -755,7 +782,8 @@ textarea {
     background-size: 100%;
     background-repeat: no-repeat;
     color: #000;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 0.8rem;
 }
 
 input.email, input.text.password, input.text, select.text {
@@ -847,11 +875,6 @@ input[type="submit"]:hover {
 
 /*Form Wrapper*/
 
-.wrapper {
-    position: relative;
-    overflow: hidden;
-}
-
 /** Forms end**/
 
 
@@ -900,7 +923,7 @@ input[type="submit"]:hover {
 }
 .section1 .col2.first span {
 	position: absolute;
-    right: 15px;
+    right: 2px;
     top: 16px;
     background: #76b852;
     padding: 5px 11px;
@@ -977,6 +1000,42 @@ input[type="submit"]:hover {
 .row2tab li i {
         margin-right: 3px;
     font-size: 14px;
+}
+
+.dropdown {
+	margin: 0px;
+	padding: 0px;
+    list-style: none;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+  }
+
+.dropdown li {
+    float: right;
+	width: 100px;
+	height: 20px;
+	background-color: #76b852;
+	opacity: .8;
+	line-height: 10px;
+	text-align: center;
+    font-size: 10px;
+}
+.dropdown li a {
+    text-decoration: none;
+	color: black;
+    display: block;
+}
+.dropdown li a:hover {
+    background-color: #9b0619;
+}
+.row2tab li i .dropdown li {
+	display: none;
+}
+
+.row2tab li i:hover .dropdown li {
+    display: block;
 }
 
 .smalltri {
@@ -1065,6 +1124,15 @@ section.section2 {
     .main-nav {
         display: flex;
     }
+    .shade {
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 100%;
+        margin: 0;
+        top: 0;
+        position: fixed;
+        height: 90%;
+        overflow: auto;
+    }
     .welcome-text {
         color: #FFFFFF;
         font-size: 2em;
@@ -1098,6 +1166,7 @@ section.section2 {
         border: 2px solid #2ddf5c;
         color: #fffffa;
     }
+    
     .footer-link {
         display: inline-block;
         margin: 0 1rem;
@@ -1115,7 +1184,29 @@ section.section2 {
         font-weight: 10rem;
         text-transform: capitalize;
         letter-spacing: 4px;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .page-title {
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+        font-size: 1em;
+        text-align: center;
+        color: #2ddf5c;
+        font-weight: 10rem;
+        text-transform: capitalize;
+        letter-spacing: 4px;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .form-title {
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+        font-size: 2em;
+        text-align: center;
+        color: #2ddf5c;
+        font-weight: 10rem;
+        text-transform: capitalize;
+        letter-spacing: 4px;
+        font-family: 'Montserrat', sans-serif;
     }
     
 table.main-table {
@@ -1298,6 +1389,7 @@ table.main-table {
     }
     input.email, input.text.password {
         margin: 1.5em 0;
+        margin-left: 0.9em;
     }
     input[type="submit"] {
         margin: 2em 0;

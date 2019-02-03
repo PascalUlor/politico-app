@@ -4,11 +4,11 @@
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../../app';
-import testdb from '../models/testdb';
+import testDb from '../models/testDb';
 
 const { expect } = chai;
 
-const { officedb } = testdb;
+const { officeDb } = testDb;
 
 const request = supertest(app);
 
@@ -18,7 +18,7 @@ const invalidID = 50;
 
 
 describe('All test cases for POSTing an office', () => {
-  describe('Negative test cases for posting a request', () => {
+  describe('Negative test cases for posting an office', () => {
     it('should return `400` status code with for undefined requests', (done) => {
       request.post(url)
         .set('Content-Type', 'application/json')
@@ -80,7 +80,9 @@ describe('All test cases for POSTing an office', () => {
         .end((err, res) => {
           expect(res.body.success).to.eql(true);
           expect(res.body.message).to.eql('Office created successfully');
-          expect(res.body.data).to.eql(`${officedb[officedb.length - 1]}`);
+          expect(res.body.data).to.have.property('id').eql(officeDb[officeDb.length - 1].id);
+          expect(res.body.data).to.have.property('name').eql(officeDb[officeDb.length - 1].name);
+          expect(res.body.data).to.have.property('type').eql(officeDb[officeDb.length - 1].type);
           done();
         });
     });
@@ -90,13 +92,37 @@ describe('All test cases for POSTing an office', () => {
 
 describe('test cases to Get request for logged in user', () => {
   it('should return `200` status code with `res.body` success message', (done) => {
-    request.get(`${url}`)
+    request.get(url)
       .set('Content-Type', 'application/json')
       .send({})
       .expect(200)
       .end((err, res) => {
         expect(res.body.success).to.equal(true);
-        expect(res.body.message).to.equal('Successfully Retrieved offices');
+        expect(res.body.message).to.equal('Offices fetched successfully');
+        done();
+      });
+  });
+
+  it('should return `200` status code with `res.body` success message for single party', (done) => {
+    request.get(`${url}${2}`)
+      .set('Content-Type', 'application/json')
+      .send({})
+      .expect(200)
+      .end((err, res) => {
+        expect(res.body.success).to.equal(true);
+        expect(res.body.message).to.equal('Office fetched successfully');
+        done();
+      });
+  });
+
+  it('should return `400` status code with `res.body` message for invalid party id', (done) => {
+    request.get(`${url}${invalidID}`)
+      .set('Content-Type', 'application/json')
+      .send({})
+      .expect(200)
+      .end((err, res) => {
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('Office does not exist');
         done();
       });
   });

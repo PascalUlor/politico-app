@@ -4,11 +4,11 @@
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../../app';
-import testdb from '../models/testdb';
+import testDb from '../models/testDb';
 
 const { expect } = chai;
 
-const { partydb } = testdb;
+const { partyDb } = testDb;
 
 const request = supertest(app);
 
@@ -75,7 +75,7 @@ describe('Test Case For Invalid Routes', () => {
   });
 });
 
-describe('All test cases for POSTing a new request', () => {
+describe('All test cases for POSTing a new party', () => {
   describe('Negative test cases for posting a request', () => {
     it('should return `400` status code with for undefined requests', (done) => {
       request.post(url)
@@ -175,10 +175,10 @@ describe('All test cases for POSTing a new request', () => {
         .expect(201)
         .end((err, res) => {
           expect(res.body.success).to.eql(true);
-          expect(res.body.message).to.eql('Request created successfully');
-          expect(res.body.data).to.have.property('id').eql(partydb[partydb.length - 1].id);
-          expect(res.body.data).to.have.property('name').eql(partydb[partydb.length - 1].name);
-          expect(res.body.data).to.have.property('phonenumber').eql(partydb[partydb.length - 1].phonenumber);
+          expect(res.body.message).to.eql('Party created successfully');
+          expect(res.body.data).to.have.property('id').eql(partyDb[partyDb.length - 1].id);
+          expect(res.body.data).to.have.property('name').eql(partyDb[partyDb.length - 1].name);
+          expect(res.body.data).to.have.property('phonenumber').eql(partyDb[partyDb.length - 1].phonenumber);
           done();
         });
     });
@@ -186,14 +186,14 @@ describe('All test cases for POSTing a new request', () => {
 });// End of Add request test
 
 describe('All test cases for updating a users request', () => {
-  it('should return an error message for an invalid request id', (done) => {
+  it('should return an error message for an invalid party id', (done) => {
     request.patch(`${url}${invalidID}/name`)
       .set('Content-Type', 'application/json')
       .send({ name: 'MDP' })
       .expect(404)
       .end((err, res) => {
         expect(res.body).deep.equal({
-          message: `Party with id ${invalidID} does not exist`,
+          message: 'Party does not exist',
           success: false,
         });
         done();
@@ -230,7 +230,7 @@ describe('All test cases for updating a users request', () => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.success).to.eql(true);
-        expect(res.body.message).to.eql(`Party with id ${2} successfully updated`);
+        expect(res.body.message).to.eql('Party updated successfully');
         expect(res.status).to.equal(200);
         done();
       });
@@ -245,7 +245,7 @@ describe('test cases to Get request for logged in user', () => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.success).to.equal(true);
-        expect(res.body.message).to.equal('Successfully Retrieved parties');
+        expect(res.body.message).to.equal('Parties fetched successfully');
         done();
       });
   });
@@ -269,8 +269,8 @@ describe('test cases to Get request for logged in user', () => {
       .send({})
       .expect(200)
       .end((err, res) => {
-        expect(res.body.message).to.equal('Successfully Retrieved Party');
-        expect(res.body.data).to.eql(partydb[2 - 1]);
+        expect(res.body.message).to.equal('Party fetched successfully');
+        expect(res.body.data).to.eql(partyDb[2 - 1]);
         expect(res.status).to.equal(200);
         done();
       });
@@ -286,7 +286,7 @@ describe('Test cases for deleting request', () => {
       .expect(400)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
-        expect(res.body.message).to.equal(`Party with id ${invalidID} does not exist`);
+        expect(res.body.message).to.equal('Party does not exist');
         done();
       });
   });

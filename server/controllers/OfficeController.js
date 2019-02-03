@@ -1,13 +1,13 @@
-import testdb from '../models/testdb';
+import testDb from '../models/testDb';
 
-const { officedb } = testdb;
-const { userdb } = testdb;
+const { officeDb } = testDb;
+const { userDb } = testDb;
 
 /**
  * Class for /api/routes
- * @class officeController
+ * @class OfficeController
  */
-export default class officeController {
+export default class OfficeController {
   /**
        * API method to (POST) create a office
        * @param {obj} req
@@ -20,23 +20,23 @@ export default class officeController {
     } = req.body;
     let newOfficeId;
 
-    if (officedb.length === 0) {
+    if (officeDb.length === 0) {
       newOfficeId = 1;
     } else {
-      newOfficeId = (officedb[officedb.length - 1].id) + 1;
+      newOfficeId = (officeDb[officeDb.length - 1].id) + 1;
     }
     const id = newOfficeId;
     const date = new Date();
 
-    if (parseInt(req.body.userId, 10) === userdb[0].id) {
-      officedb.push({
+    if (parseInt(req.body.userId, 10) === userDb[0].id) {
+      officeDb.push({
         id, name, type, userId, date,
       });
       res.status(201);
       res.json({
         success: true,
         message: 'Office created successfully',
-        data: `${officedb[officedb.length - 1]}`,
+        data: officeDb[officeDb.length - 1],
       });
     } else {
       res.status(400);
@@ -54,13 +54,13 @@ export default class officeController {
  * @returns {obj} success message
  */
   static getAllOffices(req, res) {
-    if (officedb.length !== 0) {
+    if (officeDb.length !== 0) {
       if (!req.query.sort) {
         res.status(200);
         res.json({
           success: true,
-          message: 'Successfully Retrieved offices',
-          data: officedb,
+          message: 'Offices fetched successfully',
+          data: officeDb,
         });
       }
     } else {
@@ -80,17 +80,17 @@ export default class officeController {
      */
   static getSingleOffice(req, res) {
     const index = parseInt(req.params.id, 10);
-    const findOffice = officedb.find(office => office.id === index);
+    const findOffice = officeDb.find(office => office.id === index);
     if (findOffice) {
       return res.status(200).json({
         success: true,
-        message: 'Successfully Retrieved Request',
+        message: 'Office fetched successfully',
         data: findOffice,
       });
     }
     return res.status(400).json({
       success: false,
-      message: 'Request does not exist',
+      message: 'Office does not exist',
     });
   }// getSingleOfficet ends
 }

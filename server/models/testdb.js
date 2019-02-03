@@ -1,4 +1,4 @@
-const userdb = [
+const userDb = [
   {
     id: 1,
     firstName: 'Pascal',
@@ -34,10 +34,10 @@ const userdb = [
   },
 ];
 
-const partydb = [
+const partyDb = [
   {
     id: 1,
-    userId: userdb[0].id,
+    userId: userDb[0].id,
     name: 'APP',
     hqAddress: '32 Epic road',
     email: 'app@yahoo.com',
@@ -49,7 +49,7 @@ const partydb = [
   {
     id: 2,
     name: 'PPP',
-    userId: userdb[0].id,
+    userId: userDb[0].id,
     hqAddress: '1 Issac John road',
     email: 'ppp@yahoo.com',
     phonenumber: '8061234568',
@@ -60,7 +60,7 @@ const partydb = [
   {
     id: 3,
     name: 'JP',
-    userId: userdb[0].id,
+    userId: userDb[0].id,
     hqAddress: '5 Alibab road',
     email: 'jp@yahoo.com',
     phonenumber: '8061234569',
@@ -70,7 +70,7 @@ const partydb = [
   },
 ];
 
-const officedb = [
+const officeDb = [
   {
     id: 1,
     type: 'Federal',
@@ -91,6 +91,6 @@ const officedb = [
   },
 ];
 
-const testdb = { partydb, userdb, officedb };
+const testDb = { partyDb, userDb, officeDb };
 
-export default testdb;
+export default testDb;
