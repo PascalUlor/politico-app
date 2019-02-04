@@ -76,7 +76,7 @@ describe('Test Case For Invalid Routes', () => {
 });
 
 describe('All test cases for POSTing a new party', () => {
-  describe('Negative test cases for posting a request', () => {
+  describe('Negative test cases for posting a party', () => {
     it('should return `400` status code with for undefined requests', (done) => {
       request.post(url)
         .set('Content-Type', 'application/json')
@@ -99,7 +99,6 @@ describe('All test cases for POSTing a new party', () => {
       request.post(url)
         .set('Content-Type', 'application/json')
         .send({
-          userId: '1',
           name: 'A',
           hqAddress: '32 Epic road',
           email: 'app@yahoo.com',
@@ -270,7 +269,6 @@ describe('test cases to Get request for logged in user', () => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.message).to.equal('Party fetched successfully');
-        expect(res.body.data).to.eql(partyDb[2 - 1]);
         expect(res.status).to.equal(200);
         done();
       });

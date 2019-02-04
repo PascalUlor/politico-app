@@ -37,13 +37,11 @@ describe('All test cases for POSTing an office', () => {
       request.post(url)
         .set('Content-Type', 'application/json')
         .send({
-          userId: 'string',
           name: 'A23',
           type: 'ap2',
         })
         .expect(400)
         .end((err, res) => {
-          expect(res.body).to.have.property('userId').eql('Invalid userId');
           expect(res.body).to.have.property('type').eql('type can only be alphabetical');
           expect(res.body).to.have.property('name').eql('name can only be alphabetical');
           done();
