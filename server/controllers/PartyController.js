@@ -98,20 +98,23 @@ export default class PartyController {
  */
   static updatePartyName(req, res) {
     const { name } = req.body;
-    const index = parseInt(req.params.id, 10);
-    const findparty = partyDb.find(party => party.id === index);
-    if (findparty) {
-      Object.assign(findparty, { name });
-      return res.status(200).json({
-        success: true,
-        message: 'Party updated successfully',
-        data: findparty,
-      });
-    }
-    return res.status(400).json({
-      success: false,
-      message: 'Party does not exist',
-    });
+    const { userId } = req.decoded;
+    const id = parseInt(req.params.id, 10);
+    const checkId = 'SELECT * FROM parties WHERE id = $1 LIMIT 1;';
+    const value = [id];
+    const userQuery = 'UPDATE parties SET name = $1 WHERE id = $2 RETURNING *';
+    const params = [name, id];
+    databaseConnection.query(checkId, value)
+      .then((result) => {
+        if (!result.rows[0]) {
+          return requestHelper.error(res, 400, 'Party does not exist');
+        } if (userId !== result.rows[0].userid) {
+          return requestHelper.error(res, 400, 'Access Denied. You are not authorized');
+        }
+        return databaseConnection.query(userQuery, params)
+          .then(update => requestHelper.success(res, 200, 'Party updated successfully', update.rows[0]))
+          .catch(error => requestHelper.error(res, 500, error.toString()));
+      }).catch(error => requestHelper.error(res, 500, error.toString()));
   } // Method to Update party name ends
 
   /**

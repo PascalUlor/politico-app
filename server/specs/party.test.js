@@ -182,12 +182,12 @@ describe('All test cases for POSTing a new party', () => {
 describe('All test cases for updating a users request', () => {
   it('should return an error message for an invalid party id', (done) => {
     request.patch(`${url}${invalidID}/name`)
-      .set('Content-Type', 'application/json')
+      .set('x-access-token', userToken.token)
       .send({ name: 'MDP' })
       .expect(404)
       .end((err, res) => {
         expect(res.body).deep.equal({
-          message: 'Party does not exist',
+          errors: 'Party does not exist',
           success: false,
         });
         done();
@@ -196,7 +196,7 @@ describe('All test cases for updating a users request', () => {
 
   it('should return a `422` status code with error messages for undefined inputs', (done) => {
     request.patch(`${url}${2}/name`)
-      .set('Content-Type', 'application/json')
+      .set('x-access-token', userToken.token)
       .send({ name: '' })
       .expect(422)
       .end((err, res) => {
@@ -207,7 +207,7 @@ describe('All test cases for updating a users request', () => {
   });
   it('should return `400` if update data is invalid', (done) => {
     request.patch(`${url}${2}/name`)
-      .set('Content-Type', 'application/json')
+      .set('x-access-token', userToken.token)
       .send({ name: '9' })
       .expect(400)
       .end((err, res) => {
@@ -219,7 +219,7 @@ describe('All test cases for updating a users request', () => {
 
   it('should return `200` a success message for successfull update', (done) => {
     request.patch(`${url}${2}/name`)
-      .set('Content-Type', 'application/json')
+      .set('x-access-token', userToken.token)
       .send({ name: 'gunit' })
       .expect(200)
       .end((err, res) => {

@@ -13,7 +13,7 @@ router.route('/parties')
   .post(AuthenticateToken, validation.createAssetValidation, PartyController.createParty);
 
 router.route('/parties/:id/name')
-  .patch(validation.updateAssetValidation, PartyController.updatePartyName);
+  .patch(AuthenticateToken, validation.updateAssetValidation, PartyController.updatePartyName);
 
 router.route('/parties/:id')
   .delete(PartyController.deleteParty)
