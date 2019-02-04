@@ -57,18 +57,21 @@ INSERT INTO offices (name, userId, type)
   VALUES ('President', 1, 'Federal');
 
 CREATE TABLE candidates (
-    id SERIAL primary key,
+    id SERIAL,
     candidate int references users(id),
     party int references parties(id),
     office int references offices(id),
-    createdOn TIMESTAMP NOT NULL DEFAULT NOW()
+    createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (candidate, office)
 );
 
 CREATE TABLE votes (
-    id SERIAL primary key,
+    id SERIAL,
+    voter int references users(id),
     office int references offices(id),
-    candidate int references candidates(id),
-    createdOn TIMESTAMP NOT NULL DEFAULT NOW()
+    candidate int references users(id),
+    createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (voter, office)
 );
   `;
 
