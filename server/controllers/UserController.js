@@ -35,4 +35,34 @@ export default class UserController {
         ))).catch(error => requestHelper.error(res, 500, error.message));
     });
   }
+
+  /**
+       * API method for user login
+       * @param {obj} req
+       * @param {obj} res
+       * @returns {obj} success message
+       */
+  static userLogin(req, res) {
+    const { email, password } = req.body;
+    const errors = { form: 'Invalid email or password' };
+    const userQuery = 'SELECT * FROM users WHERE email = $1 LIMIT 1;';
+    const params = [email];
+    databaseConnection.query(userQuery, params)
+      .then((result) => {
+        if (result.rows[0]) {
+          const getPassword = bcrypt.compareSync(password, result.rows[0].password);
+          if (getPassword) {
+            return createToken(res, 200, 'User login Successfull', result);
+          }
+          return res.status(401).json({
+            succes: false,
+            errors,
+          });
+        }
+        return res.status(401).json({
+          success: false,
+          errors,
+        });
+      }).catch(error => requestHelper.error(res, 500, error.message));
+  }
 }
