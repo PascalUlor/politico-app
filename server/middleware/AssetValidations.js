@@ -21,11 +21,11 @@ export default class AssetValidation {
 
     if (dbase === 'parties') {
       const {
-        name, hqAddress, email, phonenumber, about, logoUrl, userId,
+        name, hqAddress, email, phonenumber, about, logoUrl,
       } = req.body;
 
       const check = checkItem({
-        name, hqAddress, email, phonenumber, about, logoUrl, userId,
+        name, hqAddress, email, phonenumber, about, logoUrl,
       });
 
       if (Object.keys(check).length > 0) {

@@ -4,12 +4,13 @@ import validation from '../middleware/AssetValidations';
 import OfficeController from '../controllers/OfficeController';
 import userController from '../controllers/UserController';
 import verify from '../middleware/UserValidation';
+import AuthenticateToken from '../middleware/AuthenticateToken';
 
 const router = express.Router();
 
 router.route('/parties')
   .get(PartyController.getAllParty)
-  .post(validation.createAssetValidation, PartyController.createParty);
+  .post(AuthenticateToken, validation.createAssetValidation, PartyController.createParty);
 
 router.route('/parties/:id/name')
   .patch(validation.updateAssetValidation, PartyController.updatePartyName);
