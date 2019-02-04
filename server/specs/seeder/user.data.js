@@ -52,7 +52,7 @@ export default {
   },
   userOneLogin: { email: 'banner@yahoo.com', password: 'bruce banner' },
   userTwoLogin: { email: 'mk@yahoo.com', password: 'ulor mike' },
-  adminLogin: { email: 'pascal@andela.com', password: '12345' },
+  adminLogin: { email: 'pascal@andela.com', password: 'andela' },
   emptyLoginData: { email: '', password: '' },
   noEmail: { email: '', password: 'bruce banner' },
   noPassword: { email: 'mk@yahoo.com', password: '' },
