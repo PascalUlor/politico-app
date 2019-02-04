@@ -1,8 +1,14 @@
-import testDb from '../models/testDb';
+import dotenv from 'dotenv';
+import testDb from '../models/testdb';
+import databaseQuery from '../models/databaseConnection';
+import requestHelper from '../helpers/requestHelper';
+import Seed from '../models/Seed';
 
+dotenv.config();
 
+const { databaseConnection } = databaseQuery;
 let { partyDb } = testDb;
-const { userDb } = testDb;
+
 /**
  * Class for /api/routes
  * @class partyController
@@ -16,32 +22,24 @@ export default class PartyController {
        */
   static createParty(req, res) {
     const {
-      name, hqAddress, email, phonenumber, about, logoUrl, userId,
+      name, hqAddress, email, phonenumber, about, logoUrl,
     } = req.body;
-    let newPartyId;
-
-    if (partyDb.length === 0) {
-      newPartyId = 1;
-    } else {
-      newPartyId = (partyDb[partyDb.length - 1].id) + 1;
-    }
-    const id = newPartyId;
-    const date = new Date();
-
-    if (parseInt(req.body.userId, 10) === userDb[0].id) {
-      partyDb.push({
-        id, name, hqAddress, email, phonenumber, about, logoUrl, userId, date,
-      });
-      return res.status(201).json({
-        success: true,
-        message: 'Party created successfully',
-        data: partyDb[partyDb.length - 1],
-      });
-    }
-    return res.status(400).json({
-      success: false,
-      message: 'You are not authorized to create parties',
-    });
+    const { userId } = req.decoded;
+    const userQuery = Seed.partyQuery;
+    const params = [name, userId, hqAddress, about, email, phonenumber, logoUrl];
+    databaseConnection.query(userQuery, params)
+      .then((result) => {
+        if (result.rows[0].userid === 1) {
+          requestHelper.success(
+            res, 201,
+            'Party created successfully', result.rows[0],
+          );
+        }
+        return res.status(400).json({
+          success: false,
+          message: 'You are not authorized to create parties',
+        });
+      }).catch(error => requestHelper.error(res, 500, error.message));
   }
 
   /**

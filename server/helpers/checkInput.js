@@ -36,11 +36,11 @@ const checkInput = (inputValue) => {
           errors[key] = `Invalid ${key}`;
         }
       }
-      if (key === 'userId') {
-        if (inputValue[key].match(/^\d*$/) === null) {
-          errors[key] = `Invalid ${key}`;
-        }
-      }
+      // if (key === 'userId') {
+      //   if (inputValue[key].match(/^\d*$/) === null) {
+      //     errors[key] = `Invalid ${key}`;
+      //   }
+      // }
 
       if (key === 'name' || key === 'type' || key === 'firstName' || key === 'lastName' || key === 'otherName') {
         if (inputValue[key].search(/[^A-Za-z\s]/) !== -1) {
