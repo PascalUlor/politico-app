@@ -25,22 +25,22 @@ export default class PartyController {
       name, hqAddress, email, phonenumber, about, logoUrl,
     } = req.body;
     const { userId } = req.decoded;
+    const checkId = 'SELECT * FROM users WHERE id = 1 LIMIT 1';
     const userQuery = Seed.partyQuery;
     const params = [name, userId, hqAddress, about, email, phonenumber, logoUrl];
-    databaseConnection.query(userQuery, params)
+    databaseConnection.query(checkId)
+      // eslint-disable-next-line consistent-return
       .then((result) => {
-        if (result.rows[0].userid === 1) {
-          return res.status(201).json({
+        if (userId !== result.rows[0].id) {
+          return requestHelper.error(res, 401, 'Authentication failed. Token is invalid or expired');
+        }
+        return databaseConnection.query(userQuery, params)
+          .then(newParty => res.status(201).json({
             status: 201,
             data: [
-              result.rows[0],
+              newParty.rows[0],
             ],
-          });
-        }
-        return res.status(400).json({
-          success: false,
-          message: 'You are not authorized to create parties',
-        });
+          })).catch(error => requestHelper.error(res, 500, error.message));
       }).catch(error => requestHelper.error(res, 500, error.message));
   }
 
@@ -55,7 +55,6 @@ export default class PartyController {
     databaseConnection.query(userQuery)
       .then((result) => {
         if (result.rows.length > 0) {
-          // return requestHelper.success(res, 200, 'Parties fetched successfully', [result.rows]);
           return res.status(200).json({
             status: 200,
             data: [
@@ -74,19 +73,21 @@ export default class PartyController {
      * @returns {obj} success message
      */
   static getSingleParty(req, res) {
-    const index = parseInt(req.params.id, 10);
-    const findParty = partyDb.find(party => party.id === index);
-    if (findParty) {
-      return res.status(200).json({
-        success: true,
-        message: 'Party fetched successfully',
-        data: findParty,
-      });
-    }
-    return res.status(400).json({
-      success: false,
-      message: 'Party does not exist',
-    });
+    const id = parseInt(req.params.id, 10);
+    const userQuery = 'SELECT * FROM parties WHERE id = $1 LIMIT 1;';
+    const value = [id];
+    databaseConnection.query(userQuery, value)
+      .then((result) => {
+        if (result.rows[0]) {
+          return res.status(200).json({
+            status: 200,
+            data: [
+              result.rows[0],
+            ],
+          });
+        }
+        return requestHelper.error(res, 400, 'Party does not exist');
+      }).catch(error => requestHelper.error(res, 500, error.toString()));
   }// getSingleParty ends
 
   /**

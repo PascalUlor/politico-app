@@ -35,17 +35,28 @@ while building trust in the process through transparency.
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
+
 ### Prerequisites
 
 To get started with this project you need a basic knowledge of :
 
 ```
 Javascript (ES6)
+NodeJs
+SQL (Postgres)
+Version Control (Git)
 ```
 
 ### Installation
-To be made available soon
+The follwing instructions will install the project on your local machine
 
+```
+1. Install [**Node JS**](https://nodejs.org/en/).
+2. Install [**Postgres**](https://www.postgresql.org/) .
+3. Clone the [**repository here**](https://github.com/PascalUlor/politico-app.git)
+4. [**cd**] into the root directory of the project.
+5. Run `npm install` on the terminal to install Dependecies and Dev-Dependecies
+```
 
 ## Technology Stack
 **UI & Templates**
@@ -53,29 +64,42 @@ To be made available soon
 2. Javascript
 
 **Server Side**
+1. NodeJS
+2. Express
 
 **Client Side**
 1. Javascript
 
 ### Dependencies
+* Postgres
+* Node
 
 
 ## Features
 The user interface is built for easy navigation and use of the application. It includes the following:
 
+1. The users should be able to vote.
+3. Users can create an account and log in.
+2. The users should be able to register as candidate.
+4. The admin should be able to view all users
+5. The user can view election result
 
 ### Authentication
-To be made available soon
+
+- It uses JSON Web Token (JWT) for authentication.
+- Token is generated on user login
+- Token is perpetually verified to check the state of the user if logged in or not.
+- Admin User will be pre-seeded into the application with administrative priviledges
 
 
 ## Deployment
-[Heroku Deploy](https://the-politico.herokuapp.com/)
+This Application will be deployed on [Heroku Deploy](https://the-politico.herokuapp.com/)
 
 ## Useful Links
 
-
 1. [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2238882)
 2. [Github Repo](https://github.com/PascalUlor/politico-app)
+3. [GH-PAGES](https://pascalulor.github.io/politico-app/)
 
 
 ## Acknowledgment

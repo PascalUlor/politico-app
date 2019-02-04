@@ -55,7 +55,7 @@ export default class UserController {
             return createToken(res, 200, 'User login Successfull', result);
           }
           return res.status(401).json({
-            succes: false,
+            success: false,
             errors,
           });
         }

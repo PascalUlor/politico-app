@@ -138,7 +138,7 @@ describe('All Test cases for user login', () => {
   it('Should return `200` for authenticated user details', (done) => {
     request.post('/api/v1/auth/login')
       .set('Content-Type', 'application/json')
-      .send(inputs.userOneLogin)
+      .send(inputs.adminLogin)
       .end((err, res) => {
         userToken.token = res.body.token;
         expect(res.body).to.haveOwnProperty('token');

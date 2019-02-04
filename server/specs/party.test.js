@@ -1,16 +1,19 @@
 /**
- * Test for dummy data API endpoints
+ * Test for API endpoints
  */
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../../app';
 import testDb from '../models/testDb';
+import data from './seeder/user.data';
+import inputs from './seeder/party.data';
+import userToken, { wrongToken } from './user.test';
+
+const user2Token = { token: null };
 
 const { expect } = chai;
-
-const { partyDb } = testDb;
-
 const request = supertest(app);
+const { partyDb } = testDb;
 
 const url = '/api/v1/parties/';
 
@@ -76,111 +79,103 @@ describe('Test Case For Invalid Routes', () => {
 });
 
 describe('All test cases for POSTing a new party', () => {
-  describe('Negative test cases for posting a party', () => {
-    it('should return `400` status code with for undefined requests', (done) => {
-      request.post(url)
-        .set('Content-Type', 'application/json')
-        .send({}) // request body not defined
-        .expect(422)
-        .end((err, res) => {
-          expect(res.body.name).to.eql('name field is undefined');
-          expect(res.body.email).to.eql('email field is undefined');
-          expect(res.body.hqAddress).to.eql('hqAddress field is undefined');
-          expect(res.body.phonenumber).to.eql('phonenumber field is undefined');
-          expect(res.body.about).to.eql('about field is undefined');
-          expect(res.body.logoUrl).to.eql('logoUrl field is undefined');
-          expect(res.body.userId).to.eql('userId field is undefined');
-          expect(res.status).to.equal(400);
-          done();
-        });
-    });
-
-    it('should return `400` status code with error messages for about less than 20 character', (done) => {
-      request.post(url)
-        .set('Content-Type', 'application/json')
-        .send({
-          name: 'A',
-          hqAddress: '32 Epic road',
-          email: 'app@yahoo.com',
-          phonenumber: '08061234567',
-          about: 'Th',
-          logoUrl: 'app.jpg',
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('about').eql('about field must be between 20 to 1000 characters');
-          expect(res.body).to.have.property('name').eql('name must be between 3 to 50 characters');
-          done();
-        });
-    });
-    it('should return `400` status code with error messages if input is invalid', (done) => {
-      request.post(url)
-        .set('Content-Type', 'application/json')
-        .send({
-          userId: 'string',
-          name: 'A23',
-          hqAddress: '--',
-          email: 'app',
-          phonenumber: 'w234567',
-          about: 'Th',
-          logoUrl: 'app',
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('userId').eql('Invalid userId');
-          expect(res.body).to.have.property('hqAddress').eql('Invalid hqAddress');
-          expect(res.body).to.have.property('phonenumber').eql('Invalid phonenumber');
-          expect(res.body).to.have.property('logoUrl').eql('Invalid logoUrl');
-          expect(res.body).to.have.property('email').eql('Invalid email');
-          expect(res.body).to.have.property('name').eql('name can only be alphabetical');
-          done();
-        });
-    });
-
-    it('should return `400` status code with error messages if userId !== 1', (done) => {
-      request.post(url)
-        .set('Content-Type', 'application/json')
-        .send({
-          userId: '2',
-          name: 'APP',
-          hqAddress: '32 Epic road',
-          email: 'app@yahoo.com',
-          phonenumber: '8061234567',
-          about: 'This is a demo party for my project',
-          logoUrl: 'app.jpg',
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body.success).to.eql(false);
-          expect(res.body.message).to.eql('You are not authorized to create parties');
-          done();
-        });
-    });
+  it('Should return `200` status code for authenticated user login', (done) => {
+    request.post('/api/v1/auth/login')
+      .set('Content-Type', 'application/json')
+      .send(data.userTwoLogin)
+      .end((err, res) => {
+        user2Token.token = res.body.token;
+        expect(res.body).to.haveOwnProperty('token');
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
+  it('should return `400` status code with for undefined requests', (done) => {
+    request.post(url)
+      .set('x-access-token', userToken.token)
+      .send({}) // request body not defined
+      .expect(422)
+      .end((err, res) => {
+        expect(res.body.name).to.eql('name field is undefined');
+        expect(res.body.email).to.eql('email field is undefined');
+        expect(res.body.hqAddress).to.eql('hqAddress field is undefined');
+        expect(res.body.phonenumber).to.eql('phonenumber field is undefined');
+        expect(res.body.about).to.eql('about field is undefined');
+        expect(res.body.logoUrl).to.eql('logoUrl field is undefined');
+        expect(res.status).to.equal(400);
+        done();
+      });
   });
 
-  describe('Positive test case for adding a party', () => {
-    it('should return `201` status code with success messages for successfull post', (done) => {
-      request.post(url)
-        .set('Content-Type', 'application/json')
-        .send({
-          userId: '1',
-          name: 'APP',
-          hqAddress: '32 Epic road',
-          email: 'app@yahoo.com',
-          phonenumber: '8061234567',
-          about: 'This is a demo party for my project',
-          logoUrl: 'app.jpg',
-        })
-        .expect(201)
-        .end((err, res) => {
-          expect(res.body.success).to.eql(true);
-          expect(res.body.message).to.eql('Party created successfully');
-          expect(res.body.data).to.have.property('id').eql(partyDb[partyDb.length - 1].id);
-          expect(res.body.data).to.have.property('name').eql(partyDb[partyDb.length - 1].name);
-          expect(res.body.data).to.have.property('phonenumber').eql(partyDb[partyDb.length - 1].phonenumber);
-          done();
-        });
-    });
+  it('should return `400` status code with error messages for about less than 20 character', (done) => {
+    request.post(url)
+      .set('x-access-token', userToken.token)
+      .send({
+        name: 'A',
+        hqAddress: '32 Epic road',
+        email: 'app@yahoo.com',
+        phonenumber: '08061234567',
+        about: 'Th',
+        logoUrl: 'app.jpg',
+      })
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).to.have.property('about').eql('about field must be between 20 to 1000 characters');
+        expect(res.body).to.have.property('name').eql('name must be between 3 to 50 characters');
+        done();
+      });
+  });
+  it('should return `400` status code with error messages if input is invalid', (done) => {
+    request.post(url)
+      .set('x-access-token', userToken.token)
+      .send(inputs.invalidData)
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body).to.have.property('hqAddress').eql('Invalid hqAddress');
+        expect(res.body).to.have.property('phonenumber').eql('Invalid phonenumber');
+        expect(res.body).to.have.property('logoUrl').eql('Invalid logoUrl');
+        expect(res.body).to.have.property('email').eql('Invalid email');
+        expect(res.body).to.have.property('name').eql('name can only be alphabetical');
+        done();
+      });
+  });
+
+  it('should return `400` status code with error messages for none admin users', (done) => {
+    request.post(url)
+      .set('x-access-token', user2Token.token)
+      .send({
+        name: 'APP',
+        hqAddress: '32 Epic road',
+        email: 'app@yahoo.com',
+        phonenumber: '8061234567',
+        about: 'This is a demo party for my project',
+        logoUrl: 'app.jpg',
+      })
+      .expect(401)
+      .end((err, res) => {
+        expect(res.body.success).to.eql(false);
+        expect(res.body.errors).to.eql('Authentication failed. Token is invalid or expired');
+        done();
+      });
+  });
+
+  it('should return `201` status code with success messages for successfull post', (done) => {
+    request.post(url)
+      .set('x-access-token', userToken.token)
+      .send({
+        name: 'APP',
+        hqAddress: '32 Epic road',
+        email: 'app@yahoo.com',
+        phonenumber: '8061234567',
+        about: 'This is a demo party for my project',
+        logoUrl: 'app.jpg',
+      })
+      .expect(201)
+      .end((err, res) => {
+        expect(res.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        done();
+      });
   });
 });// End of Add request test
 
@@ -243,8 +238,8 @@ describe('test cases to Get request for logged in user', () => {
       .send({})
       .expect(200)
       .end((err, res) => {
-        expect(res.body.success).to.equal(true);
-        expect(res.body.message).to.equal('Parties fetched successfully');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('data');
         done();
       });
   });
@@ -257,7 +252,7 @@ describe('test cases to Get request for logged in user', () => {
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.success).to.equal(false);
-        expect(res.body.message).to.equal('Party does not exist');
+        expect(res.body.errors).to.equal('Party does not exist');
         done();
       });
   });
@@ -268,8 +263,8 @@ describe('test cases to Get request for logged in user', () => {
       .send({})
       .expect(200)
       .end((err, res) => {
-        expect(res.body.message).to.equal('Party fetched successfully');
         expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('data');
         done();
       });
   });
