@@ -4,16 +4,14 @@
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../../app';
-import testDb from '../models/testDb';
 import data from './seeder/user.data';
 import inputs from './seeder/party.data';
-import userToken, { wrongToken } from './user.test';
+import userToken from './user.test';
 
 const user2Token = { token: null };
 
 const { expect } = chai;
 const request = supertest(app);
-const { partyDb } = testDb;
 
 const url = '/api/v1/parties/';
 
@@ -274,19 +272,19 @@ describe('test cases to Get request for logged in user', () => {
 describe('Test cases for deleting request', () => {
   it('should return an error message (400) for invalid Id', (done) => {
     request.delete(`${url}${invalidID}`)
-      .set('Content-Type', 'application/json')
+      .set('x-access-token', userToken.token)
       .send({})
       .expect(400)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
-        expect(res.body.message).to.equal('Party does not exist');
+        expect(res.body.errors).to.equal('Party does not exist');
         done();
       });
   });
 
   it('should return `200` status code with success message', (done) => {
     request.delete(`${url}${2}`)
-      .set('Content-Type', 'application/json')
+      .set('x-access-token', userToken.token)
       .send({})
       .expect(200)
       .end((err, res) => {

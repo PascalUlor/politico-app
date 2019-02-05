@@ -16,7 +16,7 @@ router.route('/parties/:id/name')
   .patch(AuthenticateToken, validation.updateAssetValidation, PartyController.updatePartyName);
 
 router.route('/parties/:id')
-  .delete(PartyController.deleteParty)
+  .delete(AuthenticateToken, PartyController.deleteParty)
   .get(PartyController.getSingleParty);
 
 router.route('/offices')
