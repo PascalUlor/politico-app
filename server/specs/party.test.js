@@ -294,3 +294,5 @@ describe('Test cases for deleting request', () => {
       });
   });
 });
+
+export default user2Token;
