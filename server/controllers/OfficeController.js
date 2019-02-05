@@ -2,14 +2,11 @@ import dotenv from 'dotenv';
 import databaseQuery from '../models/databaseConnection';
 import requestHelper from '../helpers/requestHelper';
 import Seed from '../models/Seed';
-import testDb from '../models/testDb';
 
 dotenv.config();
 
 const { databaseConnection } = databaseQuery;
 
-
-const { officeDb } = testDb;
 
 /**
  * Class for /api/routes
@@ -53,22 +50,6 @@ export default class OfficeController {
  * @returns {obj} success message
  */
   static getAllOffices(req, res) {
-    // if (officeDb.length !== 0) {
-    //   if (!req.query.sort) {
-    //     res.status(200);
-    //     res.json({
-    //       success: true,
-    //       message: 'Offices fetched successfully',
-    //       data: officeDb,
-    //     });
-    //   }
-    // } else {
-    //   res.status(404);
-    //   res.json({
-    //     success: false,
-    //     message: 'No party',
-    //   });
-    // }
     const userQuery = 'SELECT * FROM offices;';
     databaseConnection.query(userQuery)
       .then((result) => {
@@ -91,19 +72,6 @@ export default class OfficeController {
      * @returns {obj} success message
      */
   static getSingleOffice(req, res) {
-    // const index = parseInt(req.params.id, 10);
-    // const findOffice = officeDb.find(office => office.id === index);
-    // if (findOffice) {
-    //   return res.status(200).json({
-    //     success: true,
-    //     message: 'Office fetched successfully',
-    //     data: findOffice,
-    //   });
-    // }
-    // return res.status(400).json({
-    //   success: false,
-    //   message: 'Office does not exist',
-    // });
     const id = parseInt(req.params.id, 10);
     const userQuery = 'SELECT * FROM offices WHERE id = $1 LIMIT 1;';
     const value = [id];
@@ -119,5 +87,5 @@ export default class OfficeController {
         }
         return requestHelper.error(res, 400, 'Office does not exist');
       }).catch(error => requestHelper.error(res, 500, error.toString()));
-  }// getSingleOfficet ends
+  }// getSingleOffice ends
 }

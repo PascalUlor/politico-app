@@ -1,22 +1,25 @@
 import pg from 'pg';
-import _ from 'lodash';
+import url from 'url';
 import dotenv from 'dotenv';
 import winston from '../config/winston';
 import databaseTable from './databaseTables';
-import config from '../config/config';
 
 dotenv.config();
 
-const defaultENV = config.development;
-const env = process.env.NODE_ENV || 'development';
-const environmentConfig = config[env];
-const connectionString = _.merge(defaultENV, environmentConfig);
+const params = url.parse(process.env.DATABASE_URL);
+const auth = params.auth.split(':');
 
-global.gConfig = connectionString;
+const config = {
+  user: auth[0],
+  password: auth[1],
+  host: params.hostname,
+  port: params.port,
+  database: params.pathname.split('/')[1],
+};
 
 const { Pool } = pg;
 
-const pool = new Pool(connectionString);
+const pool = new Pool(config);
 
 const seed = () => {
   const qry = databaseTable;
