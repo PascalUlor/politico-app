@@ -175,7 +175,7 @@ describe('All test cases for POSTing a new party', () => {
         done();
       });
   });
-});// End of Add request test
+});// End of create party test
 
 describe('All test cases for updating a users request', () => {
   it('should return an error message for an invalid party id', (done) => {
