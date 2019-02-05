@@ -21,7 +21,7 @@ router.route('/parties/:id')
 
 router.route('/offices')
   .get(OfficeController.getAllOffices)
-  .post(validation.createAssetValidation, OfficeController.createOffice);
+  .post(AuthenticateToken, validation.createAssetValidation, OfficeController.createOffice);
 
 router.route('/offices/:id')
   .get(OfficeController.getSingleOffice);

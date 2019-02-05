@@ -1,7 +1,15 @@
+import dotenv from 'dotenv';
+import databaseQuery from '../models/databaseConnection';
+import requestHelper from '../helpers/requestHelper';
+import Seed from '../models/Seed';
 import testDb from '../models/testDb';
 
+dotenv.config();
+
+const { databaseConnection } = databaseQuery;
+
+
 const { officeDb } = testDb;
-const { userDb } = testDb;
 
 /**
  * Class for /api/routes
@@ -16,35 +24,26 @@ export default class OfficeController {
        */
   static createOffice(req, res) {
     const {
-      name, type, userId,
+      name, type,
     } = req.body;
-    let newOfficeId;
-
-    if (officeDb.length === 0) {
-      newOfficeId = 1;
-    } else {
-      newOfficeId = (officeDb[officeDb.length - 1].id) + 1;
-    }
-    const id = newOfficeId;
-    const date = new Date();
-
-    if (parseInt(req.body.userId, 10) === userDb[0].id) {
-      officeDb.push({
-        id, name, type, userId, date,
-      });
-      res.status(201);
-      res.json({
-        success: true,
-        message: 'Office created successfully',
-        data: officeDb[officeDb.length - 1],
-      });
-    } else {
-      res.status(400);
-      res.json({
-        success: false,
-        message: 'You are not authorized to create offices',
-      });
-    }
+    const { userId } = req.decoded;
+    const checkId = 'SELECT * FROM users WHERE id = 1 LIMIT 1';
+    const userQuery = Seed.officeQuery;
+    const params = [name, userId, type];
+    databaseConnection.query(checkId)
+      // eslint-disable-next-line consistent-return
+      .then((result) => {
+        if (userId !== result.rows[0].id) {
+          return requestHelper.error(res, 401, 'Authentication failed. Token is invalid or expired');
+        }
+        return databaseConnection.query(userQuery, params)
+          .then(newOffice => res.status(201).json({
+            status: 201,
+            data: [
+              newOffice.rows[0],
+            ],
+          })).catch(error => requestHelper.error(res, 500, error.message));
+      }).catch(error => requestHelper.error(res, 500, error.message));
   }
 
   /**

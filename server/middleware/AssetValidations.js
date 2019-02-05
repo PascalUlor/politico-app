@@ -33,11 +33,11 @@ export default class AssetValidation {
       } return next();
     }
     const {
-      name, type, userId,
+      name, type,
     } = req.body;
 
     const check = checkItem({
-      name, type, userId,
+      name, type,
     });
 
     if (Object.keys(check).length > 0) {

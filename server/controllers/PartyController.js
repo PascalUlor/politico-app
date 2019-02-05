@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import testDb from '../models/testdb';
 import databaseQuery from '../models/databaseConnection';
 import requestHelper from '../helpers/requestHelper';
 import Seed from '../models/Seed';
@@ -7,7 +6,6 @@ import Seed from '../models/Seed';
 dotenv.config();
 
 const { databaseConnection } = databaseQuery;
-const { partyDb } = testDb;
 
 /**
  * Class for /api/routes
