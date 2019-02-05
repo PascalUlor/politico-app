@@ -91,18 +91,33 @@ export default class OfficeController {
      * @returns {obj} success message
      */
   static getSingleOffice(req, res) {
-    const index = parseInt(req.params.id, 10);
-    const findOffice = officeDb.find(office => office.id === index);
-    if (findOffice) {
-      return res.status(200).json({
-        success: true,
-        message: 'Office fetched successfully',
-        data: findOffice,
-      });
-    }
-    return res.status(400).json({
-      success: false,
-      message: 'Office does not exist',
-    });
+    // const index = parseInt(req.params.id, 10);
+    // const findOffice = officeDb.find(office => office.id === index);
+    // if (findOffice) {
+    //   return res.status(200).json({
+    //     success: true,
+    //     message: 'Office fetched successfully',
+    //     data: findOffice,
+    //   });
+    // }
+    // return res.status(400).json({
+    //   success: false,
+    //   message: 'Office does not exist',
+    // });
+    const id = parseInt(req.params.id, 10);
+    const userQuery = 'SELECT * FROM offices WHERE id = $1 LIMIT 1;';
+    const value = [id];
+    databaseConnection.query(userQuery, value)
+      .then((result) => {
+        if (result.rows[0]) {
+          return res.status(200).json({
+            status: 200,
+            data: [
+              result.rows[0],
+            ],
+          });
+        }
+        return requestHelper.error(res, 400, 'Office does not exist');
+      }).catch(error => requestHelper.error(res, 500, error.toString()));
   }// getSingleOfficet ends
 }

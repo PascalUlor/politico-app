@@ -101,8 +101,8 @@ describe('test cases to Get offices for logged in user', () => {
       .send({})
       .expect(200)
       .end((err, res) => {
-        expect(res.body.success).to.equal(true);
-        expect(res.body.message).to.equal('Office fetched successfully');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('data');
         done();
       });
   });
@@ -114,7 +114,7 @@ describe('test cases to Get offices for logged in user', () => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
-        expect(res.body.message).to.equal('Office does not exist');
+        expect(res.body.errors).to.equal('Office does not exist');
         done();
       });
   });
