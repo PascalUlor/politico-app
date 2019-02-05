@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel-node app.js",
     "start:dev": "nodemon --watch server --exec babel-node -- app.js",
-    "test": "set NODE_ENV=test&&nyc --reporter=lcov --reporter=text mocha --timeout 5000 --exit --compilers js:babel-core/register server/specs/*test.js || true",
+    "test": "nyc --reporter=lcov --reporter=text mocha --timeout 5000 --exit --compilers js:babel-core/register server/specs/*test.js || true",
     "build": "babel server -d server/dist --copy-files --ignore server/dist",
     "postinstall": "npm run build",
     "migrate": "babel-node server/models/databaseConnection",
