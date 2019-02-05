@@ -7,7 +7,7 @@ import Seed from '../models/Seed';
 dotenv.config();
 
 const { databaseConnection } = databaseQuery;
-let { partyDb } = testDb;
+const { partyDb } = testDb;
 
 /**
  * Class for /api/routes
@@ -124,22 +124,21 @@ export default class PartyController {
  * @returns {obj} insert success message
  */
   static deleteParty(req, res) {
-    const index = parseInt(req.params.id, 10);
-    const findParty = partyDb.find(party => party.id === index);
-    if (findParty) {
-      const newPartyList = partyDb.filter(party => party.id !== index);
-      partyDb = newPartyList;
-      res.status(200);
-      res.json({
-        success: true,
-        message: 'Party successfully deleted',
-      });
-    } else {
-      res.status(400);
-      res.json({
-        success: false,
-        message: 'Party does not exist',
-      });
-    }
+    const { userId } = req.decoded;
+    const id = parseInt(req.params.id, 10);
+    const userQuery = 'DELETE FROM parties WHERE id = $1';
+    const checkUser = 'SELECT * FROM parties WHERE id = $1 LIMIT 1;';
+    const value = [id];
+    databaseConnection.query(checkUser, value)
+      .then((result) => {
+        if (!result.rows[0]) {
+          return requestHelper.error(res, 400, 'Party does not exist');
+        } if (userId !== result.rows[0].userid) {
+          return requestHelper.error(res, 400, 'Access Denied. You are not authorized');
+        }
+        return databaseConnection.query(userQuery, value)
+          .then(() => requestHelper.success(res, 200, 'Party successfully deleted'))
+          .catch(error => requestHelper.error(res, 500, error.toString()));
+      }).catch(error => requestHelper.error(res, 500, error.toString()));
   }
 }
