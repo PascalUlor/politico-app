@@ -192,6 +192,20 @@ describe('All test cases for updating a users request', () => {
       });
   });
 
+  it('should return an error message for none admin user', (done) => {
+    request.patch(`${url}${2}/name`)
+      .set('x-access-token', user2Token.token)
+      .send({ name: 'MDP' })
+      .expect(404)
+      .end((err, res) => {
+        expect(res.body).deep.equal({
+          errors: 'Access Denied. You are not authorized',
+          success: false,
+        });
+        done();
+      });
+  });
+
   it('should return a `422` status code with error messages for undefined inputs', (done) => {
     request.patch(`${url}${2}/name`)
       .set('x-access-token', userToken.token)
@@ -278,6 +292,18 @@ describe('Test cases for deleting request', () => {
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
         expect(res.body.errors).to.equal('Party does not exist');
+        done();
+      });
+  });
+
+  it('should return an error message (400) for none admin user', (done) => {
+    request.delete(`${url}${2}`)
+      .set('x-access-token', user2Token.token)
+      .send({})
+      .expect(400)
+      .end((err, res) => {
+        expect(res.body.success).to.equal(false);
+        expect(res.body.errors).to.equal('Access Denied. You are not authorized');
         done();
       });
   });
