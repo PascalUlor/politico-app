@@ -82,15 +82,15 @@ describe('All test cases for POSTing an office', () => {
 });// End of Add request test
 
 
-describe('test cases to Get request for logged in user', () => {
+describe('test cases to Get offices for logged in user', () => {
   it('should return `200` status code with `res.body` success message', (done) => {
     request.get(url)
       .set('Content-Type', 'application/json')
       .send({})
       .expect(200)
       .end((err, res) => {
-        expect(res.body.success).to.equal(true);
-        expect(res.body.message).to.equal('Offices fetched successfully');
+        expect(res.body.status).to.equal(200);
+        expect(res.body).to.have.property('data');
         done();
       });
   });

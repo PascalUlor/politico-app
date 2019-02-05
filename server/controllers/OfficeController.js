@@ -53,22 +53,35 @@ export default class OfficeController {
  * @returns {obj} success message
  */
   static getAllOffices(req, res) {
-    if (officeDb.length !== 0) {
-      if (!req.query.sort) {
-        res.status(200);
-        res.json({
-          success: true,
-          message: 'Offices fetched successfully',
-          data: officeDb,
-        });
-      }
-    } else {
-      res.status(404);
-      res.json({
-        success: false,
-        message: 'No party',
-      });
-    }
+    // if (officeDb.length !== 0) {
+    //   if (!req.query.sort) {
+    //     res.status(200);
+    //     res.json({
+    //       success: true,
+    //       message: 'Offices fetched successfully',
+    //       data: officeDb,
+    //     });
+    //   }
+    // } else {
+    //   res.status(404);
+    //   res.json({
+    //     success: false,
+    //     message: 'No party',
+    //   });
+    // }
+    const userQuery = 'SELECT * FROM offices;';
+    databaseConnection.query(userQuery)
+      .then((result) => {
+        if (result.rows.length > 0) {
+          return res.status(200).json({
+            status: 200,
+            data: [
+              result.rows,
+            ],
+          });
+        }
+        return requestHelper.error(res, 400, 'No Offices');
+      }).catch(error => requestHelper.error(res, 500, error.toString()));
   }
 
   /**
