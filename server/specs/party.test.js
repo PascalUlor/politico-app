@@ -4,11 +4,11 @@
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../../app';
-import data from './seeder/user.data';
 import inputs from './seeder/party.data';
-import userToken from './user.test';
+// import userToken from './user.test';
 
-const user2Token = { token: null };
+const adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImZ1bGxOYW1lIjoiUGFzY2FsIFVsb3IiLCJlbWFpbCI6InBhc2NhbEBhbmRlbGEuY29tIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU0OTQyMTcwNCwiZXhwIjoxNTU0NjA1NzA0fQ.Oeic4DhH0LO6XWso6r8DA4E8TKvyedvPRvSrWXi7wIM';
+const user2Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImZ1bGxOYW1lIjoiQmFycnkgQWxsZW4iLCJlbWFpbCI6ImRwcGFzY2FsQGFuZGVsYS5jb20iLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU0OTQyMTU2NywiZXhwIjoxNTU0NjA1NTY3fQ.b5oG9bQ68sK661cfFsVw-GHeaq0DBBDIAVnsity-3Is';
 
 const { expect } = chai;
 const request = supertest(app);
@@ -77,20 +77,9 @@ describe('Test Case For Invalid Routes', () => {
 });
 
 describe('All test cases for POSTing a new party', () => {
-  it('Should return `200` status code for authenticated user login', (done) => {
-    request.post('/api/v1/auth/login')
-      .set('Content-Type', 'application/json')
-      .send(data.userTwoLogin)
-      .end((err, res) => {
-        user2Token.token = res.body.token;
-        expect(res.body).to.haveOwnProperty('token');
-        expect(res.status).to.equal(200);
-        done();
-      });
-  });
   it('should return `400` status code with for undefined requests', (done) => {
     request.post(url)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({}) // request body not defined
       .expect(422)
       .end((err, res) => {
@@ -107,7 +96,7 @@ describe('All test cases for POSTing a new party', () => {
 
   it('should return `400` status code with error messages for about less than 20 character', (done) => {
     request.post(url)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({
         name: 'A',
         hqAddress: '32 Epic road',
@@ -125,7 +114,7 @@ describe('All test cases for POSTing a new party', () => {
   });
   it('should return `400` status code with error messages if input is invalid', (done) => {
     request.post(url)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send(inputs.invalidData)
       .expect(400)
       .end((err, res) => {
@@ -140,7 +129,7 @@ describe('All test cases for POSTing a new party', () => {
 
   it('should return `400` status code with error messages for none admin users', (done) => {
     request.post(url)
-      .set('x-access-token', user2Token.token)
+      .set('x-access-token', user2Token)
       .send({
         name: 'APP',
         hqAddress: '32 Epic road',
@@ -159,7 +148,7 @@ describe('All test cases for POSTing a new party', () => {
 
   it('should return `201` status code with success messages for successfull post', (done) => {
     request.post(url)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({
         name: 'APP',
         hqAddress: '32 Epic road',
@@ -180,7 +169,7 @@ describe('All test cases for POSTing a new party', () => {
 describe('All test cases for updating a users request', () => {
   it('should return an error message for an invalid party id', (done) => {
     request.patch(`${url}${invalidID}/name`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({ name: 'MDP' })
       .expect(404)
       .end((err, res) => {
@@ -194,7 +183,7 @@ describe('All test cases for updating a users request', () => {
 
   it('should return an error message for none admin user', (done) => {
     request.patch(`${url}${2}/name`)
-      .set('x-access-token', user2Token.token)
+      .set('x-access-token', user2Token)
       .send({ name: 'MDP' })
       .expect(404)
       .end((err, res) => {
@@ -208,7 +197,7 @@ describe('All test cases for updating a users request', () => {
 
   it('should return a `422` status code with error messages for undefined inputs', (done) => {
     request.patch(`${url}${2}/name`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({ name: '' })
       .expect(422)
       .end((err, res) => {
@@ -219,7 +208,7 @@ describe('All test cases for updating a users request', () => {
   });
   it('should return `400` if update data is invalid', (done) => {
     request.patch(`${url}${2}/name`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({ name: '9' })
       .expect(400)
       .end((err, res) => {
@@ -231,7 +220,7 @@ describe('All test cases for updating a users request', () => {
 
   it('should return `200` a success message for successfull update', (done) => {
     request.patch(`${url}${2}/name`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({ name: 'gunit' })
       .expect(200)
       .end((err, res) => {
@@ -286,7 +275,7 @@ describe('test cases to Get request for logged in user', () => {
 describe('Test cases for deleting request', () => {
   it('should return an error message (400) for invalid Id', (done) => {
     request.delete(`${url}${invalidID}`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({})
       .expect(400)
       .end((err, res) => {
@@ -298,7 +287,7 @@ describe('Test cases for deleting request', () => {
 
   it('should return an error message (400) for none admin user', (done) => {
     request.delete(`${url}${2}`)
-      .set('x-access-token', user2Token.token)
+      .set('x-access-token', user2Token)
       .send({})
       .expect(400)
       .end((err, res) => {
@@ -310,7 +299,7 @@ describe('Test cases for deleting request', () => {
 
   it('should return `200` status code with success message', (done) => {
     request.delete(`${url}${2}`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', adminToken)
       .send({})
       .expect(200)
       .end((err, res) => {

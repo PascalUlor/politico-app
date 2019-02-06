@@ -59,7 +59,6 @@ INSERT INTO offices (name, userId, type)
 CREATE TABLE candidates (
     id SERIAL,
     candidate int references users(id),
-    party int references parties(id),
     office int references offices(id),
     createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
     PRIMARY KEY (candidate, office)

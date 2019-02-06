@@ -141,7 +141,7 @@ describe('All Test cases for user login', () => {
       .send(inputs.adminLogin)
       .end((err, res) => {
         userToken.token = res.body.token;
-        expect(res.body).to.haveOwnProperty('token');
+        expect(res.body).to.have.property('token');
         expect(res.status).to.equal(200);
         done();
       });
