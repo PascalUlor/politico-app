@@ -5,6 +5,7 @@ import OfficeController from '../controllers/OfficeController';
 import userController from '../controllers/UserController';
 import verify from '../middleware/UserValidation';
 import AuthenticateToken from '../middleware/AuthenticateToken';
+import CandidateController from '../controllers/CandidateController';
 
 const router = express.Router();
 
@@ -30,5 +31,8 @@ router.route('/auth/signup')
   .post(verify.userInput, userController.userSignup);
 router.route('/auth/login')
   .post(userController.userLogin);
+
+router.route('/office/:id/register')
+  .post(AuthenticateToken, CandidateController.registerCandidate);
 
 export default router;
