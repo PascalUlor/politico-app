@@ -4,6 +4,9 @@
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../../app';
+import Token from './user.test';
+
+const { adminToken, userToken } = Token;
 
 const { expect } = chai;
 
@@ -12,15 +15,13 @@ const request = supertest(app);
 const url = '/api/v1/offices/';
 
 const invalidID = 50;
-const adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImZ1bGxOYW1lIjoiUGFzY2FsIFVsb3IiLCJlbWFpbCI6InBhc2NhbEBhbmRlbGEuY29tIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU0OTQyMTcwNCwiZXhwIjoxNTU0NjA1NzA0fQ.Oeic4DhH0LO6XWso6r8DA4E8TKvyedvPRvSrWXi7wIM';
-const user2Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImZ1bGxOYW1lIjoiQmFycnkgQWxsZW4iLCJlbWFpbCI6ImRwcGFzY2FsQGFuZGVsYS5jb20iLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU0OTQyMTU2NywiZXhwIjoxNTU0NjA1NTY3fQ.b5oG9bQ68sK661cfFsVw-GHeaq0DBBDIAVnsity-3Is';
 
 
 describe('All test cases for POSTing an office', () => {
   describe('Negative test cases for posting an office', () => {
     it('should return `400` status code with for undefined requests', (done) => {
       request.post(url)
-        .set('x-access-token', adminToken)
+        .set('x-access-token', adminToken.token)
         .send({})
         .expect(422)
         .end((err, res) => {
@@ -33,7 +34,7 @@ describe('All test cases for POSTing an office', () => {
 
     it('should return `400` status code with error messages if input is invalid', (done) => {
       request.post(url)
-        .set('x-access-token', adminToken)
+        .set('x-access-token', adminToken.token)
         .send({
           name: 'A23',
           type: 'ap2',
@@ -48,7 +49,7 @@ describe('All test cases for POSTing an office', () => {
 
     it('should return `400` status code with error messages if none admin user', (done) => {
       request.post(url)
-        .set('x-access-token', user2Token)
+        .set('x-access-token', userToken.token)
         .send({
           name: 'APP',
           type: 'abcde',
@@ -65,7 +66,7 @@ describe('All test cases for POSTing an office', () => {
   describe('Positive test case for adding an office', () => {
     it('should return `201` status code with success messages for successfull post', (done) => {
       request.post(url)
-        .set('x-access-token', adminToken)
+        .set('x-access-token', adminToken.token)
         .send({
           name: 'APP',
           type: 'Epicroad',

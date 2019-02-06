@@ -1,11 +1,3 @@
-import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-
-const adminUserPassword = bcrypt.hashSync(process.env.SECRET_KEY, 10);
-
 const databaseTable = `
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS parties CASCADE;
@@ -25,7 +17,7 @@ CREATE TABLE users (
   passportUrl varchar (100) UNIQUE NOT NULL,
   registeredAt TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
-INSERT INTO users (firstName, lastName, otherName, is_admin, email, password, phonenumber, passportUrl) VALUES ('Pascal', 'Ulor', 'Emeka', 'true', 'pascal@andela.com', '${adminUserPassword}', '8069568494', 'mypic.png');
+INSERT INTO users (firstName, lastName, otherName, is_admin, email, password, phonenumber, passportUrl) VALUES ('Pascal', 'Ulor', 'Emeka', 'true', 'admin@andela.com', '$2b$10$Ax80YVp8EK5PUt/hyWx1IejBFTB7d.3wfLJw9vqa6Ermp4Db2/TF6', '8069568494', 'mypic.png');
 
 CREATE TABLE parties (
   id SERIAL primary key,

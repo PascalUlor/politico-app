@@ -13,9 +13,9 @@ export default {
     lastName: 'Owen',
     email: 'mk@yahoo.com',
     password: 'ulor mike',
-    otherName: 'Bro',
-    phonenumber: '9567483017',
-    passportUrl: 'Mike.png',
+    otherName: 'My Bro',
+    phonenumber: '8069568477',
+    passportUrl: 'mybro.png',
   },
 
   existingEmail: {
@@ -52,7 +52,7 @@ export default {
   },
   userOneLogin: { email: 'banner@yahoo.com', password: 'bruce banner' },
   userTwoLogin: { email: 'mk@yahoo.com', password: 'ulor mike' },
-  adminLogin: { email: 'pascal@andela.com', password: 'andela' },
+  adminLogin: { email: 'admin@andela.com', password: '12345' },
   emptyLoginData: { email: '', password: '' },
   noEmail: { email: '', password: 'bruce banner' },
   noPassword: { email: 'mk@yahoo.com', password: '' },
