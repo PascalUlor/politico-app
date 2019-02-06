@@ -6,6 +6,7 @@ import userController from '../controllers/UserController';
 import verify from '../middleware/UserValidation';
 import AuthenticateToken from '../middleware/AuthenticateToken';
 import CandidateController from '../controllers/CandidateController';
+import Vote from '../controllers/VoteController';
 
 const router = express.Router();
 
@@ -33,6 +34,9 @@ router.route('/auth/login')
   .post(userController.userLogin);
 
 router.route('/office/:id/register')
-  .post(AuthenticateToken, CandidateController.registerCandidate);
+  .post(AuthenticateToken, validation.voteAssetValidation, CandidateController.registerCandidate);
+
+router.route('/votes/')
+  .post(AuthenticateToken, validation.voteAssetValidation, Vote.makeVote);
 
 export default router;

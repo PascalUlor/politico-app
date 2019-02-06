@@ -69,4 +69,44 @@ export default class AssetValidation {
     }
     return next();
   }
+
+  /**
+     *  @description validate vote and candidate creation
+     * @memberof AssetValidation
+     * @static
+     *
+     * @param {object} req
+     * @param {object} res
+     * @param {object} next
+     *
+     * @returns {object} get error message
+     */
+  static voteAssetValidation(req, res, next) {
+    const url = req.url.split('/')[1];
+
+    if (url === 'votes') {
+      const {
+        office, candidate,
+      } = req.body;
+
+      const check = checkItem({
+        office, candidate,
+      });
+
+      if (Object.keys(check).length > 0) {
+        return res.status(400).json(check);
+      } return next();
+    }
+    const {
+      office,
+    } = req.body;
+
+    const check = checkItem({
+      office,
+    });
+
+    if (Object.keys(check).length > 0) {
+      return res.status(400).json(check);
+    } return next();
+  }
 }

@@ -11,48 +11,39 @@ const user2Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImZ1bGx
 const { expect } = chai;
 const request = supertest(app);
 
-const url = '/api/v1/office/';
+const url = '/api/v1/votes/';
 
-const invalidID = 50;
 
-describe('Test case for registering candidate', () => {
-  it('should create candidate on admins input only', (done) => {
-    request.post(`${url}${1}/register`)
+describe('Test case for creating vote', () => {
+  it('should allow user create votes', (done) => {
+    request.post(`${url}`)
       .set('x-access-token', adminToken)
       .send({
         office: '1',
-      }) // request body not defined
+        candidate: '1',
+      })
       .expect(201)
       .end((err, res) => {
         expect(res.status).to.equal(201);
+        expect(res.body).to.have.property('data');
         if (err) done(err);
         done();
       });
   });
 
-  it('should return error if user is not admin', (done) => {
-    request.post(`${url}${1}/register`)
+
+  it('should return error for wrong input', (done) => {
+    request.post(`${url}`)
       .set('x-access-token', user2Token)
       .send({
-        office: '1',
+        office: 'a',
+        candidate: 'b',
       }) // request body not defined
       .expect(400)
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('You are not authorized to access this route');
-        if (err) done(err);
-        done();
-      });
-  });
-  it('should return error if candidate id does not exist', (done) => {
-    request.post(`${url}${invalidID}/register`)
-      .set('x-access-token', user2Token)
-      .send({
-        office: '1',
-      }) // request body not defined
-      .expect(400)
-      .end((err, res) => {
-        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('office').eql('Invalid office, should be an integer');
+        expect(res.body).to.have.property('candidate').eql('Invalid candidate, should be an integer');
         if (err) done(err);
         done();
       });
