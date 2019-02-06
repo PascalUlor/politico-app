@@ -7,6 +7,7 @@ import verify from '../middleware/UserValidation';
 import AuthenticateToken from '../middleware/AuthenticateToken';
 import CandidateController from '../controllers/CandidateController';
 import Vote from '../controllers/VoteController';
+import ElectionResult from '../controllers/ElectionController';
 
 const router = express.Router();
 
@@ -38,5 +39,8 @@ router.route('/office/:id/register')
 
 router.route('/votes/')
   .post(AuthenticateToken, validation.voteAssetValidation, Vote.makeVote);
+
+router.route('/office/:id/result')
+  .get(AuthenticateToken, ElectionResult.getElectionResult);
 
 export default router;
