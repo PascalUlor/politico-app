@@ -3,6 +3,7 @@
  */
 import supertest from 'supertest';
 import chai from 'chai';
+import winston from '../config/winston';
 import app from '../../app';
 import inputs from './seeder/user.data';
 
@@ -11,6 +12,7 @@ export const { expect } = chai;
 export const wrongToken = 'ThisIsAWrongToken';
 
 const userToken = { token: null };
+const adminToken = { token: null };
 
 describe('All Test cases for user Signup', () => {
   it('Should return `201` for unique email signups', (done) => {
@@ -138,14 +140,30 @@ describe('All Test cases for user login', () => {
   it('Should return `200` for authenticated user details', (done) => {
     request.post('/api/v1/auth/login')
       .set('Content-Type', 'application/json')
+      .send(inputs.userOneLogin)
+      .end((err, res) => {
+        winston.info('=========================');
+        userToken.token = res.body.token;
+        winston.info(userToken.token);
+        expect(res.body).to.haveOwnProperty('token');
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
+
+  it('Should return `200` for admin user login', (done) => {
+    request.post('/api/v1/auth/login')
+      .set('Content-Type', 'application/json')
       .send(inputs.adminLogin)
       .end((err, res) => {
-        userToken.token = res.body.token;
-        expect(res.body).to.have.property('token');
+        winston.info('===================================');
+        adminToken.token = res.body.token;
+        winston.info(adminToken.token);
+        expect(res.body).to.haveOwnProperty('token');
         expect(res.status).to.equal(200);
         done();
       });
   });
 });
 
-export default userToken;
+export default { userToken, adminToken };

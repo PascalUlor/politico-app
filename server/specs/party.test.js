@@ -5,15 +5,13 @@ import supertest from 'supertest';
 import chai from 'chai';
 import app from '../../app';
 import inputs from './seeder/party.data';
-// import userToken from './user.test';
-
-const adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImZ1bGxOYW1lIjoiUGFzY2FsIFVsb3IiLCJlbWFpbCI6InBhc2NhbEBhbmRlbGEuY29tIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU0OTQyMTcwNCwiZXhwIjoxNTU0NjA1NzA0fQ.Oeic4DhH0LO6XWso6r8DA4E8TKvyedvPRvSrWXi7wIM';
-const user2Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImZ1bGxOYW1lIjoiQmFycnkgQWxsZW4iLCJlbWFpbCI6ImRwcGFzY2FsQGFuZGVsYS5jb20iLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU0OTQyMTU2NywiZXhwIjoxNTU0NjA1NTY3fQ.b5oG9bQ68sK661cfFsVw-GHeaq0DBBDIAVnsity-3Is';
+import Token from './user.test';
 
 const { expect } = chai;
 const request = supertest(app);
+const { adminToken, userToken } = Token;
 
-const url = '/api/v1/parties/';
+const url = '/api/v1/parties';
 
 const invalidID = 50;
 
@@ -35,8 +33,7 @@ describe('Test case for loading application home page', () => {
 // test invalid routes
 describe('Test Case For Invalid Routes', () => {
   it('Should return a message when an invalid route is accessed', (done) => {
-    request
-      .get('/api/v1/some-rubbish')
+    request.get('/api/v1/some-rubbish')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .expect(404)
@@ -77,9 +74,11 @@ describe('Test Case For Invalid Routes', () => {
 });
 
 describe('All test cases for POSTing a new party', () => {
+  
+
   it('should return `400` status code with for undefined requests', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken)
+      .set('x-access-token', adminToken.token)
       .send({}) // request body not defined
       .expect(422)
       .end((err, res) => {
@@ -96,7 +95,7 @@ describe('All test cases for POSTing a new party', () => {
 
   it('should return `400` status code with error messages for about less than 20 character', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken)
+      .set('x-access-token', adminToken.token)
       .send({
         name: 'A',
         hqAddress: '32 Epic road',
@@ -114,7 +113,7 @@ describe('All test cases for POSTing a new party', () => {
   });
   it('should return `400` status code with error messages if input is invalid', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken)
+      .set('x-access-token', adminToken.token)
       .send(inputs.invalidData)
       .expect(400)
       .end((err, res) => {
@@ -129,7 +128,7 @@ describe('All test cases for POSTing a new party', () => {
 
   it('should return `400` status code with error messages for none admin users', (done) => {
     request.post(url)
-      .set('x-access-token', user2Token)
+      .set('x-access-token', userToken.token)
       .send({
         name: 'APP',
         hqAddress: '32 Epic road',
@@ -148,7 +147,7 @@ describe('All test cases for POSTing a new party', () => {
 
   it('should return `201` status code with success messages for successfull post', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken)
+      .set('x-access-token', adminToken.token)
       .send({
         name: 'APP',
         hqAddress: '32 Epic road',
@@ -166,10 +165,10 @@ describe('All test cases for POSTing a new party', () => {
   });
 });// End of create party test
 
-describe('All test cases for updating a users request', () => {
+describe('All test cases for updating a party', () => {
   it('should return an error message for an invalid party id', (done) => {
-    request.patch(`${url}${invalidID}/name`)
-      .set('x-access-token', adminToken)
+    request.patch(`${url}/${invalidID}/name`)
+      .set('x-access-token', adminToken.token)
       .send({ name: 'MDP' })
       .expect(404)
       .end((err, res) => {
@@ -182,8 +181,8 @@ describe('All test cases for updating a users request', () => {
   });
 
   it('should return an error message for none admin user', (done) => {
-    request.patch(`${url}${2}/name`)
-      .set('x-access-token', user2Token)
+    request.patch(`${url}/${2}/name`)
+      .set('x-access-token', userToken.token)
       .send({ name: 'MDP' })
       .expect(404)
       .end((err, res) => {
@@ -196,8 +195,8 @@ describe('All test cases for updating a users request', () => {
   });
 
   it('should return a `422` status code with error messages for undefined inputs', (done) => {
-    request.patch(`${url}${2}/name`)
-      .set('x-access-token', adminToken)
+    request.patch(`${url}/${2}/name`)
+      .set('x-access-token', adminToken.token)
       .send({ name: '' })
       .expect(422)
       .end((err, res) => {
@@ -207,8 +206,8 @@ describe('All test cases for updating a users request', () => {
       });
   });
   it('should return `400` if update data is invalid', (done) => {
-    request.patch(`${url}${2}/name`)
-      .set('x-access-token', adminToken)
+    request.patch(`${url}/${2}/name`)
+      .set('x-access-token', adminToken.token)
       .send({ name: '9' })
       .expect(400)
       .end((err, res) => {
@@ -219,8 +218,8 @@ describe('All test cases for updating a users request', () => {
   });
 
   it('should return `200` a success message for successfull update', (done) => {
-    request.patch(`${url}${2}/name`)
-      .set('x-access-token', adminToken)
+    request.patch(`${url}/${2}/name`)
+      .set('x-access-token', adminToken.token)
       .send({ name: 'gunit' })
       .expect(200)
       .end((err, res) => {
@@ -232,7 +231,7 @@ describe('All test cases for updating a users request', () => {
   });
 });// Update Test end
 
-describe('test cases to Get request for logged in user', () => {
+describe('test cases to Get parties for logged in user', () => {
   it('should return `200` status code with `res.body` success message', (done) => {
     request.get(`${url}`)
       .set('Content-Type', 'application/json')
@@ -246,7 +245,7 @@ describe('test cases to Get request for logged in user', () => {
   });
 
   it('Should return error single party qery with invalid id', (done) => {
-    request.get(`${url}${invalidID}`)
+    request.get(`${url}/${invalidID}`)
       .set('Content-Type', 'application/json')
       .send({})
       .expect(400)
@@ -259,7 +258,7 @@ describe('test cases to Get request for logged in user', () => {
   });
 
   it('Should return success message when valid id is entered', (done) => {
-    request.get(`${url}${2}`)
+    request.get(`${url}/${2}`)
       .set('Content-Type', 'application/json')
       .send({})
       .expect(200)
@@ -274,8 +273,8 @@ describe('test cases to Get request for logged in user', () => {
 
 describe('Test cases for deleting request', () => {
   it('should return an error message (400) for invalid Id', (done) => {
-    request.delete(`${url}${invalidID}`)
-      .set('x-access-token', adminToken)
+    request.delete(`${url}/${invalidID}`)
+      .set('x-access-token', adminToken.token)
       .send({})
       .expect(400)
       .end((err, res) => {
@@ -286,8 +285,8 @@ describe('Test cases for deleting request', () => {
   });
 
   it('should return an error message (400) for none admin user', (done) => {
-    request.delete(`${url}${2}`)
-      .set('x-access-token', user2Token)
+    request.delete(`${url}/${2}`)
+      .set('x-access-token', userToken.token)
       .send({})
       .expect(400)
       .end((err, res) => {
@@ -298,8 +297,8 @@ describe('Test cases for deleting request', () => {
   });
 
   it('should return `200` status code with success message', (done) => {
-    request.delete(`${url}${2}`)
-      .set('x-access-token', adminToken)
+    request.delete(`${url}/${2}`)
+      .set('x-access-token', adminToken.token)
       .send({})
       .expect(200)
       .end((err, res) => {
@@ -309,5 +308,3 @@ describe('Test cases for deleting request', () => {
       });
   });
 });
-
-export default user2Token;
