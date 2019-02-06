@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
 import databaseQuery from '../models/databaseConnection';
 import requestHelper from '../helpers/requestHelper';
-import Seed from '../models/Seed';
+import Seeder from '../models/Seed';
 
 dotenv.config();
 
 const { databaseConnection } = databaseQuery;
+const { Seed } = Seeder;
 
 /**
  * Class for /api/routes

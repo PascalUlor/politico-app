@@ -27,7 +27,7 @@ const seed = () => {
     if (err) {
       winston.info(err.toString());
     } else {
-      winston.info(result);
+      winston.info('Migration Successful');
     }
   });
 };

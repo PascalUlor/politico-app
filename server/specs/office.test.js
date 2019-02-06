@@ -21,7 +21,7 @@ describe('All test cases for POSTing an office', () => {
     it('should return `400` status code with for undefined requests', (done) => {
       request.post(url)
         .set('x-access-token', adminToken)
-        .send({}) // request body not defined
+        .send({})
         .expect(422)
         .end((err, res) => {
           expect(res.body.name).to.eql('name field is undefined');
