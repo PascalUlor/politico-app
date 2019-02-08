@@ -17,8 +17,7 @@ describe('test cases for user role', () => {
       .set('x-access-token', adminToken.token)
       .expect(200)
       .end((err, res) => {
-        expect(res.body.success).to.equal(true);
-        expect(res.body.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         done();
       });
   });

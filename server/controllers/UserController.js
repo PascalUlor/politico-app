@@ -95,7 +95,15 @@ export default class UserController {
           return requestHelper.error(res, 401, 'Authentication failed');
         }
         return databaseConnection.query(userQuery, params)
-          .then(state => requestHelper.success(res, 200, newRole, state.rows[0].is_admin))
+          .then(state => res.status(201).json({
+            status: 200,
+            data: [{
+              id: state.rows[0].id,
+              firstName: state.rows[0].firstname,
+              email: state.rows[0].email,
+              is_admin: state.rows[0].is_admin,
+            }],
+          }))
           .catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
       }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }
