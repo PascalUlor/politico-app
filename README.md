@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/PascalUlor/politico-app.svg?branch=develop)](https://travis-ci.org/PascalUlor/politico-app) [![Maintainability](https://api.codeclimate.com/v1/badges/b7f72eb60c31a3b328bf/maintainability)](https://codeclimate.com/github/PascalUlor/politico-app/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/b7f72eb60c31a3b328bf/test_coverage)](https://codeclimate.com/github/PascalUlor/politico-app/test_coverage) [![Coverage Status](https://coveralls.io/repos/github/PascalUlor/politico-app/badge.svg?branch=develop)](https://coveralls.io/github/PascalUlor/politico-app?branch=develop)
+[![Build Status](https://travis-ci.org/PascalUlor/politico-app.svg?branch=develop)](https://travis-ci.org/PascalUlor/politico-app) [![Maintainability](https://api.codeclimate.com/v1/badges/b7f72eb60c31a3b328bf/maintainability)](https://codeclimate.com/github/PascalUlor/politico-app/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/b7f72eb60c31a3b328bf/test_coverage)](https://codeclimate.com/github/PascalUlor/politico-app/test_coverage) [![Coverage Status](https://coveralls.io/repos/github/PascalUlor/politico-app/badge.svg?branch=develop)](https://coveralls.io/github/PascalUlor/politico-app?branch=develop) [![Coverage Status](https://coveralls.io/repos/github/PascalUlor/politico-app/badge.svg)](https://coveralls.io/github/PascalUlor/politico-app)
 
 # POLITICO
 
@@ -53,8 +53,42 @@ The follwing instructions will install the project on your local machine
 1. Install [**Node JS**](https://nodejs.org/en/).
 2. Install [**Postgres**](https://www.postgresql.org/) .
 3. Clone the [**repository here**](https://github.com/PascalUlor/politico-app.git)
-4. [**cd**] into the root directory of the project.
+4. [**cd**] into the root directory of the project folder ```politico-app```.
 5. Run `npm install` on the terminal to install Dependecies and Dev-Dependecies
+```
+
+### How to run
+1. open terminal and run ```npm run start:dev```
+2. open POSTMAN and type paste each of the following route:
+```
+_POST_ https://the-politico.herokuapp.com/api/v1/auth/signup
+
+_POST_ https://the-politico.herokuapp.com/api/v1/auth/login
+
+_POST_ https://the-politico.herokuapp.com/api/v1/parties
+
+_GET_ https://the-politico.herokuapp.com/api/v1/parties
+
+_GET_ https://the-politico.herokuapp.com/api/v1/parties/:id
+
+_DELETE_ https://the-politico.herokuapp.com/api/v1/parties/:id
+
+_PATCH_ https://the-politico.herokuapp.com/api/v1/parties/:id/name
+
+_GET_ https://the-politico.herokuapp.com/api/v1/offices
+
+_POST_ https://the-politico.herokuapp.com/api/v1/offices
+
+_GET_ https://the-politico.herokuapp.com/api/v1/parties/:id
+
+_GET_ https://the-politico.herokuapp.com/api/v1/office/:id/result
+
+_POST_ https://the-politico.herokuapp.com/api/v1/office/:id/register
+
+_POST_ https://the-politico.herokuapp.com/api/v1/vote
+
+_PUT_ https://the-politico.herokuapp.com/api/v1/admin/:id/true
+
 ```
 
 ## Technology Stack
@@ -68,10 +102,11 @@ The follwing instructions will install the project on your local machine
 
 **Client Side**
 1. Javascript
+2. HTML and CSS
 
 ### Dependencies
 * Postgres
-* Node
+* Nodejs
 
 
 ## Features
@@ -96,10 +131,15 @@ This Application will be deployed on [Heroku Deploy](https://the-politico.heroku
 
 ## Useful Links
 
-1. [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2238882)
+1. Project Management road map [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2238882)
 2. [Github Repo](https://github.com/PascalUlor/politico-app)
-3. [GH-PAGES](https://pascalulor.github.io/politico-app/)
+3. UI templates[GH-PAGES](https://pascalulor.github.io/politico-app/)
+4. Live demo on [Heroku Deploy](https://the-politico.herokuapp.com/)
 
 
 ## Acknowledgment
 - Andela
+- Stackoverflow
+- Codepen.io
+- Hacker rank
+- Travis Media
