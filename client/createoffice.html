@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>POLITICO</title>
+    <link rel="shortcut icon" href="./assets/images/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+
+<body>
+    <div class="backdrop"></div>
+
+    <header class="main-header">
+        <div>
+            <!-- Mobile Nav button -->
+            <button class="toggle-button">
+                <span class="toggle-button__bar"></span>
+                <span class="toggle-button__bar"></span>
+                <span class="toggle-button__bar"></span>
+            </button>
+            <a href="homepage.html" class="header-logo logo">
+                POLITICO
+            </a>
+        </div>
+        <nav class="main-nav">
+            <ul class="main-nav__items">
+                <li class="main-nav__item">
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="main-nav__item">
+                    <a href="index.html">Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+    <!-- Side nav for mobile -->
+    <nav class="mobile-nav">
+        <ul class="mobile-nav__items">
+            <li class="mobile-nav__item aside__item">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="mobile-nav__item aside__item">
+                <a href="index.html">Logout</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- main -->
+    <div class="main-layouts wrapper">
+        <h1 id="login-reset" class="form-title">Create Political Office</h1>
+        <div class="main-info">
+            <div class="info-top" id="login-info">
+                <form action="#" method="post">
+                    <label class="tag" for="Officename">Office Name</label>
+                    <input class="text" type="text" name="Officename" placeholder="Office Name" required="">
+                    <label class="tag" for="Officetype">Select Office Type</label>
+                    <select class="text" type="text" id="issue-type" name="issue-type" class="form-element" required>
+                        <option default>-- Select Record Type --</option>
+                        <option value="federal">Federal Government</option>
+                        <option value="state">State Government</option>
+                        <option value="state">Legislative</option>
+                        <option value="state">Local Government</option>
+                    </select>
+                    <label class="tag" for="Officetype">About Office</label>
+                    <textarea class="text" id="about" name="About" placeholder="About Office" required=""></textarea>
+                    <div class="clear"> </div>
+                    <input type="submit" value="SUBMIT">
+                </form>
+            </div>
+        </div>
+        <footer id="landing-page-footer">
+            <nav>
+                <ul class="footer-links">
+                    <li class="footer-link">
+                        <a href="#">Copyright of &copy;2019 Andela Bootcamp Project By Pascal Ulor</a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
+        <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
+
+
+
+</body>
+
+</html>

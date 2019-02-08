@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>POLITICO</title>
+  <link rel="shortcut icon" href="./assets/images/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+
+<body>
+  <div class="backdrop"></div>
+  <header class="main-header">
+        <div>
+          <!-- Mobile Nav button -->
+          <button class="toggle-button">
+            <span class="toggle-button__bar"></span>
+            <span class="toggle-button__bar"></span>
+            <span class="toggle-button__bar"></span>
+          </button>
+          <a href="homepage.html" class="header-logo logo">
+            POLITICO
+        </a>
+        </div>
+        <nav class="main-nav">
+          <ul class="main-nav__items">
+            <li class="main-nav__item">
+              <a href="index.html">Home</a>
+            </li>
+            <li class="main-nav__item">
+              <a href="index.html">Logout</a>
+            </li>
+          </ul>
+        </nav>
+    
+</header>
+      <!-- Side nav for mobile -->
+<nav class="mobile-nav">
+    <ul class="mobile-nav__items">
+    <li class="mobile-nav__item aside__item">
+        <a href="index.html">Home</a>
+    </li>
+    <li class="mobile-nav__item aside__item">
+        <a href="index.html">Login</a>
+    </li>
+    </ul>
+</nav>
+  <main class="profile-table-wrapp">
+      <div>
+            <section class="table-title">
+                    <h1 class="page-title">PETITION LIST</h1>
+            </section>
+        <section class="page-col-11 table-container">
+            <div class="main-table">
+                <table class="main-table">
+                    <thead>
+                        <tr>
+                            <th class="th-color">S.N</th>
+                            <th class="th-color">Candidate Name</th>
+                            <th class="th-color">Party Name</th>
+                            <th class="th-color">Office</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td onclick="toggleModal('party-details', 'modal')">Pascal Ulor</td>
+                            <td>Andela</td>
+                            <td>President</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td onclick="toggleModal('party-details', 'modal')">Steve Jobs</td>
+                            <td>AD</td>
+                            <td>Governor</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td onclick="toggleModal('party-details', 'modal')">Bill Gates</td>
+                            <td>APGA</td>
+                            <td>Chairman</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td onclick="toggleModal('party-details', 'modal')">Elumelu</td>
+                            <td>PDP</td>
+                            <td>Counselor</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td onclick="toggleModal('party-details', 'modal')">Barry Allen</td>
+                            <td>DC</td>
+                            <td>Senator</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+      </div>
+        
+  </main>
+  <div class="party-modal" id="modal" onclick="toggleModal('party-details', 'modal')">
+    <div class="party-modal-section" id="party-details">
+        <div class="page-row">
+          <div class="page-col-12 party-modal-heading">
+            <h4>Candidates Details</h4>
+          </div>
+            <div class="page-col-10">
+                <p><label for="title" class="ch-label">Candidate Name</label></p>
+                <p>
+                    Pascal Ulor
+                </p>
+                <br>
+                <p><label for="type">Party Name</label></p>
+                <p>Andela</p>
+                <br>
+                <p><label for="description">Petition</label>
+                </p>
+                <p>I am very disatified with this election results</p>
+                <br>
+                <p><label for="status">Office</label></p>
+                <p>President</p>
+                <br>
+                <p><label for="date" >Application Date</label></p>
+                <p>22/10/2018 01:02pm</p>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+  <footer id="landing-page-footer">
+    <nav>
+      <ul class="footer-links">
+        <li class="footer-link">
+          <a href="#">Copyright of &copy;2019 Andela Bootcamp Project By Pascal Ulor</a>
+        </li>
+      </ul>
+    </nav>
+  </footer>
+  <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import path from 'path';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import YAML from 'yamljs';
@@ -33,14 +34,10 @@ app.use((err, req, res, next) => {
   next();
 });
 
+
 // Home page route
-app.get('/', (req, res) => {
-  res.status(200);
-  res.json({
-    name: 'Welcome to Politico',
-    message: 'Your Vote, Your right',
-  });
-});
+app.use('/api/v1/', routes);
+app.use('/', express.static(path.join(__dirname, 'client')));
 
 app.use('/api/v1/', routes);
 

@@ -133,71 +133,71 @@ paths:
       - in: body
         name: name
         description: Update the name of an existing party
-        required: true
-        schema:
-          $ref: '#/definitions/Pet'
+        # required: true
+        # schema:
+        #   $ref: '#/definitions/Pet'
       responses:
         400:
           description: Invalid ID supplied
         404:
-          description: Pet not found
-        405:
-          description: Validation exception
+          description: Party does not exist
+        500:
+          description: Something went wrong
       security:
       - petstore_auth:
         - write:pets
         - read:pets
-  /pet/findByStatus:
+  /parties/ByID:
     get:
       tags:
-      - pet
-      summary: Finds Pets by status
-      description: Multiple status values can be provided with comma separated strings
-      operationId: findPetsByStatus
+      - parties
+      summary: Finds Parties By ID
+      description: Find a specific party by it's ID
+      operationId: findPartyByID
       produces:
       - application/json
-      - application/xml
+      - application/x-www-form-urlencoded
       parameters:
-      - name: status
-        in: query
-        description: Status values that need to be considered for filter
+      - name: ID
+        in: path
+        description: ID values that need to be filtered
         required: true
-        type: array
-        items:
-          type: string
-          default: available
-          enum:
-          - available
-          - pending
-          - sold
-        collectionFormat: multi
+        type: integer
+        # items:
+        #   type: string
+        #   default: available
+        #   enum:
+        #   - available
+        #   - pending
+        #   - sold
+        # collectionFormat: multi
       responses:
         200:
-          description: successful operation
+          description: Party updated successfully
           schema:
             type: array
             items:
               $ref: '#/definitions/Pet'
         400:
-          description: Invalid status value
-      security:
-      - petstore_auth:
-        - write:pets
-        - read:pets
-  /pet/findByTags:
+          description: Party does not exist
+      # security:
+      # - petstore_auth:
+      #   - write:pets
+      #   - read:pets
+  /offices/findByID:
     get:
       tags:
-      - pet
-      summary: Finds Pets by tags
+      - offices
+      summary: Finds office by ID
       description: Muliple tags can be provided with comma separated strings. Use\ \ tag1, tag2, tag3 for testing.
-      operationId: findPetsByTags
+      operationId: findOfficeById
       produces:
       - application/json
-      - application/xml
+      - application/x-www-form-urlencoded
       parameters:
       - name: tags
         in: query
-        description: Tags to filter by
+        description: Tags to filter by ID
         required: true
         type: array
         items:
