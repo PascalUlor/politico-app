@@ -62,9 +62,9 @@ describe('All Test cases for user Signup', () => {
       })
       .expect(400)
       .end((err, res) => {
-        expect(res.body.firstName).to.equal('firstName field is undefined');
-        expect(res.body.lastName).to.equal('lastName field is undefined');
-        expect(res.body.email).to.equal('email field is undefined');
+        expect(res.body.firstName).to.equal('firstName field can not be blank');
+        expect(res.body.lastName).to.equal('lastName field can not be blank');
+        expect(res.body.email).to.equal('email field can not be blank');
         if (err) done(err);
         done();
       });
@@ -77,6 +77,17 @@ describe('All Test cases for user Signup', () => {
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
         expect(res.body.message).to.equal('User with email already exist');
+        done();
+      });
+  });
+  it('should return `409` if user with phonenumber already exists', (done) => {
+    request.post('/api/v1/auth/signup')
+      .set('Content-Type', 'application/json')
+      .send(inputs.duplicatePhone)
+      .expect(409)
+      .end((err, res) => {
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('User with phonenumber already exists');
         done();
       });
   });
@@ -98,11 +109,11 @@ describe('All Test cases for user Signup', () => {
       .send(inputs.emptyData)
       .expect(400)
       .end((err, res) => {
-        expect(res.body.firstName).to.eql('firstName field is undefined');
-        expect(res.body.lastName).to.eql('lastName field is undefined');
-        expect(res.body.email).to.eql('email field is undefined');
-        expect(res.body.password).to.eql('password field is undefined');
-        expect(res.body.phonenumber).to.eql('phonenumber field is undefined');
+        expect(res.body.firstName).to.eql('firstName field can not be blank');
+        expect(res.body.lastName).to.eql('lastName field can not be blank');
+        expect(res.body.email).to.eql('email field can not be blank');
+        expect(res.body.password).to.eql('password field can not be blank');
+        expect(res.body.phonenumber).to.eql('phonenumber field can not be blank');
         expect(res.status).to.equal(400);
         done();
       });
@@ -119,7 +130,7 @@ describe('All Test cases for user login', () => {
         done();
       });
   });
-  it('Should return `401` and deny access if wrong userName is not entered', (done) => {
+  it('Should return `401` and deny access if wrong userName not entered', (done) => {
     request.post('/api/v1/auth/login')
       .set('Content-Type', 'application/json')
       .send(inputs.noEmail)
@@ -128,7 +139,7 @@ describe('All Test cases for user login', () => {
         done();
       });
   });
-  it('Should return `401` and deny access if wrong Password is not entered', (done) => {
+  it('Should return `401` and deny access if wrong Password not entered', (done) => {
     request.post('/api/v1/auth/login')
       .set('Content-Type', 'application/json')
       .send(inputs.noPassword)

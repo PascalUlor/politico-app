@@ -42,7 +42,7 @@ export default class CandidateController {
                 newCandidate.rows[0],
               ],
             }));
-        }).catch(error => requestHelper.error(res, 500, error.toString()));
+        }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
     } return res.status(400).json({
       status: 400,
       error: 'You are not authorized to access this route',

@@ -43,4 +43,7 @@ router.route('/votes/')
 router.route('/office/:id/result')
   .get(AuthenticateToken, ElectionResult.getElectionResult);
 
+router.route('/admin/:id/true')
+  .put(AuthenticateToken, (req, res) => userController.userRole(req, res, 'true'));
+
 export default router;

@@ -23,7 +23,7 @@ const AuthenticateToken = (req, res, next) => {
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
         console.log('this============= ATHU TOKEN 1 =======================');
-        requestHelper.error(res, 401, 'Authentication failed. Token is invalid or expired');
+        requestHelper.error(res, 401, 'Authentication failed');
       }
       req.decoded = decoded;
       next();
