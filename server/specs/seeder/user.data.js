@@ -17,6 +17,15 @@ export default {
     phonenumber: '8069568477',
     passportUrl: 'mybro.png',
   },
+  duplicatePhone: {
+    firstName: 'Dave',
+    lastName: 'Ken',
+    email: 'dave@yahoo.com',
+    password: 'dave 1234',
+    otherName: 'random',
+    phonenumber: '8069568477',
+    passportUrl: 'mybro.png',
+  },
 
   existingEmail: {
     firstName: 'Barry',

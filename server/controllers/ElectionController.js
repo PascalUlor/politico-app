@@ -1,7 +1,5 @@
 import dotenv from 'dotenv';
 import databaseQuery from '../models/databaseConnection';
-// import requestHelper from '../helpers/requestHelper';
-// import seeder from '../models/Seed';
 
 dotenv.config();
 

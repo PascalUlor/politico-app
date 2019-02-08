@@ -15,6 +15,14 @@ export default {
     email: 'abc@gmail.com',
     phonenumber: '8069568494',
   },
+  duplicateData2: {
+    hqAddress: '2 epic road',
+    name: 'ABCd',
+    logoUrl: 'logo.png',
+    about: 'This is a demo party',
+    email: 'jjc@gmail.com',
+    phonenumber: '8069568494',
+  },
 
   emptyData: {
     hqAddress: '',

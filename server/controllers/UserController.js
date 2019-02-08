@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import requestHelper from '../helpers/requestHelper';
 import databaseQuery from '../models/databaseConnection';
 import createToken from '../helpers/createToken';
+import winston from '../config/winston';
 
 dotenv.config();
 
@@ -23,16 +24,25 @@ export default class UserController {
   static userSignup(req, res) {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
       const {
-        firstName, lastName, otherName, email, phonenumber, passportUrl,
+        email, phonenumber, passportUrl,
       } = req.body;
       const password = hash;
+      const firstName = req.body.firstName.trim();
+      const lastName = req.body.lastName.trim();
+      const otherName = req.body.otherName.trim();
       const userQuery = 'INSERT INTO users (firstName, lastName, otherName, email, phonenumber, passportUrl, password) VALUES ($1, $2, $3, $4, $5, $6, $7) returning *';
       const params = [firstName, lastName, otherName, email, phonenumber, passportUrl, password];
       databaseConnection.query(userQuery, params)
         .then(result => (createToken(
           res, 201,
           'Signup successfull', result,
-        ))).catch(error => requestHelper.error(res, 500, error.message));
+        // eslint-disable-next-line consistent-return
+        ))).catch((error) => {
+          if (error.routine === '_bt_check_unique') {
+            return requestHelper.error(res, 409, 'User with phonenumber already exists');
+          }
+          return requestHelper.error(res, 500, 'Something went wrong', error.message);
+        });
     });
   }
 
@@ -50,6 +60,8 @@ export default class UserController {
     databaseConnection.query(userQuery, params)
       .then((result) => {
         if (result.rows[0]) {
+          winston.info(result.rows[0]);
+          winston.info('====================');
           const getPassword = bcrypt.compareSync(password, result.rows[0].password);
           if (getPassword) {
             return createToken(res, 200, 'User login Successfull', result);
@@ -59,10 +71,32 @@ export default class UserController {
             errors,
           });
         }
-        return res.status(401).json({
-          success: false,
-          errors,
-        });
-      }).catch(error => requestHelper.error(res, 500, error.message));
+        return requestHelper.error(res, 401, errors);
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+  }
+
+  /**
+ * API method to update user role to admin
+ * @param {obj} req
+ * @param {obj} res
+ * @param {obj} newStatus
+ * @returns {obj} success message
+ */
+  static userRole(req, res, newRole) {
+    const id = parseInt(req.params.id, 10);
+    const checkId = 'SELECT * FROM users WHERE id = 1 LIMIT 1';
+    const { userId } = req.decoded;
+    const userQuery = 'UPDATE users SET is_admin = $1 WHERE id = $2 returning *';
+    const params = [newRole, id];
+
+    databaseConnection.query(checkId)
+      .then((result) => {
+        if (userId !== result.rows[0].id) {
+          return requestHelper.error(res, 401, 'Authentication failed');
+        }
+        return databaseConnection.query(userQuery, params)
+          .then(state => requestHelper.success(res, 200, newRole, state.rows[0].is_admin))
+          .catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }
 }

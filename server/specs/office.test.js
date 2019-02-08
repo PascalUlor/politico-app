@@ -25,8 +25,8 @@ describe('All test cases for POSTing an office', () => {
         .send({})
         .expect(422)
         .end((err, res) => {
-          expect(res.body.name).to.eql('name field is undefined');
-          expect(res.body.type).to.eql('type field is undefined');
+          expect(res.body.name).to.eql('name field can not be blank');
+          expect(res.body.type).to.eql('type field can not be blank');
           expect(res.status).to.equal(400);
           done();
         });
@@ -39,7 +39,7 @@ describe('All test cases for POSTing an office', () => {
           name: 'A23',
           type: 'ap2',
         })
-        .expect(400)
+        .expect(401)
         .end((err, res) => {
           expect(res.body).to.have.property('type').eql('type can only be alphabetical');
           expect(res.body).to.have.property('name').eql('name can only be alphabetical');
@@ -57,7 +57,7 @@ describe('All test cases for POSTing an office', () => {
         .expect(400)
         .end((err, res) => {
           expect(res.body.success).to.eql(false);
-          expect(res.body.errors).to.eql('Authentication failed. Token is invalid or expired');
+          expect(res.body.message).to.eql('Authentication failed');
           done();
         });
     });
@@ -114,7 +114,7 @@ describe('test cases to Get offices for logged in user', () => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
-        expect(res.body.errors).to.equal('Office does not exist');
+        expect(res.body.message).to.equal('Office does not exist');
         done();
       });
   });

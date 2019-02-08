@@ -39,8 +39,13 @@ export default class PartyController {
             data: [
               newParty.rows[0],
             ],
-          })).catch(error => requestHelper.error(res, 500, error.message));
-      }).catch(error => requestHelper.error(res, 500, error.message));
+          })).catch((error) => {
+            if (error.routine === '_bt_check_unique') {
+              return requestHelper.error(res, 409, 'User with phonenumber already exists');
+            }
+            return requestHelper.error(res, 500, 'Something went wrong');
+          });
+      }).catch(error => requestHelper.error(res, 500, `Server error: ${error.message}`));
   }
 
   /**
@@ -62,7 +67,7 @@ export default class PartyController {
           });
         }
         return requestHelper.error(res, 400, 'No party available');
-      }).catch(error => requestHelper.error(res, 500, error.toString()));
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }
 
   /**
@@ -86,11 +91,11 @@ export default class PartyController {
           });
         }
         return requestHelper.error(res, 400, 'Party does not exist');
-      }).catch(error => requestHelper.error(res, 500, error.toString()));
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }// getSingleParty ends
 
   /**
- * API method to (PUT) update a Political Party
+ * API method to (PATCH) update a Political Party
  * @param {obj} req
  * @param {obj} res
  * @returns {obj} with success or error message
@@ -112,8 +117,8 @@ export default class PartyController {
         }
         return databaseConnection.query(userQuery, params)
           .then(update => requestHelper.success(res, 200, 'Party updated successfully', update.rows[0]))
-          .catch(error => requestHelper.error(res, 500, error.toString()));
-      }).catch(error => requestHelper.error(res, 500, error.toString()));
+          .catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   } // Method to Update party name ends
 
   /**
@@ -137,7 +142,7 @@ export default class PartyController {
         }
         return databaseConnection.query(userQuery, value)
           .then(() => requestHelper.success(res, 200, 'Party successfully deleted'))
-          .catch(error => requestHelper.error(res, 500, error.toString()));
-      }).catch(error => requestHelper.error(res, 500, error.toString()));
+          .catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }
 }

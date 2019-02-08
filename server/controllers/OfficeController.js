@@ -32,7 +32,7 @@ export default class OfficeController {
       // eslint-disable-next-line consistent-return
       .then((result) => {
         if (userId !== result.rows[0].id) {
-          return requestHelper.error(res, 401, 'Authentication failed. Token is invalid or expired');
+          return requestHelper.error(res, 401, 'Authentication failed');
         }
         return databaseConnection.query(userQuery, params)
           .then(newOffice => res.status(201).json({
@@ -40,8 +40,8 @@ export default class OfficeController {
             data: [
               newOffice.rows[0],
             ],
-          })).catch(error => requestHelper.error(res, 500, error.message));
-      }).catch(error => requestHelper.error(res, 500, error.message));
+          })).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }
 
   /**
@@ -63,7 +63,7 @@ export default class OfficeController {
           });
         }
         return requestHelper.error(res, 400, 'No Offices');
-      }).catch(error => requestHelper.error(res, 500, error.toString()));
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }
 
   /**
@@ -87,6 +87,6 @@ export default class OfficeController {
           });
         }
         return requestHelper.error(res, 400, 'Office does not exist');
-      }).catch(error => requestHelper.error(res, 500, error.toString()));
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }// getSingleOffice ends
 }

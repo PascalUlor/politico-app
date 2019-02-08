@@ -74,21 +74,32 @@ describe('Test Case For Invalid Routes', () => {
 });
 
 describe('All test cases for POSTing a new party', () => {
-  
-
   it('should return `400` status code with for undefined requests', (done) => {
     request.post(url)
       .set('x-access-token', adminToken.token)
-      .send({}) // request body not defined
+      .send({})
       .expect(422)
       .end((err, res) => {
-        expect(res.body.name).to.eql('name field is undefined');
-        expect(res.body.email).to.eql('email field is undefined');
-        expect(res.body.hqAddress).to.eql('hqAddress field is undefined');
-        expect(res.body.phonenumber).to.eql('phonenumber field is undefined');
-        expect(res.body.about).to.eql('about field is undefined');
-        expect(res.body.logoUrl).to.eql('logoUrl field is undefined');
+        expect(res.body.name).to.eql('name field can not be blank');
+        expect(res.body.email).to.eql('email field can not be blank');
+        expect(res.body.hqAddress).to.eql('hqAddress field can not be blank');
+        expect(res.body.phonenumber).to.eql('phonenumber field can not be blank');
+        expect(res.body.about).to.eql('about field can not be blank');
+        expect(res.body.logoUrl).to.eql('logoUrl field can not be blank');
         expect(res.status).to.equal(400);
+        done();
+      });
+  });
+
+  it('should return `409` status code with for undefined requests', (done) => {
+    request.post(url)
+      .set('x-access-token', adminToken.token)
+      .send(inputs.duplicateData2)
+      .expect(409)
+      .end((err, res) => {
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('User with phonenumber already exists');
+        expect(res.status).to.equal(409);
         done();
       });
   });
@@ -140,7 +151,7 @@ describe('All test cases for POSTing a new party', () => {
       .expect(401)
       .end((err, res) => {
         expect(res.body.success).to.eql(false);
-        expect(res.body.errors).to.eql('Authentication failed. Token is invalid or expired');
+        expect(res.body.message).to.eql('Authentication failed. Token is invalid or expired');
         done();
       });
   });
@@ -170,25 +181,27 @@ describe('All test cases for updating a party', () => {
     request.patch(`${url}/${invalidID}/name`)
       .set('x-access-token', adminToken.token)
       .send({ name: 'MDP' })
-      .expect(404)
+      .expect(400)
       .end((err, res) => {
         expect(res.body).deep.equal({
-          errors: 'Party does not exist',
+          message: 'Party does not exist',
           success: false,
+          statusCode: 400,
         });
         done();
       });
   });
 
   it('should return an error message for none admin user', (done) => {
-    request.patch(`${url}/${2}/name`)
+    request.patch(`${url}/${1}/name`)
       .set('x-access-token', userToken.token)
       .send({ name: 'MDP' })
       .expect(404)
       .end((err, res) => {
         expect(res.body).deep.equal({
-          errors: 'Access Denied. You are not authorized',
           success: false,
+          statusCode: 400,
+          message: 'Access Denied. You are not authorized',
         });
         done();
       });
@@ -200,7 +213,7 @@ describe('All test cases for updating a party', () => {
       .send({ name: '' })
       .expect(422)
       .end((err, res) => {
-        expect(res.body.name).to.eql('name field is undefined');
+        expect(res.body.name).to.eql('name field can not be blank');
         expect(res.status).to.equal(400);
         done();
       });
@@ -218,7 +231,7 @@ describe('All test cases for updating a party', () => {
   });
 
   it('should return `200` a success message for successfull update', (done) => {
-    request.patch(`${url}/${2}/name`)
+    request.patch(`${url}/${1}/name`)
       .set('x-access-token', adminToken.token)
       .send({ name: 'gunit' })
       .expect(200)
@@ -252,13 +265,13 @@ describe('test cases to Get parties for logged in user', () => {
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.success).to.equal(false);
-        expect(res.body.errors).to.equal('Party does not exist');
+        expect(res.body.message).to.equal('Party does not exist');
         done();
       });
   });
 
   it('Should return success message when valid id is entered', (done) => {
-    request.get(`${url}/${2}`)
+    request.get(`${url}/${1}`)
       .set('Content-Type', 'application/json')
       .send({})
       .expect(200)
@@ -279,25 +292,25 @@ describe('Test cases for deleting request', () => {
       .expect(400)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
-        expect(res.body.errors).to.equal('Party does not exist');
+        expect(res.body.message).to.equal('Party does not exist');
         done();
       });
   });
 
   it('should return an error message (400) for none admin user', (done) => {
-    request.delete(`${url}/${2}`)
+    request.delete(`${url}/${1}`)
       .set('x-access-token', userToken.token)
       .send({})
       .expect(400)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
-        expect(res.body.errors).to.equal('Access Denied. You are not authorized');
+        expect(res.body.message).to.equal('Access Denied. You are not authorized');
         done();
       });
   });
 
   it('should return `200` status code with success message', (done) => {
-    request.delete(`${url}/${2}`)
+    request.delete(`${url}/${1}`)
       .set('x-access-token', adminToken.token)
       .send({})
       .expect(200)

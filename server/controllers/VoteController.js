@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import databaseQuery from '../models/databaseConnection';
+import requestHelper from '../helpers/requestHelper';
 import seeder from '../models/Seed';
 
 dotenv.config();
@@ -44,11 +45,7 @@ class VoteController {
         data: [rows[0]],
       });
     } catch (error) {
-      return res.status(500).json({
-        status: 500,
-        error: error.toString()
-        // : 'Something went wrong with the database',
-      });
+      return requestHelper.error(res, 500, 'Something went wrong', error.message)
     }
   }
 }

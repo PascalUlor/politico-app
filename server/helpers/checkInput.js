@@ -1,11 +1,12 @@
 import validator from 'validator';
 
 
+
 const checkInput = (inputValue) => {
   const errors = {};
   Object.keys(inputValue).forEach((key) => {
-    if (!inputValue[key] || (validator.isEmpty(inputValue[key]))) {
-      errors[key] = `${key} field is undefined`;
+    if (!inputValue[key] || (validator.isEmpty(inputValue[key])) || inputValue[key].trim() === '') {
+      errors[key] = `${key} field can not be blank`;
     } else {
       /*
       *Party input Validation

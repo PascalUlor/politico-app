@@ -2,11 +2,19 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
+import YAML from 'yamljs';
 import winston from './server/config/winston';
 import routes from './server/routes/routes';
 
 
 const app = express();
+
+const swaggerDocument = YAML.load(`${process.cwd()}/swagger.yaml`);
+
+app.use(cors({ credentials: true, origin: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = process.env.PORT || 3000;
 
@@ -43,5 +51,5 @@ app.get('*', (req, res) => {
 });
 
 
-app.listen(port, () => winston.info(`Application started on port ${port}, ${process.cwd()}, ${__dirname}`));
+app.listen(port, () => winston.info(`Application started on port ${port}, ${process.cwd()}`));
 export default app;
