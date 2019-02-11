@@ -32,7 +32,7 @@ const checkInput = (inputValue) => {
         }
       }
 
-      if (key === 'logoUrl') {
+      if (key === 'logoUrl'|| key === 'passportUrl') {
         if (inputValue[key].match(/\.(gif|jpg|jpeg|tiff|png|mp4)$/i) === null) {
           errors[key] = `Invalid ${key}`;
         }

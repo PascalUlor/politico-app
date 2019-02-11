@@ -16,12 +16,12 @@ const url = '/api/v1/office/';
 const invalidID = 50;
 
 describe('Test case for registering candidate', () => {
-  it('should create candidate on admins input only', (done) => {
+  it('should register candidate for an office on admins input only', (done) => {
     request.post(`${url}${1}/register`)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({
         office: '1',
-      }) // request body not defined
+      })
       .expect(201)
       .end((err, res) => {
         expect(res.status).to.equal(201);
@@ -32,7 +32,7 @@ describe('Test case for registering candidate', () => {
 
   it('should return error if user is not admin', (done) => {
     request.post(`${url}${1}/register`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', userToken.data.token)
       .send({
         office: '1',
       })
@@ -46,7 +46,7 @@ describe('Test case for registering candidate', () => {
   });
   it('should return error if candidate id does not exist', (done) => {
     request.post(`${url}${invalidID}/register`)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({
         office: '1',
       })

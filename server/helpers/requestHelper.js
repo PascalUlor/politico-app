@@ -1,8 +1,8 @@
 const requestHelper = {
-  success(res, statusCode, message, data) {
-    if (data) {
+  success(res, statusCode, message, payload) {
+    if (payload) {
       return res.status(statusCode).json({
-        success: true, statusCode, message, ...data,
+        success: true, statusCode, message, data: [{ ...payload }],
       });
     }
     return res.status(statusCode).json({

@@ -214,7 +214,8 @@ Nav Styles Begin
 }
 
 #landing-page-text {
-    background: linear-gradient(to top, rgba(80, 68, 18, 0.6) 10%, transparent), url("../images/project\ image.jpg") center/cover no-repeat border-box, #ff1b68;
+    background: linear-gradient(to top, rgba(80, 68, 18, 0.6) 10%, transparent),
+    url("../images/project\ image.jpg") center/cover no-repeat border-box, #ff1b68;
     width: 100vw;
     min-height: 86.3vh;
     position: relative;
@@ -1118,6 +1119,15 @@ section.section2 {
 /*Media Queries*/
 
 @media (min-width: 40rem) {
+    #landing-page-text {
+        width: 100vw;
+        min-height: 86.3vh;
+    }
+    
+    #landing-page-footer {
+        width: 100vw;
+    }
+    
     .toggle-button {
         display: none;
     }
@@ -1130,7 +1140,7 @@ section.section2 {
         margin: 0;
         top: 0;
         position: fixed;
-        height: 90%;
+        height: 100vh;
         overflow: auto;
     }
     .welcome-text {

@@ -1,5 +1,7 @@
----
 swagger: "2.0"
+################################################################################
+#                              API Information                                 #
+################################################################################
 info:
   description: "Politico-App"
   version: 1.0.0
@@ -8,7 +10,7 @@ info:
   #My Contact Details
   contact:
     email: pascalulor@yahoo.com
-  
+  host: "https://the-politico.herokuapp.com"
 basePath: /api/v1
 #Tags are used for organising operations
 tags:
