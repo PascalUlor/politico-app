@@ -11,8 +11,8 @@ export const request = supertest(app);
 export const { expect } = chai;
 export const wrongToken = 'ThisIsAWrongToken';
 
-const userToken = { token: null };
-const adminToken = { token: null };
+const userToken = { data: [] };
+const adminToken = { data: [] };
 
 describe('All Test cases for user Signup', () => {
   it('Should return `201` for unique email signups', (done) => {
@@ -22,9 +22,9 @@ describe('All Test cases for user Signup', () => {
       .expect(201)
       .end((err, res) => {
         expect(res.body.success).to.equal(true);
-        expect(res.body).to.haveOwnProperty('token');
+        expect(res.body.data[0]).to.haveOwnProperty('token');
         expect(res.body.message).to.equal('Signup successfull');
-        expect(res.body.user).to.eql({
+        expect(res.body.data[0].user).to.eql({
           userId: 2,
           fullName: 'Bruce Banner',
           email: 'banner@yahoo.com',
@@ -41,9 +41,9 @@ describe('All Test cases for user Signup', () => {
       .expect(201)
       .end((err, res) => {
         expect(res.body).to.have.property('success').equal(true);
-        expect(res.body).to.haveOwnProperty('token');
+        expect(res.body.data[0]).to.haveOwnProperty('token');
         expect(res.body.message).to.equal('Signup successfull');
-        expect(res.body.user).to.eql({
+        expect(res.body.data[0].user).to.eql({
           userId: 3,
           fullName: 'Mike Owen',
           email: 'mk@yahoo.com',
@@ -62,9 +62,9 @@ describe('All Test cases for user Signup', () => {
       })
       .expect(400)
       .end((err, res) => {
-        expect(res.body.firstName).to.equal('firstName field can not be blank');
-        expect(res.body.lastName).to.equal('lastName field can not be blank');
-        expect(res.body.email).to.equal('email field can not be blank');
+        expect(res.body.data[0].firstName).to.equal('firstName field can not be blank');
+        expect(res.body.data[0].lastName).to.equal('lastName field can not be blank');
+        expect(res.body.data[0].email).to.equal('email field can not be blank');
         if (err) done(err);
         done();
       });
@@ -97,7 +97,8 @@ describe('All Test cases for user Signup', () => {
       .send({})
       .expect(500)
       .end((err, res) => {
-        expect(res.body.password).to.equal(undefined);
+        expect(res.body.errors).to.equal('data and salt arguments required');
+        expect(res.body.message).to.equal('password field can not be blank');
         expect(res.status).to.equal(500);
         done();
       });
@@ -109,11 +110,11 @@ describe('All Test cases for user Signup', () => {
       .send(inputs.emptyData)
       .expect(400)
       .end((err, res) => {
-        expect(res.body.firstName).to.eql('firstName field can not be blank');
-        expect(res.body.lastName).to.eql('lastName field can not be blank');
-        expect(res.body.email).to.eql('email field can not be blank');
-        expect(res.body.password).to.eql('password field can not be blank');
-        expect(res.body.phonenumber).to.eql('phonenumber field can not be blank');
+        expect(res.body.data[0].firstName).to.eql('firstName field can not be blank');
+        expect(res.body.data[0].lastName).to.eql('lastName field can not be blank');
+        expect(res.body.data[0].email).to.eql('email field can not be blank');
+        expect(res.body.data[0].password).to.eql('password field can not be blank');
+        expect(res.body.data[0].phonenumber).to.eql('phonenumber field can not be blank');
         expect(res.status).to.equal(400);
         done();
       });
@@ -154,9 +155,9 @@ describe('All Test cases for user login', () => {
       .send(inputs.userOneLogin)
       .end((err, res) => {
         winston.info('=========================');
-        userToken.token = res.body.token;
-        winston.info(userToken.token);
-        expect(res.body).to.haveOwnProperty('token');
+        [userToken.data] = res.body.data;
+        winston.info(userToken.data.token);
+        expect(res.body.data[0]).to.haveOwnProperty('token');
         expect(res.status).to.equal(200);
         done();
       });
@@ -168,9 +169,10 @@ describe('All Test cases for user login', () => {
       .send(inputs.adminLogin)
       .end((err, res) => {
         winston.info('===================================');
-        adminToken.token = res.body.token;
-        winston.info(adminToken.token);
-        expect(res.body).to.haveOwnProperty('token');
+        [adminToken.data] = res.body.data;
+        winston.info('======ttttttttttttttt==========');
+        winston.info(adminToken.data.token);
+        expect(res.body.data[0]).to.haveOwnProperty('token');
         expect(res.status).to.equal(200);
         done();
       });

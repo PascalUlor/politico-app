@@ -29,7 +29,10 @@ export default class AssetValidation {
       });
 
       if (Object.keys(check).length > 0) {
-        return res.status(400).json(check);
+        return res.status(400).json({
+          statusCode: 400,
+          data: [check],
+        });
       } return next();
     }
     const {
@@ -41,7 +44,10 @@ export default class AssetValidation {
     });
 
     if (Object.keys(check).length > 0) {
-      return res.status(400).json(check);
+      return res.status(400).json({
+        statusCode: 400,
+        data: [check],
+      });
     } return next();
   }
 
@@ -64,7 +70,10 @@ export default class AssetValidation {
       const check = checkItem({ name });
 
       if (Object.keys(check).length > 0) {
-        return res.status(400).json(check);
+        return res.status(400).json({
+          statusCode: 400,
+          data: [check],
+        });
       }
     }
     return next();
@@ -94,7 +103,10 @@ export default class AssetValidation {
       });
 
       if (Object.keys(check).length > 0) {
-        return res.status(400).json(check);
+        return res.status(400).json({
+          statusCode: 400,
+          data: [check],
+        });
       } return next();
     }
     const {
@@ -106,7 +118,10 @@ export default class AssetValidation {
     });
 
     if (Object.keys(check).length > 0) {
-      return res.status(400).json(check);
+      return res.status(400).json({
+        statusCode: 400,
+        data: [check],
+      });
     } return next();
   }
 }

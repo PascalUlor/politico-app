@@ -34,12 +34,7 @@ export default class PartyController {
           return requestHelper.error(res, 401, 'Authentication failed. Token is invalid or expired');
         }
         return databaseConnection.query(userQuery, params)
-          .then(newParty => res.status(201).json({
-            status: 201,
-            data: [
-              newParty.rows[0],
-            ],
-          })).catch((error) => {
+          .then(newParty => requestHelper.success(res, 201, 'Party created successfully', newParty.rows[0])).catch((error) => {
             if (error.routine === '_bt_check_unique') {
               return requestHelper.error(res, 409, 'User with phonenumber already exists');
             }
@@ -61,9 +56,7 @@ export default class PartyController {
         if (result.rows.length > 0) {
           return res.status(200).json({
             status: 200,
-            data: [
-              result.rows,
-            ],
+            data: result.rows,
           });
         }
         return requestHelper.error(res, 400, 'No party available');

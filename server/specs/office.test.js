@@ -21,12 +21,12 @@ describe('All test cases for POSTing an office', () => {
   describe('Negative test cases for posting an office', () => {
     it('should return `400` status code with for undefined requests', (done) => {
       request.post(url)
-        .set('x-access-token', adminToken.token)
+        .set('x-access-token', adminToken.data.token)
         .send({})
         .expect(422)
         .end((err, res) => {
-          expect(res.body.name).to.eql('name field can not be blank');
-          expect(res.body.type).to.eql('type field can not be blank');
+          expect(res.body.data[0].name).to.eql('name field can not be blank');
+          expect(res.body.data[0].type).to.eql('type field can not be blank');
           expect(res.status).to.equal(400);
           done();
         });
@@ -34,22 +34,22 @@ describe('All test cases for POSTing an office', () => {
 
     it('should return `400` status code with error messages if input is invalid', (done) => {
       request.post(url)
-        .set('x-access-token', adminToken.token)
+        .set('x-access-token', adminToken.data.token)
         .send({
           name: 'A23',
           type: 'ap2',
         })
         .expect(401)
         .end((err, res) => {
-          expect(res.body).to.have.property('type').eql('type can only be alphabetical');
-          expect(res.body).to.have.property('name').eql('name can only be alphabetical');
+          expect(res.body.data[0]).to.have.property('type').eql('type can only be alphabetical');
+          expect(res.body.data[0]).to.have.property('name').eql('name can only be alphabetical');
           done();
         });
     });
 
     it('should return `400` status code with error messages if none admin user', (done) => {
       request.post(url)
-        .set('x-access-token', userToken.token)
+        .set('x-access-token', userToken.data.token)
         .send({
           name: 'APP',
           type: 'abcde',
@@ -66,7 +66,7 @@ describe('All test cases for POSTing an office', () => {
   describe('Positive test case for adding an office', () => {
     it('should return `201` status code with success messages for successfull post', (done) => {
       request.post(url)
-        .set('x-access-token', adminToken.token)
+        .set('x-access-token', adminToken.data.token)
         .send({
           name: 'APP',
           type: 'Epicroad',

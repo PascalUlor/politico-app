@@ -5,7 +5,7 @@ import supertest from 'supertest';
 import chai from 'chai';
 import app from '../../app';
 import inputs from './seeder/party.data';
-import Token from './user.test';
+import Token, { wrongToken } from './user.test';
 
 const { expect } = chai;
 const request = supertest(app);
@@ -73,16 +73,16 @@ describe('Test Case For Invalid Routes', () => {
 describe('All test cases for POSTing a new party', () => {
   it('should return `400` status code with for undefined requests', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({})
       .expect(422)
       .end((err, res) => {
-        expect(res.body.name).to.eql('name field can not be blank');
-        expect(res.body.email).to.eql('email field can not be blank');
-        expect(res.body.hqAddress).to.eql('hqAddress field can not be blank');
-        expect(res.body.phonenumber).to.eql('phonenumber field can not be blank');
-        expect(res.body.about).to.eql('about field can not be blank');
-        expect(res.body.logoUrl).to.eql('logoUrl field can not be blank');
+        expect(res.body.data[0].name).to.eql('name field can not be blank');
+        expect(res.body.data[0].email).to.eql('email field can not be blank');
+        expect(res.body.data[0].hqAddress).to.eql('hqAddress field can not be blank');
+        expect(res.body.data[0].phonenumber).to.eql('phonenumber field can not be blank');
+        expect(res.body.data[0].about).to.eql('about field can not be blank');
+        expect(res.body.data[0].logoUrl).to.eql('logoUrl field can not be blank');
         expect(res.status).to.equal(400);
         done();
       });
@@ -90,7 +90,7 @@ describe('All test cases for POSTing a new party', () => {
 
   it('should return `409` status code with for undefined requests', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send(inputs.duplicateData2)
       .expect(409)
       .end((err, res) => {
@@ -103,7 +103,7 @@ describe('All test cases for POSTing a new party', () => {
 
   it('should return `400` status code with error messages for about less than 20 character', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({
         name: 'A',
         hqAddress: '32 Epic road',
@@ -114,29 +114,29 @@ describe('All test cases for POSTing a new party', () => {
       })
       .expect(400)
       .end((err, res) => {
-        expect(res.body).to.have.property('about').eql('about field must be between 20 to 1000 characters');
-        expect(res.body).to.have.property('name').eql('name must be between 3 to 50 characters');
+        expect(res.body.data[0]).to.have.property('about').eql('about field must be between 20 to 1000 characters');
+        expect(res.body.data[0]).to.have.property('name').eql('name must be between 3 to 50 characters');
         done();
       });
   });
   it('should return `400` status code with error messages if input is invalid', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send(inputs.invalidData)
       .expect(400)
       .end((err, res) => {
-        expect(res.body).to.have.property('hqAddress').eql('Invalid hqAddress');
-        expect(res.body).to.have.property('phonenumber').eql('Invalid phonenumber');
-        expect(res.body).to.have.property('logoUrl').eql('Invalid logoUrl');
-        expect(res.body).to.have.property('email').eql('Invalid email');
-        expect(res.body).to.have.property('name').eql('name can only be alphabetical');
+        expect(res.body.data[0]).to.have.property('hqAddress').eql('Invalid hqAddress');
+        expect(res.body.data[0]).to.have.property('phonenumber').eql('Invalid phonenumber');
+        expect(res.body.data[0]).to.have.property('logoUrl').eql('Invalid logoUrl');
+        expect(res.body.data[0]).to.have.property('email').eql('Invalid email');
+        expect(res.body.data[0]).to.have.property('name').eql('name can only be alphabetical');
         done();
       });
   });
 
   it('should return `400` status code with error messages for none admin users', (done) => {
     request.post(url)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', userToken.data.token)
       .send({
         name: 'APP',
         hqAddress: '32 Epic road',
@@ -153,9 +153,34 @@ describe('All test cases for POSTing a new party', () => {
       });
   });
 
+  it('should return `401` status code for invalid token', (done) => {
+    request.post(url)
+      .set('x-access-token', wrongToken)
+      .send(inputs.newParty)
+      .expect(401)
+      .end((err, res) => {
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('Authentication failed');
+        expect(res.status).to.equal(401);
+        done();
+      });
+  });
+  it('should return `403` status when on token s provided', (done) => {
+    request.post(url)
+      .set('Content-Type', 'application/json')
+      .send(inputs.newParty)
+      .expect(403)
+      .end((err, res) => {
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('Access denied. You are not logged in');
+        expect(res.status).to.equal(403);
+        done();
+      });
+  });
+
   it('should return `201` status code with success messages for successfull post', (done) => {
     request.post(url)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({
         name: 'APP',
         hqAddress: '32 Epic road',
@@ -176,7 +201,7 @@ describe('All test cases for POSTing a new party', () => {
 describe('All test cases for updating a party', () => {
   it('should return an error message for an invalid party id', (done) => {
     request.patch(`${url}/${invalidID}/name`)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({ name: 'MDP' })
       .expect(400)
       .end((err, res) => {
@@ -191,7 +216,7 @@ describe('All test cases for updating a party', () => {
 
   it('should return an error message for none admin user', (done) => {
     request.patch(`${url}/${1}/name`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', userToken.data.token)
       .send({ name: 'MDP' })
       .expect(404)
       .end((err, res) => {
@@ -206,22 +231,22 @@ describe('All test cases for updating a party', () => {
 
   it('should return a `422` status code with error messages for undefined inputs', (done) => {
     request.patch(`${url}/${2}/name`)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({ name: '' })
       .expect(422)
       .end((err, res) => {
-        expect(res.body.name).to.eql('name field can not be blank');
+        expect(res.body.data[0].name).to.eql('name field can not be blank');
         expect(res.status).to.equal(400);
         done();
       });
   });
   it('should return `400` if update data is invalid', (done) => {
     request.patch(`${url}/${2}/name`)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({ name: '9' })
       .expect(400)
       .end((err, res) => {
-        expect(res.body.name).to.eql('name can only be alphabetical');
+        expect(res.body.data[0].name).to.eql('name can only be alphabetical');
         expect(res.status).to.equal(400);
         done();
       });
@@ -229,7 +254,7 @@ describe('All test cases for updating a party', () => {
 
   it('should return `200` a success message for successfull update', (done) => {
     request.patch(`${url}/${1}/name`)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({ name: 'gunit' })
       .expect(200)
       .end((err, res) => {
@@ -284,7 +309,7 @@ describe('test cases to Get parties for logged in user', () => {
 describe('Test cases for deleting request', () => {
   it('should return an error message (400) for invalid Id', (done) => {
     request.delete(`${url}/${invalidID}`)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({})
       .expect(400)
       .end((err, res) => {
@@ -296,7 +321,7 @@ describe('Test cases for deleting request', () => {
 
   it('should return an error message (400) for none admin user', (done) => {
     request.delete(`${url}/${1}`)
-      .set('x-access-token', userToken.token)
+      .set('x-access-token', userToken.data.token)
       .send({})
       .expect(400)
       .end((err, res) => {
@@ -308,7 +333,7 @@ describe('Test cases for deleting request', () => {
 
   it('should return `200` status code with success message', (done) => {
     request.delete(`${url}/${1}`)
-      .set('x-access-token', adminToken.token)
+      .set('x-access-token', adminToken.data.token)
       .send({})
       .expect(200)
       .end((err, res) => {
