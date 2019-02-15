@@ -10,6 +10,6 @@ const Seed = {
   voteQuery: 'INSERT INTO votes (office, candidate) VALUES ($1, $2) RETURNING *',
 };
 
-const seedQuery = (table, col1, col2) => databaseConnection.query(`SELECT * FROM ${table} WHERE ${col1} = $1 AND ${col2} = $2`, [col1, col2]);
+const seedQuery = (table, col1, col2, $1, $2) => databaseConnection.query(`SELECT * FROM ${table} WHERE ${col1} = $1 AND ${col2} = $2`, [$1, $2]);
 
 export default { Seed, seedQuery };
