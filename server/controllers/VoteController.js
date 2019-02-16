@@ -22,8 +22,8 @@ class VoteController {
   static async makeVote(req, res) {
     const { office, candidate } = req.body;
     const { userId: voter } = req.decoded;
-    const voteStatus = await seedQuery('votes', candidate, voter);
-    const candidateStatus = await seedQuery('candidates', candidate, office);
+    const voteStatus = await seedQuery('votes', 'candidate', 'voter', candidate, voter);
+    const candidateStatus = await seedQuery('candidates', 'candidate', 'office', candidate, office);
     const userQuery = 'INSERT INTO votes (office, candidate, voter) VALUES($1, $2, $3) RETURNING *';
     const params = [office, candidate, voter];
     if (voteStatus.rowCount > 0) {
