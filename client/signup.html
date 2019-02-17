@@ -54,24 +54,24 @@
 		<h1 class="form-title">SignUp</h1>
 		<div class="main-info">
 			<div class="info-top">
-				<form class="form" action="homepage.html" method="post">
+				<form id="signup-form" class="form" action="homepage.html" method="post">
                     <label class="tag" for="firstname">First Name</label>
-                    <input class="text" type="text" name="Firstname" placeholder="" required="">
-                    <label class="tag" for="firstname">Last Name</label>
-                    <input class="text" type="text" name="Lastname" placeholder="" required="">
-                    <label class="tag" for="firstname">Other Name</label>
-                    <input class="text" type="text" name="Othername" placeholder="">
-                    <label class="tag" for="firstname">Phonenumber</label>
-                    <input class="text" type="text" name="Phonenumber" placeholder="" required="">
-                    <label class="tag" for="firstname">Email</label>
-                    <input class="text email" type="email" name="email" placeholder="" required="">
-                    <label class="tag" for="firstname">Password</label>
-                    <input class="text password" type="password" name="password" placeholder="" required="">
-                    <label class="tag" for="firstname">Profile Image</label>
-					          <input class="text" type="file" accept="image/*" name="image" required="">
+                    <input id="first-name" class="text" type="text" name="Firstname" placeholder="" required="">
+                    <label class="tag" for="lastname">Last Name</label>
+                    <input id="last-name" class="text" type="text" name="Lastname" placeholder="" required="">
+                    <label class="tag" for="othername">Other Name</label>
+                    <input id="other-name" class="text" type="text" name="Othername" placeholder="">
+                    <label class="tag" for="Phonenumber">Phone Number</label>
+                    <input id="phone-number" class="text" type="text" name="Phonenumber" placeholder="" required="">
+                    <label class="tag" for="email">Email</label>
+                    <input id="email" class="text email" type="email" name="email" placeholder="" required="">
+                    <label class="tag" for="password">Password</label>
+                    <input id="password" class="text password" type="password" name="password" placeholder="" required="">
+                    <label class="tag" for="image">Profile Image</label>
+					          <input id="passport" class="text" type="file" accept="image/*" name="image">
 					<input type="submit" value="SIGNUP">
 				</form>
-				<p>already have an account? <a href="login.html"> Login Now!</a></p>
+				<p id="error">already have an account? <a href="login.html"> Login Now!</a></p>
 			</div>
 		</div>
 		<footer id="landing-page-footer">
@@ -84,6 +84,7 @@
                 </nav>
               </footer>
               <script src="./assets/js/main.js"></script>
+              <script src="./assets/js/user.js"></script>
 </body>
 </html>
   
