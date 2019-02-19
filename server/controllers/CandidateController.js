@@ -27,9 +27,9 @@ export default class CandidateController {
     const params = [office, id];
     const payload = req.decoded;
     // eslint-disable-next-line camelcase
-    const { is_admin } = payload;
+    const { isAdmin } = payload;
     // eslint-disable-next-line camelcase
-    if (payload && is_admin === true) {
+    if (payload && isAdmin === true) {
       return databaseConnection.query(candidate, values)
         .then((result) => {
           if (result.rows[0]) {

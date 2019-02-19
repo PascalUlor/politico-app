@@ -39,10 +39,12 @@ export default class userValidation {
       };
       return databaseConnection.query(userEmail, (error, result) => {
         if (result.rows[0]) {
-          return res.status(409).json({
-            success: false,
-            message: 'User with email already exist',
-          });
+          // return res.status(409).json({
+          //   success: false,
+          //   statusCode: 409,
+          //   message: 'User with email already exist',
+          // });
+          return requestHelper.error(res, 409, 'User with email already exist');
         }
 
         const check = checkItem({

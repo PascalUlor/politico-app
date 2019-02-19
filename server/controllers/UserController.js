@@ -86,7 +86,7 @@ export default class UserController {
     const id = parseInt(req.params.id, 10);
     const checkId = 'SELECT * FROM users WHERE id = 1 LIMIT 1';
     const { userId } = req.decoded;
-    const userQuery = 'UPDATE users SET is_admin = $1 WHERE id = $2 returning *';
+    const userQuery = 'UPDATE users SET isAdmin = $1 WHERE id = $2 returning *';
     const params = [newRole, id];
 
     databaseConnection.query(checkId)
@@ -101,7 +101,7 @@ export default class UserController {
               id: state.rows[0].id,
               firstName: state.rows[0].firstname,
               email: state.rows[0].email,
-              is_admin: state.rows[0].is_admin,
+              isAdmin: state.rows[0].isadmin,
             }],
           }))
           .catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
