@@ -1179,8 +1179,10 @@ section.section2 {
     padding: 0;
     width: 20rem;
     display: flex;
-    flex-direction: row;
-    margin-left: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    /* margin-left: 1rem; */
 }
 
 /*Media Queries*/

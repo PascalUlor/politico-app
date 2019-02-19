@@ -28,7 +28,7 @@ describe('All Test cases for user Signup', () => {
           userId: 2,
           fullName: 'Bruce Banner',
           email: 'banner@yahoo.com',
-          is_admin: false,
+          isAdmin: false,
         });
         if (err) done(err);
         done();
@@ -47,7 +47,7 @@ describe('All Test cases for user Signup', () => {
           userId: 3,
           fullName: 'Mike Owen',
           email: 'mk@yahoo.com',
-          is_admin: false,
+          isAdmin: false,
         });
         if (err) done(err);
         done();
@@ -69,11 +69,11 @@ describe('All Test cases for user Signup', () => {
         done();
       });
   });
-  it('should return `400` if email already exists', (done) => {
+  it('should return `409` if email already exists', (done) => {
     request.post('/api/v1/auth/signup')
       .set('Content-Type', 'application/json')
       .send(inputs.existingEmail)
-      .expect(400)
+      .expect(409)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
         expect(res.body.message).to.equal('User with email already exist');
