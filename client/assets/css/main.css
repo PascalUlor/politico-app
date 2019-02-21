@@ -594,7 +594,7 @@ button.btn-remove {
 
 div.main-table {
     overflow-x: auto!important;
-    margin-bottom: 4rem;
+    margin-bottom: 12rem;
 }
 
 table.main-table {
@@ -1357,7 +1357,7 @@ section.section2 {
         flex-direction: column;
         justify-content: center;
         text-align: center;
-        margin-left: 4.5rem;
+        margin-left: 0.5rem;
     }
     .on-signup p {
         color: #9b0619;
