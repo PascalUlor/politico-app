@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
-<body>
+<body id="body">
   <div class="backdrop"></div>
   <header class="main-header">
         <div>
@@ -63,7 +63,7 @@
             </section>
         <section class="page-col-11 table-container">
             <div class="main-table">
-                <table class="main-table">
+                <table class="main-table" id="error">
                     <thead>
                         <tr>
                             <th class="th-color">S.N</th>
@@ -72,8 +72,8 @@
                             <th class="th-color">Date Added</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="table">
+                        <!-- <tr>
                             <td>1</td>
                             <td onclick="toggleModal('party-details', 'modal')">PDP</td>
                             <td>00001</td>
@@ -102,7 +102,7 @@
                             <td onclick="toggleModal('party-details', 'modal')">AD</td>
                             <td>00003</td>
                             <td>25/10/2018 10:02am</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -151,6 +151,7 @@
     </nav>
   </footer>
   <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/party.js"></script>
 </body>
 
 </html>

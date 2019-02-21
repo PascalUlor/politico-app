@@ -109,7 +109,7 @@ if (loginForm) {
     }).then(res => res.json())
       .then((data) => {
         if (data.success === true) {
-          window.sessionStorage.token = data.token;
+          window.sessionStorage.token = data.data[0].token;
           const userData = [];
           userData.push(data.data[0].user);
           sessionStorage.setItem('userData', JSON.stringify(userData));

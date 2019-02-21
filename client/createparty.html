@@ -54,19 +54,19 @@
     <div class="main-layouts wrapper">
         <h1 class="form-title">Create Political Party</h1>
         <div class="main-info">
-            <div class="info-top">
-                <form action="politicalparties.html" method="post">
+            <div class="info-top" id="error">
+                <form id="myparty" action="politicalparties.html" method="post">
                     <label class="tag" for="firstname">Party Name</label>
-                    <input class="text" type="text" name="Partyname" placeholder="" required="">
-                    <label class="tag" for="address">Enter <Address></Address></label>
-                    <input class="text" type="text" name="Address" placeholder="" required="">
+                    <input class="text" type="text" name="Partyname" placeholder="" required="" id="name">
+                    <label class="tag" for="address">hqAddress</label>
+                    <input class="text" type="text" name="Address" placeholder="" required="" id="hqAddress">
                     <label class="tag" for="email">Email</label>
-                    <input class="text" type="text" name="email" placeholder="Email" required="">
-                    <label class="tag" for="phonenumber">Phonenumber</label>
-                    <input class="text" type="text" name="Phonenumber" placeholder="" required="">
+                    <input class="text" type="text" name="email" placeholder="Email" required="" id="email">
+                    <label class="tag" for="phonenumber">Phone Number</label>
+                    <input class="text" type="text" name="Phonenumber" placeholder="" required="" id="phonenumber">
                     <label class="tag" for="logo">Party Logo</label>
                     <input class="text" type="file" accept="image/*" name="image" placeholder=""
-                        required="">
+                        required="" id="logoUrl">
                     <label class="tag" for="about">About Party</label>
                     <textarea class="text" id="about" name="About" placeholder="About Party" required=""></textarea>
                     <div class="clear"> </div>
@@ -84,6 +84,7 @@
             </nav>
         </footer>
         <script src="./assets/js/main.js"></script>
+        <script src="./assets/js/party.js"></script>
 </body>
 
 </html>
