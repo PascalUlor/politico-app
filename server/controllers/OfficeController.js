@@ -35,12 +35,8 @@ export default class OfficeController {
           return requestHelper.error(res, 401, 'Authentication failed');
         }
         return databaseConnection.query(userQuery, params)
-          .then(newOffice => res.status(201).json({
-            status: 201,
-            data: [
-              newOffice.rows[0],
-            ],
-          })).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+          .then(newOffice => requestHelper.success(res, 201, 'office created successfully', newOffice.rows[0])
+          ).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
       }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
   }
 

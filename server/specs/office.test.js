@@ -79,7 +79,7 @@ describe('All test cases for POSTing an office', () => {
         });
     });
   });
-});// End of Add request test
+});// End of Add office test
 
 
 describe('test cases to Get offices for logged in user', () => {
