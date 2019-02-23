@@ -5,6 +5,7 @@ const profile = document.querySelector('#userProfile');
 const loginForm = document.querySelector('#login-form');
 
 
+
 /**
  * Assigns an event-listener to signupForm if it exists in the window
  *

@@ -1,14 +1,14 @@
 const baseUrl = 'https://the-politico.herokuapp.com/api/v1';
 const token = `${sessionStorage.token}`;
-const createPartytForm = document.querySelector('#myparty');
-const partyTable = document.querySelector('#body');
+const createOffice = document.querySelector('#myOffice');
+const officeTable = document.querySelector('#body');
 
 
 /*
-* Adds an eventListener with a callback to GET all parties for a logged in user
+* Adds an eventListener with a callback to GET all offices for a logged in user
 */
-const getParty = () => {
-  fetch(`${baseUrl}/parties`, {
+const getOffice = () => {
+  fetch(`${baseUrl}/offices`, {
     method: 'GET',
     headers: {
       Accept: 'application/json, text/plain, */*',
@@ -18,28 +18,28 @@ const getParty = () => {
   }).then(res => res.json())
     .then((data) => {
       if (data.status === 200) {
-        if (sessionStorage.getItem('parties') === null || sessionStorage.getItem('parties') !== data) {
-          const parties = [];
-          parties.push(data.data);
-          sessionStorage.setItem('parties', JSON.stringify(parties));
+        if (sessionStorage.getItem('offices') === null || sessionStorage.getItem('offices') !== data) {
+          const offices = [];
+          offices.push(data.data);
+          sessionStorage.setItem('offices', JSON.stringify(offices));
         } else {
-          const parties = JSON.parse(sessionStorage.getItem('parties'));
-          parties.push(data.data);
-          sessionStorage.setItem('parties', JSON.stringify(parties));
+          const offices = JSON.parse(sessionStorage.getItem('offices'));
+          offices.push(data.data);
+          sessionStorage.setItem('offices', JSON.stringify(offices));
         }
 
-        const userData = JSON.parse(sessionStorage.getItem('parties'));
+        const userData = JSON.parse(sessionStorage.getItem('offices'));
         const newParty = document.querySelector('#table');
 
         newParty.innerHTML = '';
-        for (let n = 0; n <= Object.keys(userData[0]).length - 1; n += 1) {
-          const id = `${userData[0][n].id}`;
-          const createdat = `${userData[0][n].createdat}`;
-          const name = `${userData[0][n].name}`;
+        for (let n = 0; n <= Object.keys(userData[0][0]).length - 1; n += 1) {
+          const type = `${userData[0][0][n].type}`;
+          const createdat = `${userData[0][0][n].createdat}`;
+          const name = `${userData[0][0][n].name}`;
           newParty.innerHTML += `<tr>
           <td>${n + 1}</td>
-          <td onclick="toggleModal('party-details', 'modal')">${name}</td>
-          <td>${id}</td>
+          <td onclick="toggleModal('office-details', 'modal')">${name}</td>
+          <td>${type}</td>
           <td>${createdat}</td>
           </tr>`;
         }
@@ -56,17 +56,14 @@ const getParty = () => {
 *
 * @param {object} submitEvent - The submitEvent
 */
-if (createPartytForm) {
-  createPartytForm.addEventListener('submit', (e) => {
+if (createOffice) {
+  createOffice.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.querySelector('#name').value;
-    const hqAddress = document.querySelector('#hqAddress').value;
-    const email = document.querySelector('#email').value;
-    const logoUrl = document.querySelector('#logoUrl').value;
-    const phonenumber = document.querySelector('#phonenumber').value;
+    const type = document.querySelector('#type').value;
     const about = document.querySelector('#about').value;
 
-    fetch(`${baseUrl}/parties`, {
+    fetch(`${baseUrl}/offices`, {
       method: 'POST',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -74,25 +71,25 @@ if (createPartytForm) {
         'x-access-token': token,
       },
       body: JSON.stringify({
-        name, hqAddress, email, logoUrl, phonenumber, about,
+        name, type, about,
       }),
     }).then(res => res.json())
       .then((data) => {
         if (data.success === true) {
-          document.querySelector('#myparty')
+          document.querySelector('#myOffice')
             .innerHTML = `
                         <div class="on-signup">
                         <h2>${data.message}</h2>
                         </div>`;
           setTimeout(() => {
-            window.location.replace('politicalparties.html');
+            window.location.replace('viewOffices.html');
           }, 5000);
         } else {
           let output = '<h3>Error</h3>';
           Object.keys(data).forEach((key) => {
             output += `<p>${data[key]}</p>`;
           });
-          document.querySelector('#myparty')
+          document.querySelector('#myOffice')
             .innerHTML = output;
         }
       }).catch((error) => {
@@ -103,6 +100,6 @@ if (createPartytForm) {
   });
 }
 
-if (partyTable) {
-  partyTable.addEventListener('load', getParty());
+if (officeTable) {
+  officeTable.addEventListener('load', getOffice());
 }

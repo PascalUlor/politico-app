@@ -53,21 +53,21 @@
     <!-- main -->
     <div class="main-layouts wrapper">
         <h1 id="login-reset" class="form-title">Create Political Office</h1>
-        <div class="main-info">
+        <div class="main-info" id="error">
             <div class="info-top" id="login-info">
-                <form action="#" method="post">
+                <form action="viewOffices.html" method="post" id="myOffice">
                     <label class="tag" for="Officename">Office Name</label>
-                    <input class="text" type="text" name="Officename" placeholder="Office Name" required="">
+                    <input id="name" class="text" type="text" name="Officename" placeholder="Office Name" required="">
                     <label class="tag" for="Officetype">Select Office Type</label>
-                    <select class="text" type="text" id="issue-type" name="issue-type" class="form-element" required>
+                    <select id="type" class="text" type="text" name="type" class="form-element" required>
                         <option default>-- Select Record Type --</option>
-                        <option value="federal">Federal Government</option>
-                        <option value="state">State Government</option>
-                        <option value="state">Legislative</option>
-                        <option value="state">Local Government</option>
+                        <option value="Federal Government">Federal Government</option>
+                        <option value="State Government">State Government</option>
+                        <option value="Legislative">Legislative</option>
+                        <option value="Local Government">Local Government</option>
                     </select>
                     <label class="tag" for="Officetype">About Office</label>
-                    <textarea class="text" id="about" name="About" placeholder="About Office" required=""></textarea>
+                    <textarea id="about" class="text" id="about" name="About" placeholder="About Office" required=""></textarea>
                     <div class="clear"> </div>
                     <input type="submit" value="SUBMIT">
                 </form>
@@ -83,6 +83,7 @@
             </nav>
         </footer>
         <script src="./assets/js/main.js"></script>
+        <script src="./assets/js/office.js"></script>
 </body>
 
 </html>

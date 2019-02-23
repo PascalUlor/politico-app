@@ -1353,22 +1353,7 @@ section.section2 {
         margin-bottom: 10rem;
         width: 20rem;
         height: 4rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        margin-left: 0.5rem;
-    }
-    .on-signup p {
-        color: #9b0619;
-        font-size: 1em;
-        font-weight: bold;
-        text-decoration: none;
-        text-transform: uppercase;
-        padding: 0;
-        width: 20rem;
-        display: flex;
-        flex-direction: row;
+        margin-left: 4.7rem;
     }
 }
 
@@ -1399,6 +1384,13 @@ section.section2 {
 @media(max-width:1280px) {
     .main-info {
         width: 40%;
+    }
+    .on-signup {
+        margin-top: 10rem;
+        margin-bottom: 10rem;
+        width: 20rem;
+        height: 4rem;
+        margin-left: 1.5rem;
     }
 }
 
@@ -1497,6 +1489,13 @@ section.section2 {
         margin-top: 5rem;
         margin-bottom: 2rem;
         font-size: 1em;
+    }
+    .on-signup {
+        margin-top: 10rem;
+        margin-bottom: 10rem;
+        width: 20rem;
+        height: 4rem;
+        margin-left: 0.5rem;
     }
 }
 
