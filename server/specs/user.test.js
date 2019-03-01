@@ -13,6 +13,7 @@ export const wrongToken = 'ThisIsAWrongToken';
 
 const userToken = { data: [] };
 const adminToken = { data: [] };
+const emailToken = { data: [] };
 
 describe('All Test cases for user Signup', () => {
   it('Should return `201` for unique email signups', (done) => {
@@ -179,4 +180,51 @@ describe('All Test cases for user login', () => {
   });
 });
 
+describe('All test case for password reset', () => {
+  it('should return `400` status code with error message if email is not registered', (done) => {
+    request.post('/api/v1/auth/forgotpassword')
+      .set('Content-Type', 'application/json')
+      .send(inputs.unregisteredEmail)
+      .expect(401)
+      .end((err, res) => {
+        winston.info('??????????????????????');
+        winston.info(res.body.message);
+        expect(res.body.message).to.eql('This email is either incorrect or not registered');
+        expect(res.status).to.equal(401);
+        done();
+      });
+  });
+
+  it('should return `200` status code with message if email is registered', (done) => {
+    request.post('/api/v1/auth/forgotpassword')
+      .set('Content-Type', 'application/json')
+      .send(inputs.registeredEmail)
+      .expect(200)
+      .end((err, res) => {
+        winston.info('??????????????????????');
+        [emailToken.data] = res.body.data;
+        winston.info([emailToken.data][0].data);
+        winston.info(res.body.message);
+        expect(res.body.message).to.eql('A reset password token has been sent to this email');
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
+
+  it('should return `200` status code with message if password reset is successfull', (done) => {
+    request.patch('/api/v1/auth/resetpassword')
+      .query({ token: [emailToken.data][0].data })
+      .send(inputs.newPassword)
+      .expect(200)
+      .end((err, res) => {
+        winston.info([emailToken.data][0].data);
+        winston.info('??????????????????????');
+        winston.info(res.body.message);
+        winston.info('??????????????????????');
+        expect(res.body.message).to.eql('Your Password Has Been Updated Successfully');
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
+});
 export default { userToken, adminToken };

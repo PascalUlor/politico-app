@@ -59,6 +59,15 @@ export default {
     phonenumber: 'a567483017',
     passportUrl: 'Mike',
   },
+  unregisteredEmail: {
+    email: 'notreg@getMaxListeners.com',
+  },
+  registeredEmail: {
+    email: 'banner@yahoo.com',
+  },
+  newPassword: {
+    password: 'abcdefghij',
+  },
   userOneLogin: { email: 'banner@yahoo.com', password: 'bruce banner' },
   userTwoLogin: { email: 'mk@yahoo.com', password: 'ulor mike' },
   adminLogin: { email: 'admin@andela.com', password: '12345' },

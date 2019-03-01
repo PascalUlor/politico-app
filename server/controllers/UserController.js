@@ -4,6 +4,7 @@ import requestHelper from '../helpers/requestHelper';
 import databaseQuery from '../models/databaseConnection';
 import createToken from '../helpers/createToken';
 import winston from '../config/winston';
+import mailHelper from '../helpers/mailer';
 
 dotenv.config();
 
@@ -106,5 +107,47 @@ export default class UserController {
           }))
           .catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
       }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+  }
+
+  /**
+ * API method for forgot password route
+ * @param {obj} req
+ * @param {obj} res
+ * @returns {obj} success message
+ */
+  static passwordReset(req, res) {
+    const { email } = req.body;
+    const userQuery = 'SELECT * FROM users WHERE email = $1 LIMIT 1;';
+    const params = [email];
+    databaseConnection.query(userQuery, params)
+      .then((result) => {
+        winston.info(result.rows);
+        if (result.rows.length < 1) {
+          return requestHelper.error(res, 401, 'This email is either incorrect or not registered');
+        }
+        return mailHelper.forgotPassword(res, 200, 'A reset password token has been sent to this email', email);
+      }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+  }
+
+  /**
+ * API method for reset password route
+ * @param {obj} req
+ * @param {obj} res
+ * @returns {obj} success message
+ */
+  static newPassword(req, res) {
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+      const password = hash;
+      const { payload: email } = req.decoded;
+      const userQuery = 'UPDATE users SET password = $1 WHERE email = $2 RETURNING *;';
+      const params = [password, email];
+      databaseConnection.query(userQuery, params)
+        .then((result) => {
+          winston.info(result.rows);
+          if (result.rows[0]) {
+            return mailHelper.resetPassword(res, 200, 'Your Password Has Been Updated Successfully', email);
+          }
+        }).catch(error => requestHelper.error(res, 500, 'Something went wrong', error.message));
+    });
   }
 }
