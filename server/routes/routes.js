@@ -33,6 +33,10 @@ router.route('/auth/signup')
   .post(verify.userInput, userController.userSignup);
 router.route('/auth/login')
   .post(userController.userLogin);
+router.route('/auth/forgotpassword')
+  .post(userController.passwordReset);
+router.route('/auth/resetpassword')
+  .patch(AuthenticateToken, userController.newPassword);
 
 router.route('/office/:id/register')
   .post(AuthenticateToken, validation.voteAssetValidation, CandidateController.registerCandidate);

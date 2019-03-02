@@ -54,7 +54,7 @@ describe('All test cases for POSTing an office', () => {
           name: 'APP',
           type: 'abcde',
         })
-        .expect(400)
+        .expect(401)
         .end((err, res) => {
           expect(res.body.success).to.eql(false);
           expect(res.body.message).to.eql('Authentication failed');

@@ -35,7 +35,6 @@ if (signupForm) {
       .then((data) => {
         if (data.success === true) {
           window.sessionStorage.token = data.data[0].token;
-          // window.localStorage.user = data.data[0].user;
           const userData = [];
           userData.push(data.data[0].user);
           sessionStorage.setItem('userData', JSON.stringify(userData));
