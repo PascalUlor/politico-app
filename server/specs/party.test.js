@@ -3,8 +3,8 @@
  */
 import supertest from 'supertest';
 import chai from 'chai';
+import winston from '../config/winston';
 import app from '../../app';
-import inputs from './seeder/party.data';
 import Token, { wrongToken } from './user.test';
 
 const { expect } = chai;
@@ -74,7 +74,12 @@ describe('All test cases for POSTing a new party', () => {
   it('should return `400` status code with for undefined requests', (done) => {
     request.post(url)
       .set('x-access-token', adminToken.data.token)
-      .send({})
+      .field('name', '')
+      .field('hqAddress', '')
+      .field('email', '')
+      .field('about', '')
+      .field('phonenumber', '')
+      .attach('logoUrl', '')
       .expect(422)
       .end((err, res) => {
         expect(res.body.data[0].name).to.eql('name field can not be blank');
@@ -82,7 +87,6 @@ describe('All test cases for POSTing a new party', () => {
         expect(res.body.data[0].hqAddress).to.eql('hqAddress field can not be blank');
         expect(res.body.data[0].phonenumber).to.eql('phonenumber field can not be blank');
         expect(res.body.data[0].about).to.eql('about field can not be blank');
-        expect(res.body.data[0].logoUrl).to.eql('logoUrl field can not be blank');
         expect(res.status).to.equal(400);
         done();
       });
@@ -91,11 +95,16 @@ describe('All test cases for POSTing a new party', () => {
   it('should return `409` status code with for undefined requests', (done) => {
     request.post(url)
       .set('x-access-token', adminToken.data.token)
-      .send(inputs.duplicateData2)
+      .field('name', 'ABCd')
+      .field('hqAddress', '2 epic road')
+      .field('email', 'jjc@gmail.com')
+      .field('about', 'This is a demo party')
+      .field('phonenumber', '8069568494')
+      .attach('logoUrl', 'Passport.jpg')
       .expect(409)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
-        expect(res.body.message).to.equal('User with phonenumber already exists');
+        expect(res.body.message).to.equal('Party with phonenumber already exists');
         expect(res.status).to.equal(409);
         done();
       });
@@ -104,14 +113,12 @@ describe('All test cases for POSTing a new party', () => {
   it('should return `400` status code with error messages for about less than 20 character', (done) => {
     request.post(url)
       .set('x-access-token', adminToken.data.token)
-      .send({
-        name: 'A',
-        hqAddress: '32 Epic road',
-        email: 'app@yahoo.com',
-        phonenumber: '08061234567',
-        about: 'Th',
-        logoUrl: 'app.jpg',
-      })
+      .field('name', 'A')
+      .field('hqAddress', '32 Epic road')
+      .field('email', 'app@yahoo.com')
+      .field('about', 'Th')
+      .field('phonenumber', '8061234567')
+      .attach('logoUrl', 'Passport.jpg')
       .expect(400)
       .end((err, res) => {
         expect(res.body.data[0]).to.have.property('about').eql('about field must be between 20 to 1000 characters');
@@ -122,14 +129,34 @@ describe('All test cases for POSTing a new party', () => {
   it('should return `400` status code with error messages if input is invalid', (done) => {
     request.post(url)
       .set('x-access-token', adminToken.data.token)
-      .send(inputs.invalidData)
+      .field('name', 'ABC123')
+      .field('hqAddress', '--d')
+      .field('email', 'abc')
+      .field('about', 'Th')
+      .field('phonenumber', 'y8069568494')
+      .attach('logoUrl', 'Passport.jpg')
       .expect(400)
       .end((err, res) => {
         expect(res.body.data[0]).to.have.property('hqAddress').eql('Invalid hqAddress');
         expect(res.body.data[0]).to.have.property('phonenumber').eql('Invalid phonenumber');
-        expect(res.body.data[0]).to.have.property('logoUrl').eql('Invalid logoUrl');
         expect(res.body.data[0]).to.have.property('email').eql('Invalid email');
         expect(res.body.data[0]).to.have.property('name').eql('name can only be alphabetical');
+        done();
+      });
+  });
+
+  it('should return `500` status code with error messages if not an image', (done) => {
+    request.post(url)
+      .set('x-access-token', adminToken.data.token)
+      .field('name', 'ABCd')
+      .field('hqAddress', '2 epic road')
+      .field('email', 'jjc@gmail.com')
+      .field('about', 'This is a demo party')
+      .field('phonenumber', '8161234567')
+      .attach('logoUrl', 'testfile.txt')
+      .expect(500)
+      .end(() => {
+        expect(Error);
         done();
       });
   });
@@ -137,14 +164,12 @@ describe('All test cases for POSTing a new party', () => {
   it('should return `400` status code with error messages for none admin users', (done) => {
     request.post(url)
       .set('x-access-token', userToken.data.token)
-      .send({
-        name: 'APP',
-        hqAddress: '32 Epic road',
-        email: 'app@yahoo.com',
-        phonenumber: '8061234567',
-        about: 'This is a demo party for my project',
-        logoUrl: 'app.jpg',
-      })
+      .field('name', 'ABCd')
+      .field('hqAddress', '2 epic road')
+      .field('email', 'jjc@gmail.com')
+      .field('about', 'This is a demo party')
+      .field('phonenumber', '8161234567')
+      .attach('logoUrl', 'Passport.jpg')
       .expect(401)
       .end((err, res) => {
         expect(res.body.success).to.eql(false);
@@ -156,7 +181,12 @@ describe('All test cases for POSTing a new party', () => {
   it('should return `401` status code for invalid token', (done) => {
     request.post(url)
       .set('x-access-token', wrongToken)
-      .send(inputs.newParty)
+      .field('name', 'ABCd')
+      .field('hqAddress', '2 epic road')
+      .field('email', 'jjc@gmail.com')
+      .field('about', 'This is a demo party')
+      .field('phonenumber', '8061234567')
+      .attach('logoUrl', 'Passport.jpg')
       .expect(401)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
@@ -165,10 +195,15 @@ describe('All test cases for POSTing a new party', () => {
         done();
       });
   });
-  it('should return `403` status when on token s provided', (done) => {
+  it('should return `403` status when no token is provided', (done) => {
     request.post(url)
       .set('Content-Type', 'application/json')
-      .send(inputs.newParty)
+      .field('name', 'ABCd')
+      .field('hqAddress', '2 epic road')
+      .field('email', 'jjc@gmail.com')
+      .field('about', 'This is a demo party')
+      .field('phonenumber', '8061234567')
+      .attach('logoUrl', 'Passport.jpg')
       .expect(403)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
@@ -181,16 +216,15 @@ describe('All test cases for POSTing a new party', () => {
   it('should return `201` status code with success messages for successfull post', (done) => {
     request.post(url)
       .set('x-access-token', adminToken.data.token)
-      .send({
-        name: 'APP',
-        hqAddress: '32 Epic road',
-        email: 'app@yahoo.com',
-        phonenumber: '8061234567',
-        about: 'This is a demo party for my project',
-        logoUrl: 'app.jpg',
-      })
+      .field('name', 'ABCd')
+      .field('hqAddress', '2 epic road')
+      .field('email', 'jjc@gmail.com')
+      .field('about', 'This is a demo party')
+      .field('phonenumber', '8061234567')
+      .attach('logoUrl', 'Passport.jpg')
       .expect(201)
       .end((err, res) => {
+        winston.info(adminToken.data.token);
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('data');
         done();

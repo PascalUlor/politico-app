@@ -9,6 +9,7 @@ const createToken = (res, statusCode, message, result) => {
     userId: result.rows[0].id,
     fullName: `${result.rows[0].firstname} ${result.rows[0].lastname}`,
     email: result.rows[0].email,
+    passportUrl: result.rows[0].passporturl,
     isAdmin: result.rows[0].isadmin,
   };
   const token = jwt.sign(user, process.env.SECRET_KEY, {

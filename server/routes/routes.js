@@ -8,12 +8,13 @@ import AuthenticateToken from '../middleware/AuthenticateToken';
 import CandidateController from '../controllers/CandidateController';
 import Vote from '../controllers/VoteController';
 import ElectionResult from '../controllers/ElectionController';
+import upload from '../config/fileloader';
 
 const router = express.Router();
 
 router.route('/parties')
   .get(PartyController.getAllParty)
-  .post(AuthenticateToken, validation.createAssetValidation, PartyController.createParty);
+  .post(upload.single('logoUrl'), AuthenticateToken, validation.createAssetValidation, PartyController.createParty);
 
 router.route('/parties/:id/name')
   .patch(AuthenticateToken, validation.updateAssetValidation, PartyController.updatePartyName);
@@ -30,7 +31,7 @@ router.route('/offices/:id')
   .get(OfficeController.getSingleOffice);
 
 router.route('/auth/signup')
-  .post(verify.userInput, userController.userSignup);
+  .post(upload.single('passportUrl'), verify.userInput, userController.userSignup);
 router.route('/auth/login')
   .post(userController.userLogin);
 router.route('/auth/forgotpassword')

@@ -32,11 +32,11 @@ const checkInput = (inputValue) => {
         }
       }
 
-      if (key === 'logoUrl'|| key === 'passportUrl') {
-        if (inputValue[key].match(/\.(gif|jpg|jpeg|tiff|png|mp4)$/i) === null) {
-          errors[key] = `Invalid ${key}`;
-        }
-      }
+      // if (key === 'logoUrl'|| key === 'passportUrl') {
+      //   if (inputValue[key].match(/\.(gif|jpg|jpeg|tiff|png|mp4)$/i) === null) {
+      //     errors[key] = `Invalid ${key}`;
+      //   }
+      // }
       if (key === 'office' || key === 'candidate') {
         if (inputValue[key].match(/^\d*$/) === null) {
           errors[key] = `Invalid ${key}, should be an integer`;

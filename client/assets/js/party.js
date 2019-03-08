@@ -1,4 +1,5 @@
-const baseUrl = 'https://the-politico.herokuapp.com/api/v1';
+const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
+// const baseUrl = 'http://localhost:3001/api/v1'; // localhost
 const token = `${sessionStorage.token}`;
 const createPartytForm = document.querySelector('#myparty');
 const partyTable = document.querySelector('#body');
@@ -59,23 +60,16 @@ const getParty = () => {
 if (createPartytForm) {
   createPartytForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = document.querySelector('#name').value;
-    const hqAddress = document.querySelector('#hqAddress').value;
-    const email = document.querySelector('#email').value;
-    const logoUrl = document.querySelector('#logoUrl').value;
-    const phonenumber = document.querySelector('#phonenumber').value;
-    const about = document.querySelector('#about').value;
+    const formData = new FormData(createPartytForm);
 
     fetch(`${baseUrl}/parties`, {
       method: 'POST',
       headers: {
         Accept: 'application/json, text/plain, */*',
-        'Content-type': 'application/json',
+        // 'Content-type': 'application/json',
         'x-access-token': token,
       },
-      body: JSON.stringify({
-        name, hqAddress, email, logoUrl, phonenumber, about,
-      }),
+      body: formData,
     }).then(res => res.json())
       .then((data) => {
         if (data.success === true) {
