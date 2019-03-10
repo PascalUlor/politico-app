@@ -18,38 +18,47 @@ const emailToken = { data: [] };
 describe('All Test cases for user Signup', () => {
   it('Should return `201` for unique email signups', (done) => {
     request.post('/api/v1/auth/signup')
-      .set('Content-Type', 'application/json')
-      .send(inputs.validInput1)
+      .field('firstName', 'Bruce')
+      .field('lastName', 'Banner')
+      .field('otherName', 'Cop')
+      .field('email', 'banner@yahoo.com')
+      .field('password', 'bruce banner')
+      .field('phonenumber', '8069567585')
+      .attach('passportUrl', 'Passport.jpg')
       .expect(201)
       .end((err, res) => {
+        expect(res.status).to.equal(201);
         expect(res.body.success).to.equal(true);
         expect(res.body.data[0]).to.haveOwnProperty('token');
         expect(res.body.message).to.equal('Signup successfull');
-        expect(res.body.data[0].user).to.eql({
-          userId: 2,
-          fullName: 'Bruce Banner',
-          email: 'banner@yahoo.com',
-          isAdmin: false,
-        });
+        expect(res.body.data[0].user).to.have.property('userId');
+        expect(res.body.data[0].user).to.have.property('fullName');
+        expect(res.body.data[0].user).to.have.property('email');
+        expect(res.body.data[0].user).to.have.property('isAdmin');
+        expect(res.body.data[0].user).to.have.property('passportUrl');
         if (err) done(err);
         done();
       });
   });
   it('Should return `201` when another unique email signups', (done) => {
     request.post('/api/v1/auth/signup')
-      .set('Content-Type', 'application/json')
-      .send(inputs.validInput2)
+      .field('firstName', 'Mike')
+      .field('lastName', 'Owen')
+      .field('otherName', 'Cop')
+      .field('email', 'mk@yahoo.com')
+      .field('password', '123456789')
+      .field('phonenumber', '8069567586')
+      .attach('passportUrl', 'Passport.jpg')
       .expect(201)
       .end((err, res) => {
         expect(res.body).to.have.property('success').equal(true);
         expect(res.body.data[0]).to.haveOwnProperty('token');
         expect(res.body.message).to.equal('Signup successfull');
-        expect(res.body.data[0].user).to.eql({
-          userId: 3,
-          fullName: 'Mike Owen',
-          email: 'mk@yahoo.com',
-          isAdmin: false,
-        });
+        expect(res.body.data[0].user).to.have.property('userId');
+        expect(res.body.data[0].user).to.have.property('fullName');
+        expect(res.body.data[0].user).to.have.property('email');
+        expect(res.body.data[0].user).to.have.property('isAdmin');
+        expect(res.body.data[0].user).to.have.property('passportUrl');
         if (err) done(err);
         done();
       });
@@ -57,10 +66,13 @@ describe('All Test cases for user Signup', () => {
 
   it('should return `400` if some fields are undefined', (done) => {
     request.post('/api/v1/auth/signup')
-      .set('Content-Type', 'application/json')
-      .send({
-        password: '123',
-      })
+      .field('firstName', '')
+      .field('lastName', '')
+      .field('otherName', '')
+      .field('email', '')
+      .field('phonenumber', '')
+      .attach('passportUrl', '')
+      .field('password', '123456789')
       .expect(400)
       .end((err, res) => {
         expect(res.body.data[0].firstName).to.equal('firstName field can not be blank');
@@ -72,8 +84,13 @@ describe('All Test cases for user Signup', () => {
   });
   it('should return `409` if email already exists', (done) => {
     request.post('/api/v1/auth/signup')
-      .set('Content-Type', 'application/json')
-      .send(inputs.existingEmail)
+      .field('firstName', 'Mike')
+      .field('lastName', 'Owen')
+      .field('otherName', 'Cop')
+      .field('email', 'mk@yahoo.com')
+      .field('password', '123456789')
+      .field('phonenumber', '8169567586')
+      .attach('passportUrl', 'Passport.jpg')
       .expect(409)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
@@ -83,8 +100,13 @@ describe('All Test cases for user Signup', () => {
   });
   it('should return `409` if user with phonenumber already exists', (done) => {
     request.post('/api/v1/auth/signup')
-      .set('Content-Type', 'application/json')
-      .send(inputs.duplicatePhone)
+      .field('firstName', 'Mike')
+      .field('lastName', 'Owen')
+      .field('otherName', 'Cop')
+      .field('email', 'leo@yahoo.com')
+      .field('password', '123456789')
+      .field('phonenumber', '8069567586')
+      .attach('passportUrl', 'Passport.jpg')
       .expect(409)
       .end((err, res) => {
         expect(res.body.success).to.equal(false);
@@ -94,7 +116,6 @@ describe('All Test cases for user Signup', () => {
   });
   it('Should return `500` if password is not hashed', (done) => {
     request.post('/api/v1/auth/signup')
-      .set('Content-Type', 'application/json')
       .send({})
       .expect(500)
       .end((err, res) => {
@@ -107,8 +128,13 @@ describe('All Test cases for user Signup', () => {
 
   it('should return `400` status code with errors message for empty request', (done) => {
     request.post('/api/v1/auth/signup')
-      .set('Content-Type', 'application/json')
-      .send(inputs.emptyData)
+      .field('firstName', '')
+      .field('lastName', '')
+      .field('otherName', '')
+      .field('email', '')
+      .field('password', '')
+      .field('phonenumber', '')
+      .attach('passportUrl', '')
       .expect(400)
       .end((err, res) => {
         expect(res.body.data[0].firstName).to.eql('firstName field can not be blank');

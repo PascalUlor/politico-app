@@ -1,9 +1,10 @@
 /* eslint-disable eol-last */
-const baseUrl = 'https://the-politico.herokuapp.com/api/v1';
-const signupForm = document.querySelector('#signup-form');
+const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
+// const baseUrl = 'http://localhost:3001/api/v1'; // localhost
+const signupForm = document.getElementById('signup-form');
 const profile = document.querySelector('#userProfile');
+const profileImage = document.querySelector('#profile-image');
 const loginForm = document.querySelector('#login-form');
-
 
 
 /**
@@ -14,23 +15,14 @@ const loginForm = document.querySelector('#login-form');
 if (signupForm) {
   signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const firstName = document.querySelector('#first-name').value;
-    const lastName = document.querySelector('#last-name').value;
-    const otherName = document.querySelector('#other-name').value;
-    const email = document.querySelector('#email').value;
-    const password = document.querySelector('#password').value;
-    const phonenumber = document.querySelector('#phone-number').value;
-    const passportUrl = document.querySelector('#passport').value;
-    const inputValue = {
-      firstName, lastName, email, password, passportUrl, phonenumber, otherName,
-    };
+    const formData = new FormData(signupForm);
     fetch(`${baseUrl}/auth/signup`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json, text/plain, */*',
-        'Content-type': 'application/json',
+        Accept: 'application/json',
+      // 'Content-type': 'application/json',
       },
-      body: JSON.stringify(inputValue),
+      body: formData,
     }).then(res => res.json())
       .then((data) => {
         if (data.success === true) {
@@ -67,6 +59,7 @@ if (signupForm) {
 const getUser = () => {
   const userProfile = JSON.parse(sessionStorage.getItem('userData'));
   profile.innerHTML = userProfile[0].fullName;
+  profileImage.innerHTML = `<img src=${userProfile[0].passportUrl} alt="">`;
 };
 
 if (profile) {

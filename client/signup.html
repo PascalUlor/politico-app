@@ -54,21 +54,21 @@
 		<h1 class="form-title">SignUp</h1>
 		<div class="main-info">
 			<div class="info-top">
-				<form id="signup-form" class="form" action="profilepage.html" method="post">
+				<form id="signup-form" name="signup-form" class="form" method="post" enctype="multipart/form-data">
                     <label class="tag" for="firstname">First Name</label>
-                    <input id="first-name" class="text" type="text" name="Firstname" placeholder="" required="">
+                    <input id="first-name" class="text" type="text" name="firstName" placeholder="" required="">
                     <label class="tag" for="lastname">Last Name</label>
-                    <input id="last-name" class="text" type="text" name="Lastname" placeholder="" required="">
+                    <input id="last-name" class="text" type="text" name="lastName" placeholder="" required="">
                     <label class="tag" for="othername">Other Name</label>
-                    <input id="other-name" class="text" type="text" name="Othername" placeholder="">
+                    <input id="other-name" class="text" type="text" name="otherName" placeholder="">
                     <label class="tag" for="Phonenumber">Phone Number</label>
-                    <input id="phone-number" class="text" type="text" name="Phonenumber" placeholder="" required="">
+                    <input id="phone-number" class="text" type="text" name="phonenumber" placeholder="" required="">
                     <label class="tag" for="email">Email</label>
                     <input id="email" class="text email" type="email" name="email" placeholder="" required="">
                     <label class="tag" for="password">Password</label>
                     <input id="password" class="text password" type="password" name="password" placeholder="" required="">
                     <label class="tag" for="image">Profile Image</label>
-					          <input id="passport" class="text" type="file" accept="image/*" name="image">
+					          <input id="passportUrl" class="text" type="file" accept="image/*" name="passportUrl">
 					<input type="submit" value="SIGNUP">
 				</form>
 				<p id="error">already have an account? <a href="login.html"> Login Now!</a></p>

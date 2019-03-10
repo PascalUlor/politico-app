@@ -30,8 +30,13 @@ export default class userValidation {
         //   error: err.message,
         // });
       }
+      if (req.file) {
+        req.body.passportUrl = req.file.path;
+      } else {
+        req.body.passportUrl = '';
+      }
       const {
-        firstName, lastName, otherName, email, phonenumber, passportUrl, password = hash,
+        firstName, lastName, otherName, email, phonenumber, password = hash, /* passportUrl, */
       } = req.body;
       const userEmail = {
         text: 'SELECT * FROM users WHERE email = $1;',
@@ -39,16 +44,11 @@ export default class userValidation {
       };
       return databaseConnection.query(userEmail, (error, result) => {
         if (result.rows[0]) {
-          // return res.status(409).json({
-          //   success: false,
-          //   statusCode: 409,
-          //   message: 'User with email already exist',
-          // });
           return requestHelper.error(res, 409, 'User with email already exist');
         }
 
         const check = checkItem({
-          firstName, lastName, otherName, email, phonenumber, passportUrl, password,
+          firstName, lastName, otherName, email, phonenumber, password, /* passportUrl, */
         });
         if (Object.keys(check).length > 0) {
           return res.status(400).json({

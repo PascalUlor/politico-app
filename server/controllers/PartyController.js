@@ -36,7 +36,7 @@ export default class PartyController {
         return databaseConnection.query(userQuery, params)
           .then(newParty => requestHelper.success(res, 201, 'Party created successfully', newParty.rows[0])).catch((error) => {
             if (error.routine === '_bt_check_unique') {
-              return requestHelper.error(res, 409, 'User with phonenumber already exists');
+              return requestHelper.error(res, 409, 'Party with phonenumber already exists');
             }
             return requestHelper.error(res, 500, 'Something went wrong');
           });

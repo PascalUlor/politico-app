@@ -17,7 +17,7 @@ const swaggerDocument = YAML.load(`${process.cwd()}/swagger.yaml`);
 app.use(cors({ credentials: true, origin: true }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,6 +37,7 @@ app.use((err, req, res, next) => {
 
 // Home page route
 app.use('/api/v1/', routes);
+app.use('/client/uploads', express.static(path.join(__dirname, 'client/uploads')));
 app.use('/', express.static(path.join(__dirname, 'client')));
 
 app.use('/api/v1/', routes);
