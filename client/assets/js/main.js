@@ -13,6 +13,56 @@ const toggleModal = (id, modal) => {
   }
 };
 
+/**
+ * Display details of each party in a modal
+ */
+setTimeout(() => {
+  const popup = document.querySelectorAll('.view');
+  const partyData = JSON.parse(sessionStorage.getItem('parties'));
+
+  for (let i = 0; i < popup.length; i += 1) {
+    popup[i].addEventListener('click', (evt) => {
+      evt.preventDefault();
+      toggleModal('party-details', 'modal');
+      const modalName = document.querySelector('.modalName');
+      const modalAbout = document.querySelector('.modalAbout');
+      const modalDate = document.querySelector('.modalDate');
+      const modalImage = document.querySelector('.modalImage');
+
+      modalName.innerHTML = `${partyData[0][i].name}`;
+      modalAbout.innerHTML = `${partyData[0][i].about}`;
+      modalDate.innerHTML = `${partyData[0][i].createdat}`;
+      modalImage.innerHTML = `<img src=${partyData[0][i].logourl} alt="party logo" class="party-logo">`;
+    });
+  }
+}, 5000);
+
+/**
+ * Edit details of each party
+ */
+setTimeout(() => {
+  const popup = document.querySelectorAll('.editData');
+  const partyData = JSON.parse(sessionStorage.getItem('parties'));
+
+  for (let i = 0; i < popup.length; i += 1) {
+    popup[i].addEventListener('click', (evt) => {
+      evt.preventDefault();
+      toggleModal('party-edit', 'edit');
+      const editName = document.querySelector('#name');
+      const editPhone = document.querySelector('#phonenumber');
+      const editAddress = document.querySelector('#hqAddress');
+      const editEmail = document.querySelector('#email');
+      const editAbout = document.querySelector('#about');
+
+      editName.value = `${partyData[0][i].name}`;
+      editPhone.value = `${partyData[0][i].phonenumber}`;
+      editAddress.value = `${partyData[0][i].hqaddress}`;
+      editEmail.value = `${partyData[0][i].email}`;
+      editAbout.value = `${partyData[0][i].about}`;
+    });
+  }
+}, 5000);
+
 
 /*
 *DIsplay Backdrop when mobile side bar is toggled
@@ -40,7 +90,7 @@ const animate = () => {
   backdrop.addEventListener('click', removeBackDrop);
 };
 
-animate().then(() => {
+animate.then(() => {
   backdrop.removeEventListener('click', removeBackDrop);
   toggleButton.removeEventListener('click', mobileButton);
 });

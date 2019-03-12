@@ -596,6 +596,10 @@ div.main-table {
     overflow-x: auto!important;
     margin-bottom: 12rem;
 }
+div.admin-table {
+    overflow-x: auto!important;
+}
+
 
 table.main-table {
     border-collapse: collapse;
@@ -603,11 +607,22 @@ table.main-table {
     margin-bottom: 1rem;
 }
 
+table.admin-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
 .th-color {
     background-color: #212121;
 }
 
 table.main-table th, table.main-table td {
+    padding: .5em;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+table.admin-table th, table.admin-table td {
     padding: .5em;
     text-align: center;
     border-bottom: 1px solid #ddd;
@@ -1289,6 +1304,11 @@ section.section2 {
         border-collapse: collapse;
         width: 100%;
         margin-bottom: 6rem;
+    }
+
+    table.admin-table {
+        border-collapse: collapse;
+        width: 100%;
     }
     /*  Modal media query */
     .party-logo {

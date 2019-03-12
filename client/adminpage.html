@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body id="admin-party">
     <div class="backdrop"></div>
 
     <header class="main-header">
@@ -119,12 +119,75 @@
             </section>
 
         </div>
-        <h2 class="feature">Activities</h2>
-        <section class="profile-table-wrap">
+        <h2 class="feature">Political Parties</h2>
+        <section class="profile-table-wrap" id="error">
             <div class="profile-table">
                 <section class="page-col-11 table-container">
-                    <div class="main-table">
-                        <table class="main-table">
+                    <div class="admin-table">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th class="th-color">S.N</th>
+                                    <th class="th-color">Category</th>
+                                    <th class="th-color">Name</th>
+                                    <th class="th-color">Date Added</th>
+                                    <th class="th-color">Edit</th>
+                                    <th class="th-color">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-1">
+                                <!-- <tr>
+                                    <td>1</td>
+                                    <td>Party</td>
+                                    <td onclick="toggleModal('party-details', 'modal')">PDP</td>
+                                    <td>13/10/2018 11:02am</td>
+                                    <td><i onclick="toggleModal('party-edit', 'edit')" class="fas fa-edit table-icon"></i></td>
+                                    <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Office</td>
+                                    <td onclick="toggleModal('party-details', 'modal')">Governor</td>
+                                    <td>20/09/2018 10:19am</td>
+                                    <td><i onclick="toggleModal('party-edit', 'edit')" class="fas fa-edit table-icon"></i></td>
+                                    <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Office</td>
+                                    <td onclick="toggleModal('party-details', 'modal')">Senate</td>
+                                    <td>21/10/2018 12:22pm</td>
+                                    <td><i onclick="toggleModal('party-edit', 'edit')" class="fas fa-edit table-icon"></i></td>
+                                    <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Party</td>
+                                    <td onclick="toggleModal('party-details', 'modal')">APC</td>
+                                    <td>22/06/2018 01:02pm</td>
+                                    <td><i onclick="toggleModal('party-edit', 'edit')" class="fas fa-edit table-icon"></i></td>
+                                    <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Party</td>
+                                    <td onclick="toggleModal('party-details', 'modal')">Honourable</td>
+                                    <td>25/10/2018 10:02am</td>
+                                    <td><i onclick="toggleModal('party-edit', 'edit')" class="fas fa-edit table-icon"></i></td>
+                                    <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+        <h2 class="feature">Political Offices</h2>
+        <section id="admin-office" class="profile-table-wrap">
+            <div class="profile-table">
+                <section class="page-col-11 table-container">
+                    <div class="admin-table">
+                        <table class="admin-table">
                             <thead>
                                 <tr>
                                     <th class="th-color">S.N</th>
@@ -191,26 +254,26 @@
                 </div>
                 <div class="page-col-10">
                     <p><label for="title" class="ch-label">Party Name</label></p>
-                    <p>
+                    <p class="modalName">
                         PDP
                     </p>
                     <br>
                     <p><label for="type">Party Logo</label></p>
-                    <div><img src="./assets/images/pdp.png" alt="party logo" class="party-logo"></div>
+                    <div class="modalImage"><img src="./assets/images/pdp.png" alt="party logo" class="party-logo"></div>
                     <br>
                     <p><label for="type">Email</label></p>
                     <p>pascalulor@yahoo.com</p>
                     <br>
                     <p><label for="description">About Party</label>
                     </p>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam,
+                    <p class="modalAbout">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam,
                         laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
                     <br>
                     <p><label for="status">Chairman</label></p>
                     <p>Bode George</p>
                     <br>
                     <p><label for="date">Date Added</label></p>
-                    <p>22/10/2018 01:02pm</p>
+                    <p class="modalDate">22/10/2018 01:02pm</p>
                     <br>
                     <br>
                     <br>
@@ -228,21 +291,21 @@
                 <form class="page-col-10">
                     <p><label for="title" class="ch-label">Party Name</label></p>
                     <p>
-                        <input type="text" value="YMCA">
+                        <input id="name" name="name" type="text">
                     </p>
                     <br>
                     <p><label for="type">Address</label></p>
-                    <p><input type="text" value="1 Issac John"></p>
+                    <p><input id="hqAddress" name="hqAddress" type="text"></p>
                     <br>
                     <p><label for="about">About Party</label>
                     </p>
-                    <p><textarea></textarea></p>
+                    <p><textarea id="about"></textarea></p>
                     <br>
                     <p><label for="status">Phonenumber</label></p>
-                    <p><input type="text" value="8069568494"></p>
+                    <p><input id="phonenumber" type="text"></p>
                     <br>
                     <p><label for="email">Email</label></p>
-                    <p><input type="email" value="ymca@andela.com"></p>
+                    <p><input id="email" name="email" type="email"></p>
                     <br>
                     <button onclick="toggleModal('party-edit', 'edit')" class="btn-submit">
                         <i class="icon ion-md-close"></i> Submit</button>
@@ -316,7 +379,8 @@
         </nav>
     </footer>
     <script src="./assets/js/main.js"></script>
-    <script src="./assets/js/user.js"></script>
+    <!-- <script src="./assets/js/user.js"></script> -->
+    <script src="./assets/js/party.js"></script>
 </body>
 
 </html>

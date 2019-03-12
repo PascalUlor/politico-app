@@ -1,8 +1,9 @@
-const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
-// const baseUrl = 'http://localhost:3001/api/v1'; // localhost
+// const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
+const baseUrl = 'http://localhost:3001/api/v1'; // localhost
 const token = `${sessionStorage.token}`;
 const createPartytForm = document.querySelector('#myparty');
-const partyTable = document.querySelector('#body');
+const partyPage = document.querySelector('#body');
+const adminPage = document.querySelector('#admin-party');
 
 
 /*
@@ -29,20 +30,38 @@ const getParty = () => {
           sessionStorage.setItem('parties', JSON.stringify(parties));
         }
 
-        const userData = JSON.parse(sessionStorage.getItem('parties'));
+        const partyData = JSON.parse(sessionStorage.getItem('parties'));
         const newParty = document.querySelector('#table');
+        const adminTable1 = document.querySelector('#admin-table-1');
+        const partyInfo = newParty || adminTable1;
+        partyInfo.innerHTML = '';
+        if (partyPage) {
+          for (let n = 0; n <= Object.keys(partyData[0]).length - 1; n += 1) {
+            const id = `${partyData[0][n].id}`;
+            const createdat = `${partyData[0][n].createdat}`;
+            const name = `${partyData[0][n].name}`;
 
-        newParty.innerHTML = '';
-        for (let n = 0; n <= Object.keys(userData[0]).length - 1; n += 1) {
-          const id = `${userData[0][n].id}`;
-          const createdat = `${userData[0][n].createdat}`;
-          const name = `${userData[0][n].name}`;
-          newParty.innerHTML += `<tr>
+            partyInfo.innerHTML += `<tr class="view">
           <td>${n + 1}</td>
-          <td onclick="toggleModal('party-details', 'modal')">${name}</td>
+          <td>${name}</td>
           <td>${id}</td>
           <td>${createdat}</td>
           </tr>`;
+          }
+        }
+        if (adminPage) {
+          for (let n = 0; n <= Object.keys(partyData[0]).length - 1; n += 1) {
+            const createdat = `${partyData[0][n].createdat}`;
+            const name = `${partyData[0][n].name}`;
+            partyInfo.innerHTML += `<tr>
+        <td>${n + 1}</td>
+        <td>Party</td>
+        <td  class="view">${name}</td>
+        <td>${createdat}</td>
+        <td><i class="fas fa-edit table-icon editData"></i></td>
+        <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
+        </tr>`;
+          }
         }
       }
     }).catch((error) => {
@@ -66,7 +85,6 @@ if (createPartytForm) {
       method: 'POST',
       headers: {
         Accept: 'application/json, text/plain, */*',
-        // 'Content-type': 'application/json',
         'x-access-token': token,
       },
       body: formData,
@@ -79,7 +97,7 @@ if (createPartytForm) {
                         <h2>${data.message}</h2>
                         </div>`;
           setTimeout(() => {
-            window.location.replace('politicalparties.html');
+            window.location.replace('adminpage.html');
           }, 5000);
         } else {
           let output = '<h3>Error</h3>';
@@ -97,6 +115,10 @@ if (createPartytForm) {
   });
 }
 
-if (partyTable) {
-  partyTable.addEventListener('load', getParty());
+if (partyPage) {
+  partyPage.addEventListener('load', getParty());
+}
+
+if (adminPage) {
+  adminPage.addEventListener('load', getParty());
 }
