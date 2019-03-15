@@ -48,17 +48,19 @@ setTimeout(() => {
     popup[i].addEventListener('click', (evt) => {
       evt.preventDefault();
       toggleModal('party-edit', 'edit');
-      const editName = document.querySelector('#name');
+      const editName = document.querySelector('#edit-name');
       const editPhone = document.querySelector('#phonenumber');
       const editAddress = document.querySelector('#hqAddress');
       const editEmail = document.querySelector('#email');
       const editAbout = document.querySelector('#about');
+      const editId = document.querySelector('.edit-id');
 
       editName.value = `${partyData[0][i].name}`;
       editPhone.value = `${partyData[0][i].phonenumber}`;
       editAddress.value = `${partyData[0][i].hqaddress}`;
       editEmail.value = `${partyData[0][i].email}`;
       editAbout.value = `${partyData[0][i].about}`;
+      editId.innerHTML = `${partyData[0][i].id}`;
     });
   }
 }, 5000);
@@ -90,7 +92,7 @@ const animate = () => {
   backdrop.addEventListener('click', removeBackDrop);
 };
 
-animate.then(() => {
+animate().then(() => {
   backdrop.removeEventListener('click', removeBackDrop);
   toggleButton.removeEventListener('click', mobileButton);
 });

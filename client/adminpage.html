@@ -250,7 +250,8 @@
         <div class="party-modal-section" id="party-details">
             <div class="page-row">
                 <div class="page-col-12 party-modal-heading">
-                    <h4>Party Details</h4>
+                    <h4>Party Details <span class="modal-close">X</span></h4>
+                    
                 </div>
                 <div class="page-col-10">
                     <p><label for="title" class="ch-label">Party Name</label></p>
@@ -282,16 +283,16 @@
         </div>
     </div>
 
-    <div class="party-modal" id="edit" onclick="toggleModal('party-edit', 'edit')">
+    <div class="party-modal" id="edit">
         <div class="party-modal-section" id="party-edit">
-            <div class="page-row">
+            <div class="page-row" id="error">
                 <div class="page-col-12 party-modal-heading">
-                    <h4>Party Details</h4>
+                    <h4>Edit Party<span class="edit-id"></span>  <span class="modal-close" onclick="toggleModal('party-edit', 'edit')">X</span></h4>
                 </div>
-                <form class="page-col-10">
+                <form id="editForm" name="editForm" class="page-col-10" method="patch" enctype="multipart/form-data">
                     <p><label for="title" class="ch-label">Party Name</label></p>
                     <p>
-                        <input id="name" name="name" type="text">
+                        <input id="edit-name" name="name" type="text">
                     </p>
                     <br>
                     <p><label for="type">Address</label></p>
@@ -379,7 +380,7 @@
         </nav>
     </footer>
     <script src="./assets/js/main.js"></script>
-    <!-- <script src="./assets/js/user.js"></script> -->
+    <script src="./assets/js/user.js"></script>
     <script src="./assets/js/party.js"></script>
 </body>
 

@@ -1,16 +1,17 @@
-// const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
-const baseUrl = 'http://localhost:3001/api/v1'; // localhost
+const baseUrl2 = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
+// const baseUrl2 = 'http://localhost:3001/api/v1'; // localhost
 const token = `${sessionStorage.token}`;
 const createPartytForm = document.querySelector('#myparty');
 const partyPage = document.querySelector('#body');
 const adminPage = document.querySelector('#admin-party');
+const editInfo = document.querySelector('#editForm');
 
 
 /*
 * Adds an eventListener with a callback to GET all parties for a logged in user
 */
 const getParty = () => {
-  fetch(`${baseUrl}/parties`, {
+  fetch(`${baseUrl2}/parties`, {
     method: 'GET',
     headers: {
       Accept: 'application/json, text/plain, */*',
@@ -81,7 +82,7 @@ if (createPartytForm) {
     e.preventDefault();
     const formData = new FormData(createPartytForm);
 
-    fetch(`${baseUrl}/parties`, {
+    fetch(`${baseUrl2}/parties`, {
       method: 'POST',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -121,4 +122,45 @@ if (partyPage) {
 
 if (adminPage) {
   adminPage.addEventListener('load', getParty());
+}
+
+if (editInfo) {
+  editInfo.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const inputValue = {
+      name: document.querySelector('#edit-name').value,
+    };
+    const queryId = document.querySelector('.edit-id').innerHTML;
+
+    fetch(`${baseUrl2}/parties/${parseInt(queryId, 10)}/name`, {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(inputValue),
+    }).then(res => res.json())
+      .then((data) => {
+        if (data.success === true) {
+          document.querySelector('#editForm')
+            .innerHTML = `
+                        <div class="on-signup">
+                        <h2>${data.message}</h2>
+                        </div>`;
+          setTimeout(() => { window.location.reload(); }, 1000);
+        } else {
+          let output = '<h3>Error</h3>';
+          Object.keys(data).forEach((key) => {
+            output += `<p>${data[key]}</p>`;
+          });
+          document.querySelector('#editForm')
+            .innerHTML = output;
+        }
+      }).catch((error) => {
+        document.querySelector('#error')
+          .innerHTML = `<h2>server error</h2>
+            <h3>${error}</h3>`;
+      });
+  });
 }

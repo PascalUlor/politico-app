@@ -645,6 +645,15 @@ tr:nth-child(odd) {
 /*Table End*/
 
 /*  Modal  */
+.modal-close {
+    float: right;
+    color: #c7c5c5;
+    cursor: pointer;
+  }
+
+.view, .fas {
+    cursor: pointer;
+}
 
 .party-logo {
     width: 2em;
@@ -700,6 +709,7 @@ tr:nth-child(odd) {
     padding: .5em;
     margin-bottom: 1em;
     color: #c7c5c5;
+    display: inline-block;
 }
 
 /*Modal End*/
