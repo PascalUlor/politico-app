@@ -61,9 +61,9 @@
             <section class="table-title">
                     <h1 class="page-title">POLITICAL PARTIES</h1>
             </section>
-        <section class="page-col-11 table-container">
+        <section class="page-col-11 table-container" id="error">
             <div class="main-table">
-                <table class="main-table" id="error">
+                <table class="main-table" id="party-table">
                     <thead>
                         <tr>
                             <th class="th-color">S.N</th>
@@ -110,37 +110,40 @@
       </div>
         
   </main>
-  <div class="party-modal" id="modal" onclick="toggleModal('party-details', 'modal')">
-    <div class="party-modal-section" id="party-details">
-        <div class="page-row">
-          <div class="page-col-12 party-modal-heading">
-            <h4>Party Details</h4>
-          </div>
-            <div class="page-col-10">
-                <p><label for="title" class="ch-label">Party Name</label></p>
-                <p>
-                    PDP
-                </p>
-                <br>
-                <p><label for="type">Party Logo</label></p>
-                <div><img src="./assets/images/pdp.png" alt="party logo" class="party-logo"></div>
-                <br>
-                <p><label for="description">About Party</label>
-                </p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
-                <br>
-                <p><label for="status">Chairman</label></p>
-                <p>Bode George</p>
-                <br>
-                <p><label for="date" >Date Added</label></p>
-                <p>22/10/2018 01:02pm</p>
-                <br>
-                <br>
-                <br>
+  <section id="modal-section">
+    <div class="party-modal" id="modal" onclick="toggleModal('party-details', 'modal')">
+      <div class="party-modal-section" id="party-details">
+          <div class="page-row">
+            <div class="page-col-12 party-modal-heading">
+              <h4>Party Details</h4>
             </div>
-        </div>
-    </div>
-</div>
+              <div class="page-col-10">
+                  <p><label for="title" class="ch-label">Party Name</label></p>
+                  <p class="modalName">
+                      PDP
+                  </p>
+                  <br>
+                  <p><label for="type">Party Logo</label></p>
+                  <div class="modalImage"><img src="./assets/images/pdp.png" alt="party logo" class="party-logo"></div>
+                  <br>
+                  <p><label for="description">About Party</label>
+                  </p>
+                  <p class="modalAbout">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
+                  <br>
+                  <p><label for="status">Chairman</label></p>
+                  <p>Bode George</p>
+                  <br>
+                  <p><label for="date" >Date Added</label></p>
+                  <p class="modalDate">22/10/2018 01:02pm</p>
+                  <br>
+                  <br>
+                  <br>
+              </div>
+          </div>
+      </div>
+  </div>
+  </section>
+  
   <footer id="landing-page-footer">
     <nav>
       <ul class="footer-links">

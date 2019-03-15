@@ -596,6 +596,10 @@ div.main-table {
     overflow-x: auto!important;
     margin-bottom: 12rem;
 }
+div.admin-table {
+    overflow-x: auto!important;
+}
+
 
 table.main-table {
     border-collapse: collapse;
@@ -603,11 +607,22 @@ table.main-table {
     margin-bottom: 1rem;
 }
 
+table.admin-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
 .th-color {
     background-color: #212121;
 }
 
 table.main-table th, table.main-table td {
+    padding: .5em;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+table.admin-table th, table.admin-table td {
     padding: .5em;
     text-align: center;
     border-bottom: 1px solid #ddd;
@@ -630,6 +645,15 @@ tr:nth-child(odd) {
 /*Table End*/
 
 /*  Modal  */
+.modal-close {
+    float: right;
+    color: #c7c5c5;
+    cursor: pointer;
+  }
+
+.view, .fas {
+    cursor: pointer;
+}
 
 .party-logo {
     width: 2em;
@@ -685,6 +709,7 @@ tr:nth-child(odd) {
     padding: .5em;
     margin-bottom: 1em;
     color: #c7c5c5;
+    display: inline-block;
 }
 
 /*Modal End*/
@@ -1289,6 +1314,11 @@ section.section2 {
         border-collapse: collapse;
         width: 100%;
         margin-bottom: 6rem;
+    }
+
+    table.admin-table {
+        border-collapse: collapse;
+        width: 100%;
     }
     /*  Modal media query */
     .party-logo {
