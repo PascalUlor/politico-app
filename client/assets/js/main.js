@@ -65,6 +65,22 @@ setTimeout(() => {
   }
 }, 5000);
 
+/**
+ * Delete a political party
+ */
+setTimeout(() => {
+  const popup = document.querySelectorAll('.deleteData');
+  const partyData = JSON.parse(sessionStorage.getItem('parties'));
+
+  for (let i = 0; i < popup.length; i += 1) {
+    popup[i].addEventListener('click', (evt) => {
+      evt.preventDefault();
+      toggleModal('party-delete', 'delete');
+      const deleteId = document.querySelector('.delete-id');
+      deleteId.innerHTML = `${partyData[0][i].id}`;
+    });
+  }
+}, 5000);
 
 /*
 *DIsplay Backdrop when mobile side bar is toggled

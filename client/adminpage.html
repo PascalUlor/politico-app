@@ -289,7 +289,7 @@
                 <div class="page-col-12 party-modal-heading">
                     <h4>Edit Party<span class="edit-id"></span>  <span class="modal-close" onclick="toggleModal('party-edit', 'edit')">X</span></h4>
                 </div>
-                <form id="editForm" name="editForm" class="page-col-10" method="patch" enctype="multipart/form-data">
+                <form id="editForm" name="editForm" class="page-col-10" method="patch">
                     <p><label for="title" class="ch-label">Party Name</label></p>
                     <p>
                         <input id="edit-name" name="name" type="text">
@@ -352,16 +352,16 @@
 
     <div class="party-modal" id="delete" onclick="toggleModal('party-delete', 'delete')">
         <div class="party-modal-section" id="party-delete">
-            <div class="page-row">
+            <div class="page-row" id="error"></div>
                 <div class="page-col-12 party-modal-heading">
-                    <h4>Delete Item</h4>
+                    <h4>Delete Item <span class="delete-id"></span> </h4>
                 </div>
-                <form class="page-col-10">
+                <form class="page-col-10" id="delete-msg">
                     <h3>ARE YOU SURE YOU WANT TO DELETE?</h3>
                     <br>
-                    <button onclick="toggleModal('party-delete', 'delete')" class="btn-submit"> <i class="icon ion-md-close"></i>
+                    <button id="yes-delete" onclick="toggleModal('party-delete', 'delete')" class="btn-submit"> <i class="icon ion-md-close"></i>
                         Yes</button>
-                    <button onclick="toggleModal('party-delete', 'delete')" class="btn-remove modal-delete"> <i class="icon ion-md-close"></i>
+                    <button id="no-delete" onclick="toggleModal('party-delete', 'delete')" class="btn-remove modal-delete"> <i class="icon ion-md-close"></i>
                         No</button>
                     <br>
                     <br>
