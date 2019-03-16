@@ -5,6 +5,7 @@ const createPartytForm = document.querySelector('#myparty');
 const partyPage = document.querySelector('#body');
 const adminPage = document.querySelector('#admin-party');
 const editInfo = document.querySelector('#editForm');
+const onDelete = document.querySelector('#yes-delete');
 
 
 /*
@@ -60,7 +61,7 @@ const getParty = () => {
         <td  class="view">${name}</td>
         <td>${createdat}</td>
         <td><i class="fas fa-edit table-icon editData"></i></td>
-        <td><i onclick="toggleModal('party-delete', 'delete')" class="fas fa-trash-alt table-icon"></i></td>
+        <td><i class="fas fa-trash-alt table-icon deleteData"></i></td>
         </tr>`;
           }
         }
@@ -144,6 +145,43 @@ if (editInfo) {
       .then((data) => {
         if (data.success === true) {
           document.querySelector('#editForm')
+            .innerHTML = `
+                        <div class="on-signup">
+                        <h2>${data.message}</h2>
+                        </div>`;
+          setTimeout(() => { window.location.reload(); }, 1000);
+        } else {
+          let output = '<h3>Error</h3>';
+          Object.keys(data).forEach((key) => {
+            output += `<p>${data[key]}</p>`;
+          });
+          document.querySelector('#editForm')
+            .innerHTML = output;
+        }
+      }).catch((error) => {
+        document.querySelector('#error')
+          .innerHTML = `<h2>server error</h2>
+            <h3>${error}</h3>`;
+      });
+  });
+}
+
+if (onDelete) {
+  onDelete.addEventListener('click', (e) => {
+    e.preventDefault();
+    const queryId = document.querySelector('.delete-id').innerHTML;
+
+    fetch(`${baseUrl2}/parties/${parseInt(queryId, 10)}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-type': 'application/json',
+        'x-access-token': token,
+      },
+    }).then(res => res.json())
+      .then((data) => {
+        if (data.success === true) {
+          document.querySelector('#delete-msg')
             .innerHTML = `
                         <div class="on-signup">
                         <h2>${data.message}</h2>
