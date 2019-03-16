@@ -51,6 +51,8 @@ CREATE TABLE candidates (
     id SERIAL,
     candidate int references users(id),
     office int references offices(id),
+    party int references parties(id),
+    registered BOOLEAN NOT null DEFAULT 'false',
     createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
     PRIMARY KEY (candidate, office)
 );

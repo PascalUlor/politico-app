@@ -117,11 +117,11 @@ export default class AssetValidation {
       } return next();
     }
     const {
-      office,
+      office, party,
     } = req.body;
 
     const check = checkItem({
-      office,
+      office, party,
     });
 
     if (Object.keys(check).length > 0) {
