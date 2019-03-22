@@ -40,7 +40,7 @@ router.route('/auth/resetpassword')
   .patch(AuthenticateToken, userController.newPassword);
 
 router.route('/office/:id/register')
-  .patch(AuthenticateToken, validation.voteAssetValidation, CandidateController.registerCandidate);
+  .patch(AuthenticateToken, CandidateController.registerCandidate);
 
 router.route('/office/:id/apply')
   .post(AuthenticateToken,

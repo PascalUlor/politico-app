@@ -340,7 +340,7 @@ describe('test cases to Get parties for logged in user', () => {
 });
 
 
-describe('Test cases for deleting request', () => {
+describe('Test cases for deleting parties', () => {
   it('should return an error message (400) for invalid Id', (done) => {
     request.delete(`${url}/${invalidID}`)
       .set('x-access-token', adminToken.data.token)
@@ -354,7 +354,7 @@ describe('Test cases for deleting request', () => {
   });
 
   it('should return an error message (400) for none admin user', (done) => {
-    request.delete(`${url}/${1}`)
+    request.delete(`${url}/${3}`)
       .set('x-access-token', userToken.data.token)
       .send({})
       .expect(400)
@@ -366,7 +366,7 @@ describe('Test cases for deleting request', () => {
   });
 
   it('should return `200` status code with success message', (done) => {
-    request.delete(`${url}/${1}`)
+    request.delete(`${url}/${3}`)
       .set('x-access-token', adminToken.data.token)
       .send({})
       .expect(200)
