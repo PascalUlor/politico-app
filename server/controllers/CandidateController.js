@@ -56,24 +56,22 @@ export default class CandidateController {
     // const { registered } = req.body;
     const id = parseInt(req.params.id, 10);
     const candidate = 'SELECT * FROM candidates WHERE candidate = $1 LIMIT 1;';
-    const values = [id];
-    const userQuery = 'UPDATE candidates SET registered = true WHERE id = $1 RETURNING *';
+    // const values = [id];
+    const userQuery = 'UPDATE candidates SET registered = true WHERE candidate = $1 RETURNING *';
     const params = [id];
     const payload = req.decoded;
-    // eslint-disable-next-line camelcase
     const { isAdmin } = payload;
-    // eslint-disable-next-line camelcase
     if (payload && isAdmin === true) {
-      return databaseConnection.query(candidate, values)
+      return databaseConnection.query(candidate, params)
         .then((result) => {
           if (result.rows[0].registered === true) {
             return requestHelper.error(res, 400, 'Not Allowed. Candidate is already registered for an office');
           }
           return databaseConnection.query(userQuery, params)
-            .then(newCandidate => res.status(200).json({
+            .then(registeredCandidate => res.status(200).json({
               status: 200,
               data: [
-                newCandidate.rows[0],
+                registeredCandidate.rows[0],
               ],
             }));
         }).catch(error => requestHelper.error(res, 500, 'Candidate is does not exist', error.message));
@@ -81,5 +79,32 @@ export default class CandidateController {
       status: 400,
       error: 'You are not authorized to access this route',
     });
+  }
+
+  /**
+       * API method to (GET) all registered candidate
+       * @param {obj} req
+       * @param {obj} res
+       * @returns {obj} insertion error messages or success messages
+       */
+  static getCandidates(req, res) {
+    const allCandidates = `SELECT candidates.id, offices.name, parties.name, parties.logoUrl,
+                          users.passportUrl, users.firstName, users.lastName, users.lastName, candidates.registered
+                          FROM candidates
+                          INNER JOIN users on users.id = candidates.candidate 
+                          INNER JOIN parties on parties.id = candidates.party
+                          INNER JOIN offices on offices.id = candidates.office`;
+    return databaseConnection.query(allCandidates)
+      .then((result) => {
+        if (result.rowCount < 1) {
+          return requestHelper.error(res, 404, 'No Candidate exist');
+        }
+        return res.status(200).json({
+          status: 200,
+          data: [
+            result.rows,
+          ],
+        });
+      }).catch(error => requestHelper.error(res, 500, 'Server Error', error.message));
   }
 }

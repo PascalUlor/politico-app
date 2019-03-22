@@ -47,6 +47,9 @@ router.route('/office/:id/apply')
     validation.voteAssetValidation,
     CandidateController.candidateApplication);
 
+router.route('/candidates')
+  .get(CandidateController.getCandidates);
+
 
 router.route('/votes/')
   .post(AuthenticateToken, validation.voteAssetValidation, Vote.makeVote);
