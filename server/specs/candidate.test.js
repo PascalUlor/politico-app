@@ -15,12 +15,13 @@ const url = '/api/v1/office/';
 
 const invalidID = 50;
 
-describe('Test case for registering candidate', () => {
-  it('should register candidate for an office on admins input only', (done) => {
-    request.post(`${url}${1}/register`)
+describe('Test case for candidate application', () => {
+  it('should make user a proposed candidate', (done) => {
+    request.post(`${url}${1}/apply`)
       .set('x-access-token', adminToken.data.token)
       .send({
         office: '1',
+        party: '1',
       })
       .expect(201)
       .end((err, res) => {
@@ -30,11 +31,12 @@ describe('Test case for registering candidate', () => {
       });
   });
 
-  it('should return error if user is not admin', (done) => {
-    request.post(`${url}${1}/register`)
+  it('should return error if user id is wrong', (done) => {
+    request.post(`${url}${invalidID}/apply`)
       .set('x-access-token', userToken.data.token)
       .send({
         office: '1',
+        party: '1',
       })
       .expect(400)
       .end((err, res) => {
@@ -44,15 +46,70 @@ describe('Test case for registering candidate', () => {
         done();
       });
   });
-  it('should return error if candidate id does not exist', (done) => {
-    request.post(`${url}${invalidID}/register`)
+  it('should return error if candidate tries to apply twice', (done) => {
+    request.post(`${url}${1}/apply`)
       .set('x-access-token', adminToken.data.token)
       .send({
         office: '1',
+        party: '1',
       })
+      .expect(400)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Not Allowed. You are already applied for an office');
+        if (err) done(err);
+        done();
+      });
+  });
+});
+
+describe('Test case for registering a candidate', () => {
+  it('should register a candidate for an office', (done) => {
+    request.patch(`${url}${1}/register`)
+      .set('x-access-token', adminToken.data.token)
+      .send({})
+      .expect(200)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        if (err) done(err);
+        done();
+      });
+  });
+
+  it('should return error if candidate is registered twice', (done) => {
+    request.patch(`${url}${1}/register`)
+      .set('x-access-token', adminToken.data.token)
+      .send({})
+      .expect(400)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Not Allowed. Candidate is already registered for an office');
+        if (err) done(err);
+        done();
+      });
+  });
+
+  it('should return error if user is not an admin', (done) => {
+    request.patch(`${url}${1}/register`)
+      .set('x-access-token', userToken.data.token)
+      .send({})
+      .expect(400)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.error).to.equal('You are not authorized to access this route');
+        if (err) done(err);
+        done();
+      });
+  });
+
+  it('should return error if candidate id does not exist', (done) => {
+    request.patch(`${url}${invalidID}/register`)
+      .set('x-access-token', adminToken.data.token)
+      .send({})
       .expect(500)
       .end((err, res) => {
         expect(res.status).to.equal(500);
+        expect(res.body.message).to.equal('Candidate is does not exist');
         if (err) done(err);
         done();
       });

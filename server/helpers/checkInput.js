@@ -37,7 +37,7 @@ const checkInput = (inputValue) => {
       //     errors[key] = `Invalid ${key}`;
       //   }
       // }
-      if (key === 'office' || key === 'candidate') {
+      if (key === 'office' || key === 'candidate' || key === 'party') {
         if (inputValue[key].match(/^\d*$/) === null) {
           errors[key] = `Invalid ${key}, should be an integer`;
         }
