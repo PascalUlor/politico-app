@@ -12,6 +12,7 @@ const { expect } = chai;
 const request = supertest(app);
 
 const url = '/api/v1/office/';
+const url2 = '/api/v1/candidates';
 
 const invalidID = 50;
 
@@ -110,6 +111,20 @@ describe('Test case for registering a candidate', () => {
       .end((err, res) => {
         expect(res.status).to.equal(500);
         expect(res.body.message).to.equal('Candidate is does not exist');
+        if (err) done(err);
+        done();
+      });
+  });
+});
+
+describe('Test case for getting candidates', () => {
+  it('should return `200` and candidate data if it exist', (done) => {
+    request.get(`${url2}`)
+      .set('x-access-token', adminToken.data.token)
+      .send({})
+      .expect(200)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
         if (err) done(err);
         done();
       });
