@@ -651,7 +651,7 @@ tr:nth-child(odd) {
     cursor: pointer;
   }
 
-.view, .fas {
+.view, .fas, .candidate {
     cursor: pointer;
 }
 

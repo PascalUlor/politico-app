@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
-<body>
+<body id="candidate-apply">
     <div class="backdrop"></div>
 
     <header class="main-header">
@@ -51,35 +51,27 @@
         </ul>
     </nav>
     <!-- main -->
-    <div class="main-layouts wrapper">
+    <div class="main-layouts wrapper" id="error">
         <h1 class="form-title" id="login-reset">Application For Office</h1>
         <div class="main-info">
             <div class="info-top" id="login-info">
-                <form action="#" method="post">
-                    <label class="tag" for="Officename">Office Name</label>
-                    <input class="text" type="text" name="Officename" placeholder="Office Name" required="">
-                    <label class="tag" for="Officetype">Select Office Type</label>
-                    <select class="text" type="text" id="issue-type" name="issue-type" class="form-element" required>
+                <form action="#" method="post" id="candidate-form">
+                    <label class="tag" for="party-name">Party Name</label>
+                    <select class="text" type="text" id="candidate-party" name="candidate-party" class="form-element" required>
                         <option default>-- Select Record Type --</option>
-                        <optgroup label="Federal  Government">
-                            <option value="state">President</option>
-                            <option value="state">Seneate</option>
-                        </optgroup>
-                        <optgroup label="State  Government">
-                            <option value="state">Gorvenor</option>
-                            <option value="state">House of Representatives</option>
-                        </optgroup>
-                        <optgroup label="Legislative">
-                            <option value="state">House of Assembly</option>
-                            <option value="state">National Assembly</option>
-                        </optgroup>
-                        <optgroup label="Local Government">
-                            <option value="state">Chairman</option>
-                            <option value="state">Counselor</option>
-                        </optgroup>
+                        <option value="Federal Government">Federal Government</option>
+                        <option value="State Government">State Government</option>
+                        <option value="Legislative">Legislative</option>
+                        <option value="Local Government">Local Government</option>
                     </select>
-                    <label class="tag" for="Officetype">About Office</label>
-                    <textarea class="text" id="about" name="About" placeholder="About Office" required=""></textarea>
+                    <label class="tag" for="office-name">Select Office</label>
+                    <select class="text" type="text" id="candidate-office" name="candidate-office" class="form-element" required>
+                        <option default>-- Select Record Type --</option>
+                        <option value="Federal Government">Federal Government</option>
+                        <option value="State Government">State Government</option>
+                        <option value="Legislative">Legislative</option>
+                        <option value="Local Government">Local Government</option>
+                    </select>
                     <div class="clear"> </div>
                     <input type="submit" value="SUBMIT">
                 </form>
@@ -95,6 +87,7 @@
             </nav>
         </footer>
         <script src="./assets/js/main.js"></script>
+        <script src="./assets/js/candidate.js"></script>
 </body>
 
 </html>
