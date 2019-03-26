@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
-<body id="body">
+<body id="admin-candidate">
   <div class="backdrop"></div>
   <header class="main-header">
         <div>
@@ -59,7 +59,7 @@
   <main class="profile-table-wrapp">
       <div>
             <section class="table-title">
-                    <h1 class="page-title">POLITICAL CANDIDATES</h1>
+                    <h1 class="page-title" id="error">POLITICAL CANDIDATES</h1>
             </section>
         <section class="page-col-11 table-container">
             <div class="main-table">
@@ -71,9 +71,10 @@
                             <th class="th-color">Party Name</th>
                             <th class="th-color">Office</th>
                             <th class="th-color">Status</th>
+                            <th class="th-color">Remove</th>
                         </tr>
                     </thead>
-                    <tbody id="table">
+                    <tbody id="admin-table-1">
                         <!-- <tr>
                             <td>1</td>
                             <td onclick="toggleModal('party-details', 'modal')">Pascal Ulor</td>
@@ -111,13 +112,13 @@
       </div>
         
   </main>
-  <div class="party-modal" id="modal" onclick="toggleModal('candidate-details', 'modal')">
+  <div class="party-modal" id="modal">
     <div class="party-modal-section" id="candidate-details">
         <div class="page-row">
           <div class="page-col-12 party-modal-heading">
-            <h4>Candidates Details</h4>
+            <h4>Candidates Details <span class="candidate-id"></span>  <span class="modal-close" onclick="toggleModal('candidate-details', 'modal')">X</span></h4>
           </div>
-            <div class="page-col-10">
+            <div class="page-col-10" id="candidate-card">
                 <p><label for="title" class="ch-label">Candidate Name</label></p>
                 <p class="modalName">
                     Pascal Ulor
@@ -138,6 +139,10 @@
                 <p><label for="status" >Status</label></p>
                 <p class="modalStatus">true or false</p>
                 <br>
+                <br>
+                <br>
+                  <button id="status" onclick="toggleModal('candidate-details', 'modal')" class="btn-submit">
+                    <i class="icon ion-md-close"></i>Approve</button>
                 <br>
                 <br>
             </div>

@@ -66,6 +66,33 @@ setTimeout(() => {
 }, 5000);
 
 /**
+ * Display details of each candidate in a modal
+ */
+setTimeout(() => {
+  const popup = document.querySelectorAll('.candidate');
+  const candidateData = JSON.parse(sessionStorage.getItem('candidates'));
+
+  for (let i = 0; i < popup.length; i += 1) {
+    popup[i].addEventListener('click', (evt) => {
+      evt.preventDefault();
+      toggleModal('candidate-details', 'modal');
+      const modalName = document.querySelector('.modalName');
+      const modalParty = document.querySelector('.modalParty');
+      const modalOffice = document.querySelector('.modalOffice');
+      const modalStatus = document.querySelector('.modalStatus');
+      const candidateId = document.querySelector('.candidate-id');
+
+      modalName.innerHTML = `${candidateData[0][i].firstname} ${candidateData[0][i].lastname}`;
+      modalParty.innerHTML = `${candidateData[0][i].partyname}`;
+      modalOffice.innerHTML = `${candidateData[0][i].officename}`;
+      modalStatus.innerHTML = `${candidateData[0][i].registered === true ? 'Approved' : 'Pending'}`;
+      candidateId.innerHTML = `${candidateData[0][i].candidateid}`;
+    });
+  }
+}, 5000);
+
+
+/**
  * Delete a political party
  */
 setTimeout(() => {
