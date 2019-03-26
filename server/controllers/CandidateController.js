@@ -88,8 +88,9 @@ export default class CandidateController {
        * @returns {obj} insertion error messages or success messages
        */
   static getCandidates(req, res) {
-    const allCandidates = `SELECT candidates.id, offices.name, parties.name, parties.logoUrl,
-                          users.passportUrl, users.firstName, users.lastName, users.lastName, candidates.registered
+    const allCandidates = `SELECT candidates.id, offices.name AS officename, parties.name AS partyname, parties.logoUrl,
+                          users.passportUrl, users.firstName, users.lastName, users.lastName,
+                          users.id AS candidateId, candidates.registered
                           FROM candidates
                           INNER JOIN users on users.id = candidates.candidate 
                           INNER JOIN parties on parties.id = candidates.party
@@ -101,9 +102,7 @@ export default class CandidateController {
         }
         return res.status(200).json({
           status: 200,
-          data: [
-            result.rows,
-          ],
+          data: result.rows,
         });
       }).catch(error => requestHelper.error(res, 500, 'Server Error', error.message));
   }
