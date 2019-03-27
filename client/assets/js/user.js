@@ -1,6 +1,5 @@
-/* eslint-disable eol-last */
-const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
-// const baseUrl = 'http://localhost:3001/api/v1'; // localhost
+// const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
+const baseUrl = 'http://localhost:3001/api/v1'; // localhost
 const signupForm = document.getElementById('signup-form');
 const profile = document.querySelector('#userProfile');
 const profileImage = document.querySelector('#profile-image');

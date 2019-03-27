@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
-<body>
+<body id="vote-body">
     <div class="backdrop"></div>
 
     <header class="main-header">
@@ -51,31 +51,31 @@
         </ul>
     </nav>
     <!-- main -->
-    <div class="main-w3layouts wrapper">
+    <div class="main-w3layouts wrapper"  id="error">
         <h1 id="reset" class="form-title">Vote</h1>
         <div class="main-info">
             <div class="info-top" id="login-info">
-                <form action="resultspage.html" method="post">
+                <form action="resultspage.html" method="post" id="vote-form">
+                        <label class="tag" for="Officetype">Select Office Type</label>
+                        <select class="text" type="text" id="run-office" name="run-office" class="form-element" required>
+                            <option value="">-- Select Office Type --</option>
+                                <option value="state">President</option>
+                                <option value="state">Seneate</option>
+                                <option value="state">Gorvenor</option>
+                                <option value="state">House of Representatives</option>
+                                <option value="state">House of Assembly</option>
+                                <option value="state">SAN</option>
+                                <option value="state">Chairman</option>
+                                <option value="state">Counselor</option>
+                            </optgroup>
+                        </select>
                     <label class="tag" for="Officetype">Select Candidate</label>
-                    <select class="text" type="text" id="issue-type" name="issue-type" class="form-element" required>
+                    <select class="text" type="text" id="candidate" name="candidate" class="form-element" required>
                         <option value="">-- Select Candidate --</option>
                         <option value="state">Pascal</option>
                         <option value="state">Steve</option>
                         <option value="state">Bill</option>
                         <option value="state">Joe</option>
-                    </select>
-                    <label class="tag" for="Officetype">Select Office Type</label>
-                    <select class="text" type="text" id="issue-type" name="issue-type" class="form-element" required>
-                        <option value="">-- Select Office Type --</option>
-                            <option value="state">President</option>
-                            <option value="state">Seneate</option>
-                            <option value="state">Gorvenor</option>
-                            <option value="state">House of Representatives</option>
-                            <option value="state">House of Assembly</option>
-                            <option value="state">SAN</option>
-                            <option value="state">Chairman</option>
-                            <option value="state">Counselor</option>
-                        </optgroup>
                     </select>
                     <div class="clear"> </div>
                     <input type="submit" value="SUBMIT">
@@ -92,11 +92,10 @@
             </nav>
         </footer>
         <script src="./assets/js/main.js"></script>
+        <script src="./assets/js/vote.js"></script>
 </body>
 
 </html>
-
-
 
 </body>
 
