@@ -1,5 +1,5 @@
-// const baseUrl2 = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
-const baseUrl2 = 'http://localhost:3001/api/v1'; // localhost
+const baseUrl2 = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
+// const baseUrl2 = 'http://localhost:3001/api/v1'; // localhost
 const token = `${sessionStorage.token}`;
 const createPartytForm = document.querySelector('#myparty');
 const partyPage = document.querySelector('#body');

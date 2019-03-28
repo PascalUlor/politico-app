@@ -1,5 +1,5 @@
-// const baseUrl = 'https://the-politico.herokuapp.com/api/v1';
-const baseUrl = 'http://localhost:3001/api/v1'; // localhost
+const baseUrl = 'https://the-politico.herokuapp.com/api/v1';
+// const baseUrl = 'http://localhost:3001/api/v1'; // localhost
 const token = `${sessionStorage.token}`;
 const createOffice = document.querySelector('#myOffice');
 const officeTable = document.querySelector('#body');

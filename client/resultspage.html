@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
-<body>
+<body id="result-page">
   <div class="backdrop"></div>
   <header class="main-header">
         <div>
@@ -73,7 +73,7 @@
                             <th class="th-color">Number of Votes</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="result-table">
                         <tr>
                             <td>1</td>
                             <td onclick="toggleModal('party-details', 'modal')">Pascal Ulor</td>
@@ -157,6 +157,7 @@
     </nav>
   </footer>
   <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/resultTable.js"></script>
 </body>
 
 </html>

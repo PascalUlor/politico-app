@@ -19,8 +19,6 @@ export default class ElectionController {
   // eslint-disable-next-line consistent-return
   static async getElectionResult(req, res) {
     const { id: postId } = req.params;
-    // const query = `SELECT office, candidate, count(candidate) as ElectionResults
-    //                   FROM votes WHERE office = $1 GROUP BY candidate, office`;
     const query = `SELECT offices.id office_id, offices.name office_name,
                           users.firstName candidate_name, users.id candidate_id,
                           count(candidate) as election_results
@@ -32,7 +30,6 @@ export default class ElectionController {
     try {
       // eslint-disable-next-line consistent-return
       await databaseConnection.query(query, [postId], (err, result) => {
-        console.log(result);
         if (result.rowCount > 0) {
           return res.status(200).json({
             status: 200,

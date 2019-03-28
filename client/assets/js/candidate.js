@@ -1,7 +1,7 @@
-// const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
-const baseUrl = 'http://localhost:3001/api/v1'; // Localhost
+const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
+// const baseUrl = 'http://localhost:3001/api/v1'; // Localhost
 const token = `${sessionStorage.token}`;
-const candidatePage = document.querySelector('#candidate-apply');
+const candidateApply = document.querySelector('#candidate-apply');
 const candidateForm = document.querySelector('#candidate-form');
 const viewCandidate = document.querySelector('#body');
 const adminCandidate = document.querySelector('#admin-candidate');
@@ -12,8 +12,8 @@ const populate = () => {
   const userParty = JSON.parse(sessionStorage.getItem('parties'));
   const selectOffice = document.querySelector('#candidate-office');
   const selectParty = document.querySelector('#candidate-party');
-  selectOffice.innerHTML = '';
-  selectParty.innerHTML = '';
+  selectOffice.innerHTML = '<option value="">-- Select Office --</option>';
+  selectParty.innerHTML = '<option value="">-- Select Party --</option>';
 
   for (let n = 0; n <= Object.keys(userOffices[0][0]).length - 1; n += 1) {
     // create an <option> to add the <select>
@@ -103,10 +103,10 @@ const getOffice = () => {
 };
 
 
-if (candidatePage) {
+if (candidateApply) {
   getOffice();
   getParty();
-  candidatePage.addEventListener('load', populate());
+  candidateApply.addEventListener('load', populate());
 }
 
 /*

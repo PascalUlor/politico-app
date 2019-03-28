@@ -1,4 +1,3 @@
-/* eslint-disable eol-last */
 const baseUrl = 'https://the-politico.herokuapp.com/api/v1';
 const passwordReset = document.querySelector('#reset-password');
 const splitUrl = document.URL.split('?')[1];
