@@ -1,4 +1,3 @@
-/* eslint-disable eol-last */
 const baseUrl = 'https://the-politico.herokuapp.com/api/v1';
 const forgetPassword = document.querySelector('#forgot-password');
 

@@ -46,7 +46,7 @@ CREATE TABLE offices (
 );
 INSERT INTO offices (name, userId, type) 
   VALUES ('President', 1, 'Federal');
-
+ 
 CREATE TABLE candidates (
     id SERIAL,
     candidate int references users(id),

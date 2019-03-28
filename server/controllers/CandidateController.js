@@ -89,7 +89,8 @@ export default class CandidateController {
        */
   static getCandidates(req, res) {
     const allCandidates = `SELECT candidates.id, offices.name AS officename, parties.name AS partyname, parties.logoUrl,
-                          users.passportUrl, users.firstName, users.lastName, users.lastName,
+                          users.passportUrl, users.firstName, users.lastName,
+
                           users.id AS candidateId, candidates.registered
                           FROM candidates
                           INNER JOIN users on users.id = candidates.candidate 

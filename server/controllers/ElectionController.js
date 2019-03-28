@@ -19,7 +19,14 @@ export default class ElectionController {
   // eslint-disable-next-line consistent-return
   static async getElectionResult(req, res) {
     const { id: postId } = req.params;
-    const query = 'SELECT office, candidate, count(candidate) as ElectionResults FROM votes WHERE office = $1 GROUP BY candidate, office';
+    const query = `SELECT offices.id office_id, offices.name office_name,
+                          users.firstName candidate_name, users.id candidate_id,
+                          count(candidate) as election_results
+                          FROM votes
+                          INNER JOIN users on users.id = votes.candidate
+                          INNER JOIN offices on offices.id = votes.office
+                          WHERE offices.id = $1 GROUP BY candidate_id, office_id
+                          `;
     try {
       // eslint-disable-next-line consistent-return
       await databaseConnection.query(query, [postId], (err, result) => {
