@@ -1,6 +1,7 @@
 const baseUrl = 'https://the-politico.herokuapp.com/api/v1'; // Heroku
 // const baseUrl = 'http://localhost:3001/api/v1'; // Localhost
 const token = `${sessionStorage.token}`;
+
 const candidateApply = document.querySelector('#candidate-apply');
 const candidateForm = document.querySelector('#candidate-form');
 const viewCandidate = document.querySelector('#body');
